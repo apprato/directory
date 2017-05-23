@@ -1,0 +1,11 @@
+.overview {
+  textarea {
+    height: 190px !important;
+  }
+}
+#formAddress1Text, #formAddress2Text, #formCityText, #formCountryText, #formPhoneNumberText {
+  width: 50%;
+}
+#formPostCodeText {
+  width: 25%;
+}
