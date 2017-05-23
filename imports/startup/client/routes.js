@@ -55,13 +55,13 @@ Meteor.startup(() => {
         <Route name="signup" path="/signup" component={ Signup } />
         <Route name="signup-client" path="/signup/client" component={ Signup } />
         <Route name="signup-trainer" path="/signup/trainer" component={ Signup } />
-        <Route name="clients" path="/clients" component={ Clients } onEnter={ authenticate } />
+        <Route name="clients" path="/clients" component={ Clients } />
         <Route name="NewTrainerExperience" path="/trainer/new/experience" component={ NewTrainerExperience } onEnter={ authenticate } />
         <Route name="EditTrainerExperience" path="/trainer/edit/experience" component={ EditTrainerExperience } onEnter={ authenticate } />
         <Route name="NewTrainerProfile" path="/trainer/new/profile" component={ NewTrainerProfile } onEnter={ authenticate } />
         <Route name="EditTrainerProfile" path="/trainer/edit/profile" component={ EditTrainerProfile } onEnter={ authenticate } />
         <Route name="newClient" path="/clients/new" component={ NewClient } onEnter={ authenticate } />
-        <Route name="viewClient" path="/clients/:_id" component={ ViewClient } onEnter={ authenticate } />
+        <Route name="viewClient" path="/clients/:_id" component={ ViewClient } />
         <Route name="getStarted" path="/getstarted" component={ GetStarted } />
         <Route path="*" component={ NotFound } />
       </Route>

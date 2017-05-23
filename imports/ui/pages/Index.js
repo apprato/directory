@@ -6,9 +6,9 @@ import Clients from '../containers/Clients.js';
 const Index = () => (
   <div className="Index">
     <Jumbotron className="text-center">
-      <h2>Find A Trainer</h2>
-      <p>Submit your profile and metrics and a trainer will contact you.</p>
-      <p><a className="btn btn-success" href="/getstarted" role="button">Get Started</a></p>
+      <h2>Submit & Find Health & Fitness</h2>
+      <p>Search Australia's biggest Health and fitness directory of businesses and locations in Australia</p>
+      <p><a className="btn btn-success" href="/getstarted" role="button">List your Business</a></p>
     </Jumbotron>
   </div>
 );

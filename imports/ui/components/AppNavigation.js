@@ -10,7 +10,7 @@ const AppNavigation = ({ hasUser }) => (
   <Navbar>
     <Navbar.Header>
       <Navbar.Brand>
-        <Link to="/">Findatrainer</Link>
+        <Link to="/">HealthFitness</Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
