@@ -11,7 +11,6 @@ import {
   Popover,
   ButtonToolbar,
   OverlayTrigger,
-  Radio
 } from 'react-bootstrap';
 import trainerExperienceEditor from '../../modules/trainerExperience-editor.js';
 
@@ -19,7 +18,7 @@ export default class TrainerExperienceEditor extends React.Component {
   componentDidMount() {
     trainerExperienceEditor({component: this});
     setTimeout(() => {
-      $("select.skillTags").tagsinput('items');
+      $("select.skills").tagsinput('items');
       document.querySelector('[name="category"]').focus();
     }, 0);
   }
@@ -27,6 +26,7 @@ export default class TrainerExperienceEditor extends React.Component {
 
   render() {
     const {doc} = this.props;
+    console.log(doc);
     return (<form
         ref={ form => (this.trainerExperienceEditorForm = form) }
         onSubmit={ event => event.preventDefault() }>
@@ -53,26 +53,21 @@ export default class TrainerExperienceEditor extends React.Component {
                     defaultValue={ doc && doc.category }
                   >
                     <option value="">Please select category</option>
-                    <option value="personal_trainer">Personal Training</option>
-                    <option value="pilates">Pilates</option>
-                    <option value="yoga">Yoga</option>
-                    <option value="zumba">Zumba</option>
+                    <option value="health_fitness_centre">Health Fitness Centre</option>
+                    <option value="personal_training">Personal Training</option>
                     <option value="martial_arts">Martial Arts</option>
-                    <option value="aerobics">Aerobics</option>
-                    <option value="gymnastics">Gymnastics</option>
-                    <option value="swimming">Swimming</option>
-                    <option value="water_sports">Water Sports</option>
-                    <option value="cycling">Cycling</option>
-                    <option value="dancing">Dancing</option>
-                    <option value="athletics">Athletics</option>
-                    <option value="snow_sports">Snow Sports</option>
-                    <option value="tennis">Tennis</option>
-                    <option value="cricket">Cricket</option>
-                    <option value="other">Other</option>
-                    <option value="nutrition">Nutrition</option>
-                    <option value="dietitians">Dietitians</option>
-                    <option value="supplements">Supplements</option>
-                    <option value="none">None</option>
+                    <option value="wellbeing_centre">Wellbeing Centre</option>
+                    <option value="yoga">yoga</option>
+                    <option value="exercise_equipment">Exercise Equipment</option>
+                    <option value="massage_therapy">Massage Therapy</option>
+                    <option value="holistic_health">Holistic Health</option>
+                    <option value="corporate_health_fitness">Corporate Health Fitness</option>
+                    <option value="pilates">Pilates</option>
+                    <option value="nutritional_supplements">Nutritional Supplements</option>
+                    <option value="life_coaching">Life Coaching</option>
+                    <option value="weight_Loss">Weight Loss</option>
+                    <option value="employment_and_careers">Employment and Careers</option>
+                    <option value="group_health_fitness">Group Health Fitness</option>
                   </FormControl>
                 </FormGroup>
                 <FormGroup>
@@ -87,15 +82,15 @@ export default class TrainerExperienceEditor extends React.Component {
                 </FormGroup>
               </Col>
               <Col xs={ 6 } sm={ 6 } md={ 6 }>
-                <FormGroup controlId="skillTags">
+                <FormGroup controlId="skills">
                   <ControlLabel>What specific skills do you offer clients?</ControlLabel>
                   <br />
                   <FormControl componentClass="select"
                                data-role="tagsinput"
                                placeholder="Enter your skill tags"
-                               ref="skillTags"
-                               name="skillTags"
-                               className="skillTags"
+                               ref="skills"
+                               name="skills"
+                               className="skills"
                                defaultValue={ doc && doc.experienceLevel }
                                multiple>
                   </FormControl>
