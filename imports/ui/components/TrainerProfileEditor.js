@@ -74,7 +74,7 @@ export default class TrainerProfileEditor extends React.Component {
   componentDidMount() {
     trainerProfileEditor({component: this});
     setTimeout(() => {
-      document.querySelector('[name="professionalTitle"]').focus();
+      document.querySelector('[name="businessName"]').focus();
     }, 0);
   }
 
@@ -112,26 +112,24 @@ export default class TrainerProfileEditor extends React.Component {
           </Col>
           <Col xs={ 8 } sm={ 8 } md={ 8 }>
             <FormGroup>
-              <ControlLabel>Add a professional title that describes the work you do:</ControlLabel>
+              <ControlLabel>Business Name:</ControlLabel>
               <FormControl
                 type="text"
-                ref="professionalTitle"
-                name="professionalTitle"
-                placeholder="EXAMPLE: Yoga & Pilates Specialist"
-                defaultValue={ doc && doc.professionalTitle }
+                ref="businessName"
+                name="businessName"
+                placeholder=""
+                defaultValue={ doc && doc.businessName }
               />
             </FormGroup>
             <FormGroup className="overview">
-              <ControlLabel>Write a brief professional overview:</ControlLabel>
+              <ControlLabel>Description:</ControlLabel>
               <FormControl
-                className="overview"
+                className="description"
                 componentClass="textarea"
                 type="textarea"
-                ref="overview"
-                name="overview"
-                placeholder="After 8 years of working as a full time Yoga and Pilates instructor, I have a thorough and in-depth knowledge of both disciplines. I have worked with all experience levels from beginners to experts, helping my clients with a vast array of results including strength gains, core stability improvement, injury recovery and pregnancy exercises.
-Yoga and Pilates are the best exercises to help build core strength and flexibility. They are also low impact workouts so are good for your joints and have a fast recovery time.
-If you’re looking to get started in either of these disciplines or have been doing them for a long time and want to work with a new trainer, I can help you achieve your goals."
+                ref="description"
+                name="description"
+                placeholder=""
                 defaultValue={ doc && doc.overview }
               />
             </FormGroup>
@@ -139,11 +137,11 @@ If you’re looking to get started in either of these disciplines or have been d
         </Row>
         <Row>
           <Col xs={ 8 } sm={ 8 } md={ 8 }>
-            <h3>Education</h3>
+            <h3>Education (Optional)</h3>
             <p>Tell us about your education history.</p>
             <div>
               <TrainerEducationList />
-             </div>
+            </div>
             <Button
               bsStyle="primary"
               onClick={() => {
@@ -152,7 +150,7 @@ If you’re looking to get started in either of these disciplines or have been d
             >Add Education Details</Button>
             <br />
             <br />
-            <h3>Employment History</h3>
+            <h3>Employment History (Optional)</h3>
             <p>Tell us about your education history.</p>
             <div>
               <TrainerEmploymentList />
@@ -163,60 +161,11 @@ If you’re looking to get started in either of these disciplines or have been d
                 this.modal.open('AddTrainerEmploymentModal');
               }}
             >Add Employment Details</Button>
+          </Col>
+            <Col xs={ 12 } sm={ 12 } md={ 12 }>
+
             <br />
             <br />
-            <FormGroup controlId="formEnglishProficiencyText">
-              <ControlLabel>What is your English proficiency?</ControlLabel>
-              <FormControl componentClass="select" placeholder="select"
-                           ref="englishProficiency"
-                           defaultValue={ doc && doc.englishProficiency }
-                           name="englishProficiency">
-                <option value="">Select your proficiency</option>
-                <option value="1">Basic - I am only able to communicate in this language through written communication</option>
-                <option value="2">Conversational - I know this language well enough to verbally discuss project details with a client</option>
-                <option value="3">Fluent - I have complete command of this language with perfect grammar</option>
-                <option value="4">Native or Bilingual - I have complete command of this language, including breadth of
-                  vocabulary, idioms, and colloquialisms
-                </option>
-              </FormControl>
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Hourly Rate<br/>Total amount the client will see:<br/>*You will be able to change your rate for individual jobs. This amount </ControlLabel>
-              <FormControl
-                type="text"
-                ref="hourlyRate"
-                name="hourlyRate"
-                placeholder="0.00"
-                defaultValue={ doc && doc.hourlyRate }
-              />
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>You'll be paid<br/>
-                The estimated amount you'll receive after service fees</ControlLabel>
-              <FormControl
-                type="text"
-                ref="paidRate"
-                name="paidRate"
-                placeholder="0.00"
-                defaultValue={ doc && doc.paidRate }
-              />
-            </FormGroup>
-            <h3>Add your availability</h3>
-            <FormGroup controlId="formControlsSelect">
-              <ControlLabel>How many hours do you have available for work each week?</ControlLabel>
-              <FormControl
-                componentClass="select"
-                placeholder="select"
-                ref="availability"
-                name="availability"
-                defaultValue={ doc && doc.availability }
-              >
-                <option value="">Please select your availability</option>
-                <option value=">_30">More than 30 hrs/week</option>
-                <option value="<_30">Less than 30 hrs/week</option>
-                <option value="open">As Needed - Open to Offers</option>
-              </FormControl>
-            </FormGroup>
             <h3>Please input your full address</h3>
             <p>We take your privacy seriously and share only your city and country with clients.</p>
             <FormGroup controlId="formAddress1Text">
@@ -236,13 +185,13 @@ If you’re looking to get started in either of these disciplines or have been d
                 defaultValue={ doc && doc.address2 }
               />
             </FormGroup>
-            <FormGroup controlId="formCityText">
-              <ControlLabel>City</ControlLabel>
+            <FormGroup controlId="formSuburbText">
+              <ControlLabel>Suburb</ControlLabel>
               <FormControl
                 type="text"
-                ref="city"
-                name="city"
-                defaultValue={ doc && doc.city }
+                ref="suburb"
+                name="suburb"
+                defaultValue={ doc && doc.suburb }
               />
             </FormGroup>
             <FormGroup controlId="formCountryText">
@@ -503,24 +452,60 @@ If you’re looking to get started in either of these disciplines or have been d
                 <option value="ZW">Zimbabwe</option>
               </FormControl>
             </FormGroup>
-            <FormGroup controlId="formPostCodeText">
-              <ControlLabel>Post Code</ControlLabel>
-              <FormControl
-                type="text"
-                ref="postCode"
-                name="postCode"
-                defaultValue={ doc && doc.postCode }
-              />
-            </FormGroup>
-            <FormGroup controlId="formPhoneNumberText">
-              <ControlLabel>Phone number</ControlLabel>
-              <FormControl
-                type="text"
-                ref="phoneNumber"
-                name="phoneNumber"
-                defaultValue={ doc && doc.phoneNumber }
-              />
-            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={ 6 } sm={ 6 } md={ 6 }>
+            <Row>
+              <Col xs={ 6 } sm={ 6 } md={ 6 }>
+                <FormGroup controlId="formPostCodeText">
+                  <ControlLabel>Post Code</ControlLabel>
+                  <FormControl
+                    type="text"
+                    ref="postCode"
+                    name="postCode"
+                    defaultValue={ doc && doc.postCode }
+                  />
+                </FormGroup>
+              </Col>
+              <Col xs={ 6 } sm={ 6 } md={ 6 }>
+                <FormGroup controlId="formStateText">
+                  <ControlLabel>State</ControlLabel>
+                  <FormControl
+                    type="text"
+                    ref="state"
+                    name="state"
+                    defaultValue={ doc && doc.postCode }
+                  />
+                </FormGroup>
+              </Col>
+              <Col xs={ 6 } sm={ 6 } md={ 6 }>
+                <FormGroup controlId="formStateText">
+                  <ControlLabel>Country</ControlLabel>
+                  <FormControl
+                    componentClass="select"
+                    placeholder="select"
+                    ref="state"
+                    name="state"
+                    defaultValue={ doc && doc.state}
+                  >
+                    <option value=""></option>
+                    <option value="AF">ACT</option>
+                    <option value="AX">VIC</option>
+                    <option value="AL">NSW</option>
+                  </FormControl>
+                </FormGroup>
+                <FormGroup controlId="formPhoneNumberText">
+                  <ControlLabel>Phone number</ControlLabel>
+                  <FormControl
+                    type="text"
+                    ref="postCode"
+                    name="postCode"
+                    defaultValue={ doc && doc.phoneNumber }
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
           </Col>
         </Row>
         <p>See what your profile will look like to prospective clients. <a href="/help/trainer/profile">learn more</a>
