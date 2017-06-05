@@ -75,6 +75,16 @@ export default class TrainerExperienceEditor extends React.Component {
                     <option value="none">None</option>
                   </FormControl>
                 </FormGroup>
+                <FormGroup>
+                  <ControlLabel>City / Town / Area</ControlLabel>
+                  <FormControl
+                    type="text"
+                    ref="area"
+                    name="area"
+                    placeholder=""
+                    defaultValue={ doc && doc.area }
+                  />
+                </FormGroup>
               </Col>
               <Col xs={ 6 } sm={ 6 } md={ 6 }>
                 <FormGroup controlId="skillTags">
@@ -97,27 +107,6 @@ export default class TrainerExperienceEditor extends React.Component {
                     <Button>?</Button>
                   </OverlayTrigger>
                 </ButtonToolbar>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={ 10 } sm={ 10 } md={ 10 }>
-                <FormGroup controlId="experienceLevel">
-                  <ControlLabel>What is your work experience level?</ControlLabel>
-                  <FormControl
-                    componentClass="select"
-                    placeholder="select"
-                    ref="experienceLevel"
-                    name="experienceLevel"
-                    defaultValue={ doc && doc.experienceLevel }
-                  >
-                    <option value="">Please select experience level</option>
-                    <option value="entry_level">Entry Level</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="expert">Expert</option>
-                  </FormControl>
-                </FormGroup>
-              </Col>
-              <Col xs={ 12 } sm={ 12 } md={ 12 }>
               </Col>
             </Row>
           </Col>

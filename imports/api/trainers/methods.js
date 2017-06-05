@@ -12,7 +12,7 @@ export const upsertTrainer = new ValidatedMethod({
     _id: {type: String, optional: true},
     category: {type: String, optional: true},
     skills: {type: [String], optional: true},
-    experienceLevel: {type: String, optional: true},
+    area: {type: String, optional: true},
     idUser: {type: String, optional: true},
 
     // profile form - part 3

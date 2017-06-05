@@ -15,7 +15,7 @@ const handleUpsert = () => {
     category: document.querySelector('[name="category"]').value,
     //skillTags: tags, //$("select.skillTags").tagsinput('items'),
     //skillTags: $("select.skillTags").tagsinput('items'),  // [ 'array1', 'arrary2'],
-    experienceLevel: document.querySelector('[name="experienceLevel"]').value
+    area: document.querySelector('[name="area"]').value
   };
 
   if (trainer && trainer._id) upsert._id = trainer._id;
@@ -40,7 +40,7 @@ const validate = () => {
       skillTags: {
         required: true,
       },
-      experienceLevel: {
+      area: {
         required: true,
       }
     },
@@ -51,7 +51,7 @@ const validate = () => {
       skillTags: {
         required: 'Please add a skill tag.',
       },
-      experienceLevel: {
+      area: {
         required: 'Please select an experience level.',
       }
     },

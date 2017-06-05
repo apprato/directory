@@ -317,7 +317,7 @@ export default class Signup extends React.Component {
                 />
               </FormGroup>
               <FormGroup controlId="hearAbout">
-                <ControlLabel>How did you hear about findatrainer?</ControlLabel>
+                <ControlLabel>How did you hear about Healthfitness?</ControlLabel>
                 <FormControl componentClass="select" placeholder="select" ref="hearAbout" name="hearAbout">
                   <option value=""></option>
                   <option value="Search Engine Ad">Search Engine Ad</option>

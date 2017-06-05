@@ -39,9 +39,9 @@ Trainers.schema = new SimpleSchema({
     label: 'The skills of the document.',
     optional: true
   },
-  experienceLevel: {
+  area: {
     type: String,
-    label: 'The experience level of the document.',
+    label: 'The Area of the document.',
     optional: true
   },
   professionalTitle: {
