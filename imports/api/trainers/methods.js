@@ -16,7 +16,7 @@ export const upsertTrainer = new ValidatedMethod({
     idUser: {type: String, optional: true},
 
     // profile form - part 3
-    professionalTitle: {type: String, optional: true},
+    businessName: {type: String, optional: true},
     overview: {type: String, optional: true},
     school: {type: String, optional: true},
     englishProficiency: {type: String, optional: true},
@@ -41,6 +41,7 @@ export const upsertTrainer = new ValidatedMethod({
     address1: {type: String, optional: true},
     address2: {type: String, optional: true},
     city: {type: String, optional: true},
+    suburb: {type: String, optional: true},
     country: {type: String, optional: true},
     postCode: {type: String, optional: true},
     phoneNumber: {type: String, optional: true}

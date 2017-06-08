@@ -24,7 +24,7 @@ const handleUpsert = () => {
       Bert.alert(error.reason, 'danger');
     } else {
       component.trainerExperienceEditorForm.reset();
-      browserHistory.push('/trainer/new/profile');
+      browserHistory.push('/trainer/edit/profile');
       Bert.alert(confirmation, 'success');
     }
   });

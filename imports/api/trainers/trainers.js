@@ -44,7 +44,7 @@ Trainers.schema = new SimpleSchema({
     label: 'The Area of the document.',
     optional: true
   },
-  professionalTitle: {
+  businessName: {
     type: String,
     label: 'The professional title of the document.',
     optional: true
@@ -103,6 +103,11 @@ Trainers.schema = new SimpleSchema({
   city: {
     type: String,
     label: 'The city of the document.',
+    optional: true
+  },
+  suburb: {
+    type: String,
+    label: 'The suburb of the document.',
     optional: true
   },
   country: {

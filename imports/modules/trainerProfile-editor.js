@@ -15,7 +15,7 @@ const handleUpsert = () => {
     overview: document.querySelector('[name="overview"]').value,
     address1: document.querySelector('[name="address1"]').value,
     address2: document.querySelector('[name="address2"]').value,
-    city: document.querySelector('[name="city"]').value,
+    suburb: document.querySelector('[name="suburb"]').value,
     country: document.querySelector('[name="country"]').value,
     postCode: document.querySelector('[name="postCode"]').value,
     phoneNumber: document.querySelector('[name="phoneNumber"]').value,
@@ -37,7 +37,7 @@ const handleUpsert = () => {
 const validate = () => {
   $(component.trainerProfileEditorForm).validate({
     rules: {
-      professionalTitle: {
+      businessName: {
         required: true,
       },
       overview: {
@@ -72,8 +72,8 @@ const validate = () => {
       }
     },
     messages: {
-      professionalTitle: {
-        required: 'Please add your professional title.',
+      businessName: {
+        required: 'Please add your Business title.',
       },
       overview: {
         required: 'Please add a professional overview.',

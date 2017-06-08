@@ -38,7 +38,7 @@ const signup = () => {
           Bert.alert( error.reason, 'danger' );
         } else {
           Bert.alert( 'Welcome!', 'success' );
-          browserHistory.push('/trainer/new/experience');
+          browserHistory.push('/trainer/edit/experience');
         }
 //      });
     }
