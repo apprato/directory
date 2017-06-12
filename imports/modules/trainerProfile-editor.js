@@ -16,6 +16,7 @@ const handleUpsert = () => {
     address1: document.querySelector('[name="address1"]').value,
     address2: document.querySelector('[name="address2"]').value,
     suburb: document.querySelector('[name="suburb"]').value,
+    state: document.querySelector('[name="state"]').value,
     country: document.querySelector('[name="country"]').value,
     postCode: document.querySelector('[name="postCode"]').value,
     phoneNumber: document.querySelector('[name="phoneNumber"]').value,

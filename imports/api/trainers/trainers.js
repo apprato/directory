@@ -105,6 +105,11 @@ Trainers.schema = new SimpleSchema({
     label: 'The city of the document.',
     optional: true
   },
+  state: {
+    type: String,
+    label: 'The state of the document.',
+    optional: true
+  },
   suburb: {
     type: String,
     label: 'The suburb of the document.',
