@@ -35,13 +35,13 @@ installDeployLibraries () {
 }
 
 setupStaging() {
-  cd /home/ubuntu/findatrainer/.deploy
+  cd /home/ubuntu/healthfitness.com.au/.deploy
   mup --config mup.js --settings settings-staging.json  setup
   mup --config mup.js --settings settings-staging.json deploy
 }
 
 deployStaging() {
-  cd /home/ubuntu/findatrainer/.deploy
+  cd /home/ubuntu/healthfitness.com.au/.deploy
   mup --config mup.js --settings settings-staging.json deploy
 }
 
@@ -88,7 +88,7 @@ NOTES
 With installing sometimes it gets stuck on the target
 If so start again on the host:
 docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
-sudo rm -Rf /opt/findatrainer/ /opt/mongodb/
+sudo rm -Rf /opt/healthfitness.com.au/ /opt/mongodb/
 "
     >&2
     exit 1
