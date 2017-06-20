@@ -1,9 +1,9 @@
 module.exports = {
   servers: {
     one: {
-      host: '13.55.200.242',
+      host: '54.252.239.138',
       username: "ubuntu",
-      pem: "/home/ubuntu/magescale.pem"
+      pem: "/home/ubuntu/healthfitness1.pem"
       // pem:
       // password:
       // or leave blank for authenticate from ssh-agent
@@ -11,8 +11,8 @@ module.exports = {
   },
 
   meteor: {
-    name: 'findatrainer',
-    path: '/home/ubuntu/findatrainer',
+    name: 'healthfitness',
+    path: '/home/ubuntu/healthfitness',
     servers: {
       one: {},
     },
@@ -20,7 +20,7 @@ module.exports = {
       serverOnly: true,
     },
     env: {
-      ROOT_URL: 'http://fit4all.appscalejs.com',
+      ROOT_URL: 'http://healthfitness.appscalejs.com',
       MONGO_URL: 'mongodb://localhost/meteor',
     },
 
