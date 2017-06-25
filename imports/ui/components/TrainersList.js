@@ -3,7 +3,7 @@ import {browserHistory} from 'react-router';
 import {Alert, Row, Col, Panel, FormControl, Image} from 'react-bootstrap';
 
 const handleNavigation = (_id) => {
-  browserHistory.push(`/clients/${_id}`);
+  browserHistory.push(`/directory/${_id}`);
 }
 
 class TrainersList extends React.Component {
@@ -37,7 +37,7 @@ class TrainersList extends React.Component {
           <Panel>
             <Row>
               <Col xs={ 12 } sm={ 12 }>
-                <a key={ _id } onClick={ () => handleNavigation(_id) }>
+                <a href={ "/directory/" + _id } key={ _id } onClick={ () => handleNavigation(_id) }>
                   <h2>{businessName}</h2>
                 </a>
               </Col>

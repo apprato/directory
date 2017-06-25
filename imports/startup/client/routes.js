@@ -25,9 +25,8 @@ import EditTrainerProfile from '../../ui/containers/EditTrainerProfile.js';
 import EditClientExperience from '../../ui/pages/NewClient.js';
 import NewClientProfile from '../../ui/pages/NewClient.js';
 import EditClientProfile from '../../ui/pages/NewClient.js';
-
-
 import ViewClient from '../../ui/containers/ViewClient.js';
+import ViewTrainer from '../../ui/containers/ViewTrainer.js';
 import NewClient from '../../ui/pages/NewClient.js';
 
 
@@ -57,6 +56,7 @@ Meteor.startup(() => {
         <Route name="signup-trainer" path="/signup/trainer" component={ Signup } />
         <Route name="clients" path="/clients" component={ Clients } />
         <Route name="trainers" path="/directory" component={ Trainers } />
+        <Route name="viewTrainer" path="/directory/:_id" component={ ViewTrainer } />
         <Route name="NewTrainerExperience" path="/trainer/new/experience" component={ NewTrainerExperience } onEnter={ authenticate } />
         <Route name="EditTrainerExperience" path="/trainer/edit/experience" component={ EditTrainerExperience } onEnter={ authenticate } />
         <Route name="NewTrainerProfile" path="/trainer/new/profile" component={ NewTrainerProfile } onEnter={ authenticate } />
