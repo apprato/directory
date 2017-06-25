@@ -11,3 +11,27 @@ Meteor.publish('trainers.view', (_id) => {
   check(_id, String);
   return Trainers.find(_id);
 });
+Meteor.publish('trainers.search', (searchTerm) => {
+  check(searchTerm, Match.OneOf(String, null, undefined));
+
+  let query = {};
+  const projection = { limit: 10, sort: { title: 1 } };
+
+  if (searchTerm) {
+    const regex = new RegExp(searchTerm, 'i');
+
+    query = {
+      $or: [
+        { title: regex },
+        { year: regex },
+        { rated: regex },
+        { plot: regex },
+      ],
+    };
+
+    projection.limit = 100;
+  }
+
+  return Clients.find(query, projection);
+});
+

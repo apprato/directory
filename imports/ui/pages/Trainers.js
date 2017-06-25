@@ -1,10 +1,11 @@
 import React from 'react';
-import Trainers from '../containers/Trainers.js';
+import { Link } from 'react-router';
+import TrainersList from '../containers/TrainersList.js';
 
-const Index = () => (
+const Trainers = () => (
   <div className="Index">
-    <Trainers />
+    <TrainersList />
   </div>
 );
 
-export default Index;
+export default Trainers;
