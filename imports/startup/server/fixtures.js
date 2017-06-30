@@ -4,6 +4,10 @@ import {Accounts} from 'meteor/accounts-base';
 // Custom Collections
 import {Clients} from '../../api/clients/clients.js';
 import {Trainers} from '../../api/trainers/trainers.js';
+import Baby from 'babyparse';
+import {Random} from 'meteor/random';
+
+
 
 if (!Meteor.isProduction) {
   const users = [{
@@ -113,6 +117,42 @@ if (!Meteor.isProduction) {
 
 
   /* Trainers fixtures */
+  const file = process.env.PWD + '/imports/startup/server/fixtures/hfc-develop.csv';
+  const parsed = Baby.parseFiles(file, {header: true, skipEmptyLines: true});
+  const trainers = parsed.data.map(e => {
+    return {
+      //_id: Random.id(),
+      /*
+      createdAt: new Date(),
+      emails: [{
+        address: e.email.toLowerCase().trim(),
+        verified: false,
+      }],
+      */
+      category: e.Category,
+      businessName: e.Company,
+      address1: e.Addr1,
+      address2: e.Addr2,
+      city: e.City,
+      state: e.State,
+      area: e.Area,
+      suburb: e.Suburb,
+      state: e.State,
+      postCode: e.Zip,
+      country: 'AU',
+      phoneNumber: e.Area,
+      idHfc: e.id,
+    };
+  });
+
+  Trainers.remove({});
+  trainers.forEach((trainer) => {
+    console.log(trainer);
+    Trainers.insert(trainer);
+  });
+
+
+/*
   const trainers = [{
     category: 'yoga',
     skillTags: 'pilates',
@@ -123,6 +163,6 @@ if (!Meteor.isProduction) {
     const clientExists = Trainers.findOne({category: trainers.category});
     if (!clientExists) Trainers.insert(trainers);
   });
-
+*/
 
 }

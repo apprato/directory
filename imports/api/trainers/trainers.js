@@ -129,7 +129,12 @@ Trainers.schema = new SimpleSchema({
     type: String,
     label: 'The phone number of the document.',
     optional: true
-  }
+  },
+  idHfc: {
+    type: String,
+    label: 'The phone number of the document.',
+    optional: true
+  },
 });
 
 Trainers.attachSchema(Trainers.schema);
