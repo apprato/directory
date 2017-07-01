@@ -15,9 +15,6 @@ const ViewTrainer = ({ trainer }) => (
           <p><i>{ trainer.category}</i></p>
           <h3>About</h3>
           <p>{ trainer.overview }</p>
-          <p>{ trainer.height }</p>
-          <p>{ trainer.weight }</p>
-          <p>{ trainer.sex }</p>
         </Col>
         <Col xs={ 12 } sm={ 3 }>
           <h3>Contact</h3>

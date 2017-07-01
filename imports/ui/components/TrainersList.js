@@ -1,6 +1,8 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
 import {Alert, Row, Col, Panel, FormControl, Image} from 'react-bootstrap';
+import ReactPaginate from 'react-paginate';
+
 
 const handleNavigation = (_id) => {
   browserHistory.push(`/directory/${_id}`);
@@ -31,6 +33,20 @@ class TrainersList extends React.Component {
           placeholder="Find Health & Fitness"
           className="Search"
         />
+      </div>
+      <div>
+        <Row>
+          <ReactPaginate
+            previousLabel={"previous"}
+            nextLabel={"next"}
+            pageNum={5}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+          />
+        </Row>
       </div>
       <div className="Trainers-list">
         { trainers.length > 0 ? trainers.map(({_id, businessName, overview, category, state, suburb, image}) => (

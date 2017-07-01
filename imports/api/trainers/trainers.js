@@ -130,7 +130,7 @@ Trainers.schema = new SimpleSchema({
     label: 'The phone number of the document.',
     optional: true
   },
-  idHfc: {
+  userid: {
     type: String,
     label: 'The phone number of the document.',
     optional: true

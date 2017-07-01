@@ -12,7 +12,6 @@ const composer = (props, onData) => {
 
   if (subscription.ready()) {
     const trainers = Trainers.find().fetch(); // Converts MongoDB data into an array rather than cursor
-    console.log(trainers);
     onData(null, { trainers, searchQuery });
   }
 };

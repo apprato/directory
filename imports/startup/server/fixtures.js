@@ -134,21 +134,21 @@ if (!Meteor.isProduction) {
       address1: e.Addr1,
       address2: e.Addr2,
       city: e.City,
-      state: e.State,
       area: e.Area,
       suburb: e.Suburb,
-      state: e.State,
+      overview: e.Description,
+      //state: e.State,
       postCode: e.Zip,
       country: 'AU',
       phoneNumber: e.Area,
-      idHfc: e.id,
+      userid: e.userid
     };
   });
 
-  Trainers.remove({});
+  //Trainers.remove({});
   trainers.forEach((trainer) => {
-    console.log(trainer);
-    Trainers.insert(trainer);
+    //console.log(trainer);
+    //Trainers.insert(trainer);
   });
 
 
