@@ -1,5 +1,5 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
+import {browserHistory, Router, Route} from 'react-router';
 import {Alert, Row, Col, Panel, FormControl, Image} from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 
@@ -8,11 +8,17 @@ const handleNavigation = (_id) => {
   browserHistory.push(`/directory/${_id}`);
 }
 
+const handleNavigationPager = (selected) => {
+  window.location.href = '/directory/page/' + selected;
+}
+
 class TrainersList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {searchTerm: null};
+    //this.initialpage = this.props.params._id;
     this.handleSearch = this.handleSearch.bind(this);
+
     // this.handleNav = this.handleNav.bind(this);
   }
 
@@ -22,8 +28,27 @@ class TrainersList extends React.Component {
     this.props.searchQuery.set(searchTerm);
   }
 
+  handlePageClick(data) {
+    let selected = Number(data.selected + 1);
+    handleNavigationPager(selected)
+    /*
+     let offset = Math.ceil(selected * this.props.perPage);
+
+     this.setState({offset: offset}, () => {
+     this.loadCommentsFromServer();
+     });
+     */
+  }
+
+  getPageSelected() {
+    return 5;
+  }
+
+
   render() {
+    console.log(this.props);
     const {trainers} = this.props;
+    const {initialPage} = this.props.params._id;
     return (<div className="Trainers">
       <div className="TrainerSearch">
         <i className="fa fa-search"/>
@@ -33,20 +58,6 @@ class TrainersList extends React.Component {
           placeholder="Find Health & Fitness"
           className="Search"
         />
-      </div>
-      <div>
-        <Row>
-          <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
-            pageNum={5}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"active"}
-          />
-        </Row>
       </div>
       <div className="Trainers-list">
         { trainers.length > 0 ? trainers.map(({_id, businessName, overview, category, state, suburb, image}) => (
@@ -67,6 +78,23 @@ class TrainersList extends React.Component {
             </Row>
           </Panel>
         )) : <Alert>Sorry there are no listings found for '{ this.state.searchTerm }.'</Alert> }
+        <Row>
+          <ReactPaginate
+            previousLabel={"previous"}
+            nextLabel={"next"}
+            pageNum={411}
+            pageCount={trainers.count}
+            hrefBuilder={(page) => '/directory/page/' + page }
+            onPageChange={this.handlePageClick}
+            initialPage={Number(this.props.params._id - 1)}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+            disableInitialCallback="false"
+          />
+        </Row>
       </div>
     </div>);
   }

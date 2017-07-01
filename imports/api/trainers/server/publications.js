@@ -4,10 +4,9 @@ import Trainers from '../trainers';
 
 Meteor.publish('trainers.list', (_id) => {
 
-  //Trainers.publish(this, 'TodoCount', Trainers.find(query));
+  check(_id, Number);
   const query = {};
   Trainers.find(query);
-  console.log(_id);
 
   return Trainers.find(query, {
     //fields: ,

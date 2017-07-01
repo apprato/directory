@@ -6,13 +6,15 @@ import Loading from '../components/Loading.js';
 
 const searchQuery = new ReactiveVar(null);
 
-const composer = (props, onData) => {
+const composer = ({ params }, onData) => {
+  //console.log(params._id);
   //const subscription = Meteor.subscribe('trainers.search', searchQuery.get());
-  const subscription = Meteor.subscribe('trainers.list');
+  const pageNum = Trainers.find().count();
+  const subscription = Meteor.subscribe('trainers.list', Number(params._id));
 
   if (subscription.ready()) {
     const trainers = Trainers.find().fetch(); // Converts MongoDB data into an array rather than cursor
-    onData(null, { trainers, searchQuery });
+    onData(null, { trainers, searchQuery, pageNum });
   }
 };
 
