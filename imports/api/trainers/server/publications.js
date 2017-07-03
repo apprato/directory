@@ -1,18 +1,49 @@
-import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+import {Meteor} from 'meteor/meteor';
+import {check} from 'meteor/check';
 import Trainers from '../trainers';
+import {publishCount} from 'meteor/fuww:publish-count';
 
 Meteor.publish('trainers.list', (_id) => {
 
   check(_id, Number);
   const query = {};
-  Trainers.find(query);
 
-  return Trainers.find(query, {
-    //fields: ,
-    skip: _id,
-    limit: 10
-  });
+  const trainersTotal = Trainers.find().count();
+  var trainersQuery = Trainers.find
+  (
+    query,
+    {
+      //fields: ,
+      skip: _id,
+      limit: 10
+    }
+  );
+
+  return trainersQuery;
+
+
+
+
+  /*
+  const trainers = Trainers.find();
+  publishCount(
+    this, // publication context
+    trainers, // cursor
+    {
+      ready: true, // should call this.ready()? (default: false)
+      strategy: 'poll', // or 'observe' (default: 'observe')
+      interval: 5000 // polling interval in ms (default: 1000)
+    }
+  );
+
+
+  return trainersQuery;
+  return [ trainersQuery, 33223 ];
+  return [
+    trainersQuery,
+    trainersTotal
+  ]
+  */
 });
 
 Meteor.publish('trainers.edit', () => Trainers.find());
@@ -28,17 +59,17 @@ Meteor.publish('trainers.search', (searchTerm) => {
   check(searchTerm, Match.OneOf(String, null, undefined));
 
   let query = {};
-  const projection = { limit: 10, sort: { title: 1 } };
+  const projection = {limit: 10, sort: {title: 1}};
 
   if (searchTerm) {
     const regex = new RegExp(searchTerm, 'i');
 
     query = {
       $or: [
-        { title: regex },
-        { year: regex },
-        { rated: regex },
-        { plot: regex },
+        {title: regex},
+        {year: regex},
+        {rated: regex},
+        {plot: regex},
       ],
     };
 

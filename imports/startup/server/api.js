@@ -1,3 +1,5 @@
+import '../../methods/send-verification-link.js';
+
 import '../../api/clients/methods.js';
 import '../../api/clients/server/publications.js';
 

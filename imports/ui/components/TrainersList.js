@@ -15,11 +15,10 @@ const handleNavigationPager = (selected) => {
 class TrainersList extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props.pageCount);
     this.state = {searchTerm: null};
     //this.initialpage = this.props.params._id;
     this.handleSearch = this.handleSearch.bind(this);
-
-    // this.handleNav = this.handleNav.bind(this);
   }
 
   handleSearch(event) {
@@ -40,15 +39,10 @@ class TrainersList extends React.Component {
      */
   }
 
-  getPageSelected() {
-    return 5;
-  }
-
 
   render() {
-    console.log(this.props);
     const {trainers} = this.props;
-    const {initialPage} = this.props.params._id;
+    //console.log(trainers);
     return (<div className="Trainers">
       <div className="TrainerSearch">
         <i className="fa fa-search"/>
@@ -80,13 +74,13 @@ class TrainersList extends React.Component {
         )) : <Alert>Sorry there are no listings found for '{ this.state.searchTerm }.'</Alert> }
         <Row>
           <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
-            pageNum={411}
-            pageCount={trainers.count}
+            previousLabel={"<"}
+            nextLabel={">"}
+            pageNum={Number(this.props.params._id - 1)}
+            initialPage={Number(this.props.params._id - 1)}
+            pageCount={this.props.pageCount}
             hrefBuilder={(page) => '/directory/page/' + page }
             onPageChange={this.handlePageClick}
-            initialPage={Number(this.props.params._id - 1)}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
             containerClassName={"pagination"}
