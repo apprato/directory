@@ -102,7 +102,7 @@ export default class TrainerProfileEditor extends React.Component {
           />
           <Col xs={ 12 } sm={ 12 } md={ 12 }>
             <p>This will help us connect you with the right clients and help you grow your business through
-              findatrainer.
+              healthfitness.
               We’ll ask you to select tasks of interest and complete a profile for review. Remember, you can always come
               back and edit this information later.</p>
           </Col>

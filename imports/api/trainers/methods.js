@@ -191,10 +191,6 @@ export const removeTrainerEmployment = new ValidatedMethod({
 
 Meteor.methods({
   getTrainersCount() {
-    let userId = Meteor.userId();
-    if ( userId ) {
-      return Accounts.sendVerificationEmail( userId );
-    }
     return Trainers.find().count();
   }
 });

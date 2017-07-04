@@ -130,6 +130,26 @@ Trainers.schema = new SimpleSchema({
     label: 'The phone number of the document.',
     optional: true
   },
+  phoneNumber2: {
+    type: String,
+    label: 'The phone number of the document.',
+    optional: true
+  },
+  phoneNumber3: {
+    type: String,
+    label: 'The phone number of the document.',
+    optional: true
+  },
+  email: {
+    type: String,
+    label: 'The phone number of the document.',
+    optional: true
+  },
+  website: {
+    type: String,
+    label: 'The phone number of the document.',
+    optional: true
+  },
   userid: {
     type: String,
     label: 'The phone number of the document.',

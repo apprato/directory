@@ -13,9 +13,9 @@ const handleNavigationPager = (selected) => {
 }
 
 class TrainersList extends React.Component {
+
   constructor(props) {
     super(props);
-    console.log(props.pageCount);
     this.state = {searchTerm: null};
     //this.initialpage = this.props.params._id;
     this.handleSearch = this.handleSearch.bind(this);

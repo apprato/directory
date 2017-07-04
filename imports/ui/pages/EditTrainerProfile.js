@@ -3,7 +3,7 @@ import TrainerProfileEditor from '../components/TrainerProfileEditor.js';
 
 const EditTrainerProfile = ({ doc }) => (
   <div className="EditTrainerExperience">
-    <h1 className="page-header">Welcome to Findatrainer…</h1>
+    <h1 className="page-header">Welcome to HealthFitness…</h1>
     <TrainerProfileEditor doc={ doc }  />
   </div>
 );

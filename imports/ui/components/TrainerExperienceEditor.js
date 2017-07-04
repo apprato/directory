@@ -33,7 +33,7 @@ export default class TrainerExperienceEditor extends React.Component {
         <Row>
           <Col xs={ 12 } sm={ 12 } md={ 12 }>
             <p>This will help us connect you with the right clients and help you grow your business through
-              findatrainer.<br />
+              healthfitness.<br />
               We’ll ask you to select tasks of interest and complete a profile for review.<br /> Remember, you can
               always
               come

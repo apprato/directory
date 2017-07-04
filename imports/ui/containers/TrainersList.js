@@ -8,8 +8,8 @@ const searchQuery = new ReactiveVar(null);
 
 const composer = ({ params }, onData) => {
   // Get total count
-  Meteor.apply('getTrainersCount', [], true, function(err, result){  Session.set('trainerCount', result); });
-  pageCount = Session.get('trainerCount');
+  Meteor.apply('getTrainersCount', [], true, function(err, result){  Session.set('trainerCount', result); console.log(result) });
+  const pageCount = Session.get('trainerCount') - 1;
 
   const subscription = Meteor.subscribe('trainers.list', Number(params._id));
   if (subscription.ready()) {

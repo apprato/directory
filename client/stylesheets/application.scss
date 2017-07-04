@@ -2,6 +2,14 @@
 @import "base/animations";
 @import "base/forms";
 
+// Bootswatch
+@import "bootswatch/paper/bootstrap";
+//@import "bootswatch/cerulean/bootstrap";
+
+body { margin-top: 80px!important; }
+
+
+@import "module/Typography";
 @import "module/Loading";
 @import "module/Login";
 @import "module/PageHeader";
@@ -9,7 +17,6 @@
 @import "module/GetStarted";
 @import "module/ClientSearch";
 @import "module/TrainerSearch";
-
 @import "module/_NewTrainerProfile";
 
 @import "state/Navbar";

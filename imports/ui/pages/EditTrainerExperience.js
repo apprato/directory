@@ -3,7 +3,7 @@ import TrainerExperienceEditor from '../components/TrainerExperienceEditor.js';
 
 const EditTrainerExperience = ({ doc }) => (
   <div className="EditTrainerExperience">
-    <h1 className="page-header">Welcome to Findatrainer…</h1>
+    <h1 className="page-header">Welcome to Healthftness…</h1>
     <TrainerExperienceEditor doc={ doc }  />
   </div>
 );
