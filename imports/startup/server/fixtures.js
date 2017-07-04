@@ -151,10 +151,10 @@ if (!Meteor.isProduction) {
     };
   });
 
-  //Trainers.remove({});
+  Trainers.remove({});
   trainers.forEach((trainer) => {
     //console.log(trainer);
-    //Trainers.insert(trainer);
+    Trainers.insert(trainer);
   });
 
 
