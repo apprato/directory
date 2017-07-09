@@ -8,7 +8,7 @@ import Baby from 'babyparse';
 import {Random} from 'meteor/random';
 
 
-if (Meteor.isProduction || Meteor.isDevelopment) {
+//if (Meteor.isProduction || Meteor.isDevelopment) {
 
   /* Create Users - Admin, previous site import */
   const usersAdmins = [{
@@ -174,4 +174,4 @@ if (Meteor.isProduction || Meteor.isDevelopment) {
     if (!clientExists) Clients.insert(client);
   });
 
-}
+//}
