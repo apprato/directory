@@ -8,18 +8,19 @@ import Baby from 'babyparse';
 import {Random} from 'meteor/random';
 
 
+if (Meteor.isProduction || Meteor.isDevelopment) {
 
-if (!Meteor.isProduction) {
-  const users = [{
-    email: 'admin@admin.com',
-    password: 'password',
+  /* Create Users - Admin, previous site import */
+  const usersAdmins = [{
+    email: 'support@appscale.com',
+    password: 'appscalejs2017##',
     profile: {
-      name: {first: 'Carl', last: 'Winslow'},
+      name: {first: 'Stephen', last: 'Goudie'},
     },
     roles: ['admin'],
   }];
 
-  users.forEach(({email, password, profile, roles}) => {
+  usersAdmins.forEach(({email, password, profile, roles}) => {
     const userExists = Meteor.users.findOne({'emails.address': email});
 
     if (!userExists) {
@@ -28,6 +29,64 @@ if (!Meteor.isProduction) {
     }
   });
 
+  const usersImportFile = process.env.PWD + '/imports/startup/server/fixtures/hfc-develop.csv';
+  const parsedUsersImportFile = Baby.parseFiles(usersImportFile, {header: true, skipEmptyLines: true});
+  const directoryListings = parsedUsersImportFile.data.map(e => {
+    var emailAddress = e.Email1 ? e.Email1 : e.userid + '@appscalejs.com';
+    var userRow = null;
+    userRow =  {
+      // meteor accounts
+      // email: emailAddress,
+      password: e.password,
+      profile: {
+        name: {first: e.FirstName, last: e.LastName},
+      },
+      roles: ['supplier'],
+
+      // Trainers
+      category: e.Category,
+      businessName: e.Company,
+      address1: e.Addr1,
+      address2: e.Addr2,
+      city: e.City,
+      area: e.Area,
+      suburb: e.Suburb,
+      phoneNumber: e.Description,
+      phoneNumber2: e.Description,
+      phoneNumber3: e.Description,
+      email: emailAddress,
+      email1: emailAddress,
+      email2: e.Email2,
+      email3: e.Email3,
+      overview: e.Description,
+      //state: e.State, @TODO - Standadise
+      postCode: e.Zip,
+      country: 'AU',
+      phoneNumber: e.Area,
+      userid: e.userid
+    };
+    return userRow;
+  });
+
+  directoryListings.forEach((directoryListing) => {
+    var userExists = null, userTrainerExists = null,  password = null, profile = null, id = null, userid = null;
+
+    email = directoryListing.email;
+    password = directoryListing.password;
+    profile = directoryListing.profile;
+    userExists = Meteor.users.findOne({'emails.address': email});
+    console.log(userExists);
+    if (!userExists) {
+      userId = Accounts.createUser({email, password, profile});
+      Roles.addUsersToRoles(userId, directoryListing.roles);
+
+      directoryListingTrainer = Meteor.Trainer.users.findOne({'emails': email});
+      delete(directoryListing.id, directoryListing.email, directoryListing.password, directoryListing.roles);
+      if (!directoryListingExists) {
+        Trainers.insert(directoryListing);
+      }
+    }
+  });
 
   /* Clients fixtures */
   const clients = [{
@@ -114,61 +173,5 @@ if (!Meteor.isProduction) {
     const clientExists = Clients.findOne({title: client.title});
     if (!clientExists) Clients.insert(client);
   });
-
-
-  /* Trainers fixtures */
-  const file = process.env.PWD + '/imports/startup/server/fixtures/hfc-develop.csv';
-  const parsed = Baby.parseFiles(file, {header: true, skipEmptyLines: true});
-  const trainers = parsed.data.map(e => {
-    return {
-      //_id: Random.id(),
-      /*
-      createdAt: new Date(),
-      emails: [{
-        address: e.email.toLowerCase().trim(),
-        verified: false,
-      }],
-      */
-      category: e.Category,
-      businessName: e.Company,
-      address1: e.Addr1,
-      address2: e.Addr2,
-      city: e.City,
-      area: e.Area,
-      suburb: e.Suburb,
-      phoneNumber: e.Description,
-      phoneNumber2: e.Description,
-      phoneNumber3: e.Description,
-      email: e.Email1,
-      email2: e.Email2,
-      email3: e.Email3,
-      overview: e.Description,
-      //state: e.State, @TODO - Standadise
-      postCode: e.Zip,
-      country: 'AU',
-      phoneNumber: e.Area,
-      userid: e.userid
-    };
-  });
-
-  Trainers.remove({});
-  trainers.forEach((trainer) => {
-    //console.log(trainer);
-    Trainers.insert(trainer);
-  });
-
-
-/*
-  const trainers = [{
-    category: 'yoga',
-    skillTags: 'pilates',
-    experienceLevel: 'expert'
-  }
-  ];
-  trainers.forEach((trainers) => {
-    const clientExists = Trainers.findOne({category: trainers.category});
-    if (!clientExists) Trainers.insert(trainers);
-  });
-*/
 
 }
