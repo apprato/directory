@@ -69,20 +69,19 @@ import {Random} from 'meteor/random';
   });
 
   directoryListings.forEach((directoryListing) => {
-    var userExists = null, userTrainerExists = null,  password = null, profile = null, id = null, userid = null;
+    var userExists = null, trainerExists = null,  password = null, profile = null, id = null, userid = null;
 
     email = directoryListing.email;
     password = directoryListing.password;
     profile = directoryListing.profile;
     userExists = Meteor.users.findOne({'emails.address': email});
-    console.log(userExists);
     if (!userExists) {
       userId = Accounts.createUser({email, password, profile});
       Roles.addUsersToRoles(userId, directoryListing.roles);
 
-      directoryListingTrainer = Meteor.Trainer.users.findOne({'emails': email});
+      trainerExists = Trainers.findOne({'email1': email});
       delete(directoryListing.id, directoryListing.email, directoryListing.password, directoryListing.roles);
-      if (!directoryListingExists) {
+      if (!trainerExists) {
         Trainers.insert(directoryListing);
       }
     }
