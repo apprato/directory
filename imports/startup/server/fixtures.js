@@ -7,8 +7,12 @@ import {Trainers} from '../../api/trainers/trainers.js';
 import Baby from 'babyparse';
 import {Random} from 'meteor/random';
 
+
+
+
 /* Create Users - Admin, previous site import */
 if (Meteor.isProduction || Meteor.isDevelopment) {
+
   try {
     var usersImportFile = null;
     const usersAdmins = [{
@@ -29,20 +33,21 @@ if (Meteor.isProduction || Meteor.isDevelopment) {
       }
     });
 
-    console.log(Meteor.settings.environment);   // /programs/server/assets/app
     switch (Meteor.settings.environment) {
       case 'development':
-        var usersImportFile = process.env.PWD + '/imports/startup/server/fixtures/hfc-develop.csv';
+        var usersImportFile = process.env.PWD + '/private/hfc-develop.csv';
         break;
       case 'staging':
-        var usersImportFile = process.env.PWD + '/programs/server/assets/app/hfc.csv'; // Webpack is in a different location: bundle/bundle/programs/server/assets/app
+        var usersImportFile = process.env.PWD + '/programs/server/assets/app/hfc-develop.csv'; // Webpack is in a different location: bundle/bundle/programs/server/assets/app
         break;
       case 'production':
-        var usersImportFile = process.env.PWD + '/programs/server/assets/app/hfc-develop.csv'; // Webpack is in a different location: bundle/bundle/programs/server/assets/app
+        var usersImportFile = process.env.PWD + '/programs/server/assets/app/hfc.csv'; // Webpack is in a different location: bundle/bundle/programs/server/assets/app
         break;
       default:
       break;
     }
+
+    console.log('usersImportFile: ' + usersImportFile);
 
     const parsedUsersImportFile = Baby.parseFiles(usersImportFile, {header: true, skipEmptyLines: true});
     const directoryListings = parsedUsersImportFile.data.map(e => {
@@ -81,6 +86,7 @@ if (Meteor.isProduction || Meteor.isDevelopment) {
       };
       return userRow;
     });
+
 
     directoryListings.forEach((directoryListing) => {
       var userExists = null, trainerExists = null, password = null, profile = null, id = null, userid = null;
