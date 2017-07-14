@@ -9,9 +9,14 @@ const searchQuery = new ReactiveVar(null);
 const composer = ({ params }, onData) => {
   // Get total count
   Meteor.apply('getTrainersCount', [], true, function(err, result){  Session.set('trainerCount', result); console.log(result) });
-  const pageCount = Session.get('trainerCount') - 1;
+  const limit = 10;
+  const currentPage = parseInt(params._id) || 1;
+  const skipCount = ( currentPage - 1) * 10;
+  const pageCount = Session.get('trainerCount');
 
-  const subscription = Meteor.subscribe('trainers.list', Number(params._id));
+  console.log('total: ' + Session.get('trainerCount') );
+
+  const subscription = Meteor.subscribe('trainers.list',skipCount);
   if (subscription.ready()) {
     const trainers = Trainers.find().fetch(); // Converts MongoDB data into an array rather than cursor
     onData(null, { trainers, searchQuery, pageCount });

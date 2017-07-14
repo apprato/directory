@@ -51,8 +51,11 @@ if (Meteor.isProduction || Meteor.isDevelopment) {
 
     const parsedUsersImportFile = Baby.parseFiles(usersImportFile, {header: true, skipEmptyLines: true});
     const directoryListings = parsedUsersImportFile.data.map(e => {
-      var emailAddress = e.Email1 ? e.Email1 : e.userid + '@appscalejs.com';
-      var userRow = null;
+      var userRow, logo, logoBefore, emailAddress = null;
+      emailAddress = e.Email1 ? e.Email1 : e.userid + '@appscalejs.com';
+      logoBefore = e.Logo;
+      logo = logoBefore.replace("www.", "");
+      logo = logoBefore.replace("http://healthfitness.com.au/directory/logos/", "");
       userRow = {
         // meteor accounts
         // email: emailAddress,
@@ -64,6 +67,7 @@ if (Meteor.isProduction || Meteor.isDevelopment) {
 
         // Trainers
         category: e.Category,
+        logo: logo,
         businessName: e.Company,
         address1: e.Addr1,
         address2: e.Addr2,
@@ -77,8 +81,9 @@ if (Meteor.isProduction || Meteor.isDevelopment) {
         email1: emailAddress,
         email2: e.Email2,
         email3: e.Email3,
-        overview: e.Description,
-        //state: e.State, @TODO - Standadise
+        overview: e.Blurb,
+        website: e.Website,
+        state: e.State, //@TODO - Standadise
         postCode: e.Zip,
         country: 'AU',
         phoneNumber: e.Area,

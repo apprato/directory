@@ -54,20 +54,19 @@ class TrainersList extends React.Component {
         />
       </div>
       <div className="Trainers-list">
-        { trainers.length > 0 ? trainers.map(({_id, businessName, overview, category, state, suburb, image}) => (
+        { trainers.length > 0 ? trainers.map(({_id, logo, businessName, overview, category, state, suburb, image}) => (
           <Panel>
             <Row>
-              <Col xs={ 12 } sm={ 12 }>
+              <Col xs={ 8 } sm={ 10 }>
                 <a href={ "/directory/" + _id } key={ _id } onClick={ () => handleNavigation(_id) }>
                   <h2>{businessName}</h2>
                 </a>
-              </Col>
-              <Col xs={ 12 } sm={ 9 }>
                 <p>{ category }</p>
                 <p>{ overview }</p>
               </Col>
-              <Col xs={ 12 } sm={ 3 }>
+              <Col xs={ 12 } sm={ 2 }>
                 <p>{ state } > { suburb }</p>
+                {logo ? <Image src={ '/' + 'logos' + '/' + logo } alt={ businessName } responsive /> : ''}
               </Col>
             </Row>
           </Panel>
