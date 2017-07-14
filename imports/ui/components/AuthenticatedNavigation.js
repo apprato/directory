@@ -22,7 +22,7 @@ const AuthenticatedNavigation = () => (
   <div>
     <Nav pullRight>
       <LinkContainer to="/directory">
-        <NavItem eventKey={ 2 } href="/directory" onClick={ onNavItemClick } data-toggle="dropdown" >Directoryyyy</NavItem>
+        <NavItem eventKey={ 2 } href="/directory" onClick={ onNavItemClick } data-toggle="dropdown" >Directory</NavItem>
       </LinkContainer>
       <LinkContainer to="getstarted">
         <NavItem eventKey={ 1 } href="/getstarted" onClick={ onNavItemClick }>Submit Business</NavItem>
