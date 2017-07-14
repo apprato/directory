@@ -256,7 +256,7 @@ export default class TrainerProfileEditor extends React.Component {
         <br />
         <br />
         <Button type="submit" bsStyle="success">
-          { doc && doc._id ? 'Save Experience' : 'Save & Create Profile' }
+          { doc && doc._id ? 'Save Profile Details' : 'Save & Create Profile Details' }
         </Button>
         <br />
         <br />

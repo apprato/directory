@@ -8,13 +8,11 @@ const searchQuery = new ReactiveVar(null);
 
 const composer = ({ params }, onData) => {
   // Get total count
-  Meteor.apply('getTrainersCount', [], true, function(err, result){  Session.set('trainerCount', result); console.log(result) });
+  Meteor.apply('getTrainersCount', [], true, function(err, result){  Session.set('trainerCount', result); });
   const limit = 10;
   const currentPage = parseInt(params._id) || 1;
   const skipCount = ( currentPage - 1) * 10;
   const pageCount = Session.get('trainerCount');
-
-  console.log('total: ' + Session.get('trainerCount') );
 
   const subscription = Meteor.subscribe('trainers.list',skipCount);
   if (subscription.ready()) {
