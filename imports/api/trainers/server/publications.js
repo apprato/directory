@@ -3,21 +3,22 @@ import {check} from 'meteor/check';
 import Trainers from '../trainers';
 import {publishCount} from 'meteor/fuww:publish-count';
 
-Meteor.publish('trainers.list', (_id) => {
+Meteor.publish('trainers.list', (skipCount, _id) => {
 
+  check(skipCount, Number);
   check(_id, Number);
+
   const query = {};
 
   const trainersTotal = Trainers.find().count();
-  var trainersQuery = Trainers.find
-  (
-    query,
+  var trainersQuery = Trainers.find({},
     {
       //fields: ,
-      skip: _id,
-      limit: 10
+      limit: 10,
+      skip: skipCount,
     }
   );
+  console.log('skipCount: ' + skipCount);
 
   return trainersQuery;
 

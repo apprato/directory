@@ -52,8 +52,13 @@ Meteor.startup(() => {
         <Route name="signup-client" path="/signup/client" component={ Signup } />
         <Route name="signup-trainer" path="/signup/trainer" component={ Signup } />
         <Route name="clients" path="/clients" component={ Clients } />
+
         <Route name="trainers" path="/directory" component={ Trainers } />
         <Route name="listTrainersPagination" path="/directory/page/:_id" component={ Trainers } />
+
+        <Route name="listTrainersPagination" path="/directory/:area" component={ Trainers } />
+        <Route name="listTrainersPagination" path="/directory/:area/page/:_id" component={ Trainers } />
+
         <Route name="viewTrainer" path="/directory/:_id" component={ ViewTrainer } />
         <Route name="NewTrainerExperience" path="/trainer/new/experience" component={ NewTrainerExperience } onEnter={ authenticate } />
         <Route name="EditTrainerExperience" path="/trainer/edit/experience" component={ EditTrainerExperience } onEnter={ authenticate } />

@@ -42,7 +42,6 @@ class TrainersList extends React.Component {
 
   render() {
     const {trainers} = this.props;
-    //console.log(trainers);
     return (<div className="Trainers">
       <div className="TrainerSearch">
         <i className="fa fa-search"/>
@@ -73,15 +72,15 @@ class TrainersList extends React.Component {
         )) : <Alert>Sorry there are no listings found for '{ this.state.searchTerm }.'</Alert> }
         <Row>
           <ReactPaginate
+            pageCount={this.props.pageCount}
+            pageRangeDisplayed={1}
+            marginPagesDisplayed={3}
             previousLabel={"<"}
             nextLabel={">"}
-            pageNum={Number(this.props.params._id - 1)}
-            initialPage={Number(this.props.params._id - 1)}
-            pageCount={this.props.pageCount}
+            pageNum={this.props.currentPage-1}
+            initialPage={this.props.currentPage-1}
             hrefBuilder={(page) => '/directory/page/' + page }
             onPageChange={this.handlePageClick}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
