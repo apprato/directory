@@ -18,6 +18,7 @@ import Signup from '../../ui/pages/Signup.js';
 import GetStarted from '../../ui/pages/GetStarted.js';
 import Clients from '../../ui/pages/Clients.js';
 import Trainers from '../../ui/containers/TrainersList.js';
+import TrainersArea from '../../ui/containers/TrainersAreaList.js';
 import NewTrainerExperience from '../../ui/pages/NewTrainerExperience.js';
 import EditTrainerExperience from '../../ui/containers/EditTrainerExperience.js';
 import NewTrainerProfile from '../../ui/pages/NewTrainerProfile.js';
@@ -56,8 +57,8 @@ Meteor.startup(() => {
         <Route name="trainers" path="/directory" component={ Trainers } />
         <Route name="listTrainersPagination" path="/directory/page/:_id" component={ Trainers } />
 
-        <Route name="listTrainersPagination" path="/directory/:area" component={ Trainers } />
-        <Route name="listTrainersPagination" path="/directory/:area/page/:_id" component={ Trainers } />
+        <Route name="listTrainersArea" path="/directory/area/:area" component={ TrainersArea } />
+        <Route name="listTrainersAreaPagination" path="/directory/area/:area/page/:_id" component={ TrainersArea } />
 
         <Route name="viewTrainer" path="/directory/:_id" component={ ViewTrainer } />
         <Route name="NewTrainerExperience" path="/trainer/new/experience" component={ NewTrainerExperience } onEnter={ authenticate } />

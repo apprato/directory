@@ -19,6 +19,7 @@ class TrainersList extends React.Component {
     this.state = {searchTerm: null};
     //this.initialpage = this.props.params._id;
     this.handleSearch = this.handleSearch.bind(this);
+    console.log(this.props.area);
   }
 
   handleSearch(event) {
@@ -42,6 +43,18 @@ class TrainersList extends React.Component {
 
   render() {
     const {trainers} = this.props;
+    // Listing based switch
+    const area = this.props.area;
+    const page = this.props.page
+    console.log('areaaaaa: ' + area);
+    var category = this.props.category;
+    var search = this.props.search;
+
+    if (area) {
+      var hrefBuilder = '/directory/area/' + area + '/page/' + this.props.skipCount;
+    }
+
+
     return (<div className="Trainers">
       <div className="TrainerSearch">
         <i className="fa fa-search"/>
@@ -79,7 +92,7 @@ class TrainersList extends React.Component {
             nextLabel={">"}
             pageNum={this.props.currentPage-1}
             initialPage={this.props.currentPage-1}
-            hrefBuilder={(page) => '/directory/page/' + page }
+            hrefBuilder={(page) => hrefBuilder + page }
             onPageChange={this.handlePageClick}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
