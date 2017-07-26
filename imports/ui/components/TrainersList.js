@@ -57,13 +57,36 @@ class TrainersList extends React.Component {
 
     return (<div className="Trainers">
       <div className="TrainerSearch">
-        <i className="fa fa-search"/>
-        <FormControl
-          type="search"
-          onKeyUp={ this.handleSearch }
-          placeholder="Find Health & Fitness"
-          className="Search"
-        />
+        <Row>
+          <Col xs={ 12 } sm={ 8 }>
+          <i className="fa fa-search"/>
+          <FormControl
+            type="search"
+            onKeyUp={ this.handleSearch }
+            placeholder="Find Health & Fitness"
+            className="Search"
+          />
+          </Col>
+          <Col xs={ 12 } sm={ 4 }>
+            <FormControl
+              componentClass="select"
+              placeholder="select"
+              ref="state"
+              name="state"
+            >
+              <option value="">State</option>
+              <option value="ACT" title="Australian Capital Territory">Australian Capital Territory</option>
+              <option value="NSW" title="New South Wales">New South Wales</option>
+              <option value="VIC" title="Northern Territory">Northern Territory</option>
+              <option value="QLD" title="Queensland">Queensland</option>
+              <option value="SA" title="South Australia">South Australia</option>
+              <option value="TAS" title="Tasmania">Tasmania</option>
+              <option value="VICc" title="Victoria">Victoria</option>
+              <option value="WA" title="Western Australia">Western Australia</option>
+            </FormControl>
+
+          </Col>
+        </Row>
       </div>
       <div className="Trainers-list">
         { trainers.length > 0 ? trainers.map(({_id, logo, businessName, overview, category, state, suburb, image}) => (
