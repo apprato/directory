@@ -24,7 +24,8 @@ const composer = ({ params }, onData) => {
 
   if (subscription.ready()) {
     const trainers = Trainers.find().fetch(); // Converts MongoDB data into an array rather than cursor
-    onData(null, { trainers, searchQuery, pageCount, currentPage });
+    onData(null, { trainers, search, category, pageCount, currentPage }); // Props to pass to JobsList component
+
   }
 };
 

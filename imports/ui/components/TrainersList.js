@@ -10,8 +10,16 @@ const handleNavigation = (_id) => {
   browserHistory.push(`/directory/${_id}`);
 }
 
-const handleNavigationPager = (selected) => {
-  window.location.href = '/directory/page/' + selected;
+const handleNavigationPager = (selected, filterSearch, filterCategory,) => {
+  if (filterCategory) {
+    browserHistory.push('/jobs/category/' + filterCategory + '/page/' + selected);
+  }
+  else if (filterSearch) {
+    browserHistory.push('/jobs/search/' + filterSearch + '/page/' + selected);
+  }
+  else {
+    browserHistory.push('/jobs/page/' + selected);
+  }
 }
 
 class TrainersList extends React.Component {
@@ -34,18 +42,11 @@ class TrainersList extends React.Component {
 
   handleSearchClick(event) {
 
-    console.log(this.getState({}));
-    console.log('this.state.stateTerm' + this.state.stateTerm);
-    console.log('this.state.searchTerm' + this.state.searchTerm);
-
-    //const searchTerm = event.target.value;
-    //this.setState({searchTerm});
-    //this.props.searchQuery.set(searchTerm);
   }
 
-  handlePageClick(data) {
-    let selected = Number(data.selected + 1);
-    handleNavigationPager(selected)
+  handlePageClick(event) {
+    let selected = Number(event.selected + 1);
+    handleNavigationPager(selected, this.filterSearch, this.filterCategory)
   }
 
   handleStateChange (element) {
@@ -56,10 +57,12 @@ class TrainersList extends React.Component {
   }
 
   handleCategoryChange (element) {
-    if(element===null || element.value===undefined || element.value===false)
+    if(element===null || element.value===undefined || element.value===false) {
       this.setState({categoryTerm: null});
-    else
-      this.setState({categoryTerm: element.value});
+    }
+    else {
+      browserHistory.push('/directory/category/' + element.value);
+    }
   }
 
 
@@ -87,21 +90,21 @@ class TrainersList extends React.Component {
     ];
 
     var categorySelectValues = [
-      { value: 'health_fitness_centre',     label: 'Health Fitness Centre',     clearableValue: false },
-      { value: 'personal_training',         label: 'Personal Training',         clearableValue: false },
-      { value: 'martial_arts',              label: 'Martial Arts',              clearableValue: false },
-      { value: 'wellbeing_centre',          label: 'Wellbeing Centre',          clearableValue: false },
-      { value: 'yoga',                      label: 'Yoga',                      clearableValue: false },
-      { value: 'exercise_equipment',        label: 'Exercise Equipment',        clearableValue: false },
-      { value: 'massage_therapy',           label: 'Massage Therapy',           clearableValue: false },
-      { value: 'holistic_health',           label: 'Holistic Health',           clearableValue: false },
-      { value: 'corporate_health_fitness',  label: 'Corporate Health Fitness',  clearableValue: false },
-      { value: 'pilates',                   label: 'Pilates',                   clearableValue: false },
-      { value: 'nutritional_supplements',   label: 'Nutritional Supplements',   clearableValue: false },
-      { value: 'life_coaching',             label: 'Life Coaching',             clearableValue: false },
-      { value: 'weight_Loss',               label: 'Weight Loss',               clearableValue: false },
-      { value: 'employment_and_careers',    label: 'Employment and Careers',    clearableValue: false },
-      { value: 'group_health_fitness',      label: 'Group Health Fitness',      clearableValue: false }
+      { value: 'Health Fitness Centre',     label: 'Health Fitness Centre',     clearableValue: false },
+      { value: 'Personal Training',         label: 'Personal Training',         clearableValue: false },
+      { value: 'Martial Arts',              label: 'Martial Arts',              clearableValue: false },
+      { value: 'Wellbeing Centre',          label: 'Wellbeing Centre',          clearableValue: false },
+      { value: 'Yoga',                      label: 'Yoga',                      clearableValue: false },
+      { value: 'Exercise Equipment',        label: 'Exercise Equipment',        clearableValue: false },
+      { value: 'Massage Therapy',           label: 'Massage Therapy',           clearableValue: false },
+      { value: 'Holistic Health',           label: 'Holistic Health',           clearableValue: false },
+      { value: 'Corporate Health Fitness',  label: 'Corporate Health Fitness',  clearableValue: false },
+      { value: 'Pilates',                   label: 'Pilates',                   clearableValue: false },
+      { value: 'Nutritional Supplements',   label: 'Nutritional Supplements',   clearableValue: false },
+      { value: 'Life Coaching',             label: 'Life Coaching',             clearableValue: false },
+      { value: 'Weight Loss',               label: 'Weight Loss',               clearableValue: false },
+      { value: 'Employment and Careers',    label: 'Employment and Careers',    clearableValue: false },
+      { value: 'Group Health Fitness',      label: 'Group Health Fitness',      clearableValue: false }
     ];
 
     var Select = require('react-select');
@@ -132,7 +135,7 @@ class TrainersList extends React.Component {
             <div>
               <Select
                 name="category"
-                value={this.state.categoryTerm}
+                value={this.props.category}
                 options={categorySelectValues}
                 onChange={this.handleCategoryChange.bind(this)}
               />
