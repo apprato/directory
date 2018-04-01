@@ -190,9 +190,69 @@ export const removeTrainerEmployment = new ValidatedMethod({
 
 
 Meteor.methods({
+
   getTrainersCount() {
     return Trainers.find().count();
   },
+
+
+  getTrainersCountList(skipCount, _search, _category, trainersPerPage) {
+    check(skipCount, Match.Maybe(Number, null, undefined));
+    check(_search, Match.Maybe(String, null, undefined));
+    check(_category, Match.Maybe(String, null, undefined));
+    check(trainersPerPage, Match.Maybe(Number, null, undefined));
+
+    if (_category) {
+      const query = {
+        $and: [
+          {
+            category: _category
+          },
+        ],
+      };
+      // query, projection
+      var trainersQuery = Trainers.find(
+        {
+          category: _category
+        },
+        {
+          limit: trainersPerPage,
+          skip: skipCount,
+        }
+      );
+    }
+    else if (_search) {
+      const regex = new RegExp(_search, 'i');
+      const query = {
+        $or: [
+          {businessName: regex},
+          {overview: regex},
+        ],
+      };
+      // query, projection
+      var trainersQuery = Trainers.find(
+        query,
+        {
+          limit: trainersPerPage,
+          skip: skipCount,
+        }
+      );
+    }
+    else {
+      const query = {};
+      var trainersQuery = Trainers.find(
+        query,
+        {
+          limit: trainersPerPage,
+          skip: skipCount,
+        }
+      );
+    }
+
+    return trainersQuery.count();
+  },
+
+
   getTrainersAreaCount() {
     const query = {
       $and: [
@@ -203,8 +263,6 @@ Meteor.methods({
     };
     return Trainers.find(query).count();
   },
-
-
 
 
 });

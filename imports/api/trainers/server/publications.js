@@ -23,6 +23,75 @@ Meteor.publish('trainers.list', (skipCount, _id) => {
 });
 
 
+/*
+ * Directory (Trainers Page) - directory/*, directory/search/*, directory/category/&
+ *
+ * @param skipCount
+ * @param _search
+ * @param _category
+ * @param trainersPerPage
+ * @return trainersQuery
+ */
+Meteor.publish('trainers.list.filter', (skipCount, _search, _category, trainersPerPage) => {
+
+  check(skipCount, Match.Maybe(Number, null, undefined));
+  check(_search, Match.Maybe(String, null, undefined));
+  check(_category, Match.Maybe(String, null, undefined));
+  check(trainersPerPage, Match.Maybe(Number, null, undefined));
+
+  if (_category) {
+    const query = {
+      $and: [
+        {
+          category: _category
+        },
+      ],
+    };
+    // query, projection
+    var trainersQuery = Trainers.find(
+      {
+        category: _category
+      },
+      {
+        limit: trainersPerPage,
+        skip: skipCount,
+      }
+    );
+  }
+  else if (_search) {
+    const regex = new RegExp(_search, 'i');
+    const query = {
+      $or: [
+        {businessName: regex},
+        {overview: regex},
+      ],
+    };
+    // query, projection
+    var trainersQuery = Trainers.find(
+      query,
+      {
+        limit: trainersPerPage,
+        skip: skipCount,
+      }
+    );
+  }
+  else {
+    const query = {};
+    var trainersQuery = Trainers.find(
+      query,
+      {
+        limit: trainersPerPage,
+        skip: skipCount,
+      }
+    );
+  }
+
+  return trainersQuery;
+
+});
+
+
+
 Meteor.publish('trainers.list.area', (skipCount, _id, area) => {
 
   check(area, String);

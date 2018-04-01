@@ -1,7 +1,9 @@
 import React from 'react';
-import {browserHistory, Router, Route} from 'react-router';
-import {Alert, Row, Col, Panel, FormControl, Image} from 'react-bootstrap';
+import {browserHistory, Router, Route, MenuItem  } from 'react-router';
+import {Alert, Row, Col, Panel, FormControl, Image, ButtonToolbar, Button} from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 
 const handleNavigation = (_id) => {
@@ -16,10 +18,12 @@ class TrainersList extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {searchTerm: null};
-    //this.initialpage = this.props.params._id;
+    this.state = {
+      searchTerm: null,
+      stateTerm: null,
+    };
+
     this.handleSearch = this.handleSearch.bind(this);
-    console.log(this.props.area);
   }
 
   handleSearch(event) {
@@ -28,16 +32,34 @@ class TrainersList extends React.Component {
     this.props.searchQuery.set(searchTerm);
   }
 
+  handleSearchClick(event) {
+
+    console.log(this.getState({}));
+    console.log('this.state.stateTerm' + this.state.stateTerm);
+    console.log('this.state.searchTerm' + this.state.searchTerm);
+
+    //const searchTerm = event.target.value;
+    //this.setState({searchTerm});
+    //this.props.searchQuery.set(searchTerm);
+  }
+
   handlePageClick(data) {
     let selected = Number(data.selected + 1);
     handleNavigationPager(selected)
-    /*
-     let offset = Math.ceil(selected * this.props.perPage);
+  }
 
-     this.setState({offset: offset}, () => {
-     this.loadCommentsFromServer();
-     });
-     */
+  handleStateChange (element) {
+    if(element===null || element.value===undefined || element.value===false)
+      this.setState({stateTerm: null});
+    else
+      this.setState({stateTerm: element.value});
+  }
+
+  handleCategoryChange (element) {
+    if(element===null || element.value===undefined || element.value===false)
+      this.setState({categoryTerm: null});
+    else
+      this.setState({categoryTerm: element.value});
   }
 
 
@@ -46,7 +68,6 @@ class TrainersList extends React.Component {
     // Listing based switch
     const area = this.props.area;
     const page = this.props.page
-    console.log('areaaaaa: ' + area);
     var category = this.props.category;
     var search = this.props.search;
 
@@ -54,37 +75,77 @@ class TrainersList extends React.Component {
       var hrefBuilder = '/directory/area/' + area + '/page/' + this.props.skipCount;
     }
 
+    var stateSelectValues = [
+      { value: 'ACT',  label: 'Australian Capital Territory', clearableValue: false },
+      { value: 'NSW',  label: 'New South Wales',              clearableValue: false },
+      { value: 'NT',   label: 'Northern Territory',           clearableValue: false },
+      { value: 'QLD',  label: 'Queensland',                   clearableValue: false },
+      { value: 'SA',   label: 'South Australia',              clearableValue: false },
+      { value: 'TAS',  label: 'Tasmania',                     clearableValue: false },
+      { value: 'VIC',  label: 'Victoria',                     clearableValue: false },
+      { value: 'WA',   label: 'Western Australia',            clearableValue: false }
+    ];
+
+    var categorySelectValues = [
+      { value: 'health_fitness_centre',     label: 'Health Fitness Centre',     clearableValue: false },
+      { value: 'personal_training',         label: 'Personal Training',         clearableValue: false },
+      { value: 'martial_arts',              label: 'Martial Arts',              clearableValue: false },
+      { value: 'wellbeing_centre',          label: 'Wellbeing Centre',          clearableValue: false },
+      { value: 'yoga',                      label: 'Yoga',                      clearableValue: false },
+      { value: 'exercise_equipment',        label: 'Exercise Equipment',        clearableValue: false },
+      { value: 'massage_therapy',           label: 'Massage Therapy',           clearableValue: false },
+      { value: 'holistic_health',           label: 'Holistic Health',           clearableValue: false },
+      { value: 'corporate_health_fitness',  label: 'Corporate Health Fitness',  clearableValue: false },
+      { value: 'pilates',                   label: 'Pilates',                   clearableValue: false },
+      { value: 'nutritional_supplements',   label: 'Nutritional Supplements',   clearableValue: false },
+      { value: 'life_coaching',             label: 'Life Coaching',             clearableValue: false },
+      { value: 'weight_Loss',               label: 'Weight Loss',               clearableValue: false },
+      { value: 'employment_and_careers',    label: 'Employment and Careers',    clearableValue: false },
+      { value: 'group_health_fitness',      label: 'Group Health Fitness',      clearableValue: false }
+    ];
+
+    var Select = require('react-select');
 
     return (<div className="Trainers">
       <div className="TrainerSearch">
         <Row>
-          <Col xs={ 12 } sm={ 8 }>
-          <i className="fa fa-search"/>
-          <FormControl
-            type="search"
-            onKeyUp={ this.handleSearch }
-            placeholder="Find Health & Fitness"
-            className="Search"
-          />
-          </Col>
           <Col xs={ 12 } sm={ 4 }>
+            <i className="fa fa-search"/>
             <FormControl
-              componentClass="select"
-              placeholder="select"
-              ref="state"
-              name="state"
-            >
-              <option value="">State</option>
-              <option value="ACT" title="Australian Capital Territory">Australian Capital Territory</option>
-              <option value="NSW" title="New South Wales">New South Wales</option>
-              <option value="VIC" title="Northern Territory">Northern Territory</option>
-              <option value="QLD" title="Queensland">Queensland</option>
-              <option value="SA" title="South Australia">South Australia</option>
-              <option value="TAS" title="Tasmania">Tasmania</option>
-              <option value="VICc" title="Victoria">Victoria</option>
-              <option value="WA" title="Western Australia">Western Australia</option>
-            </FormControl>
-
+              type="search"
+              onKeyUp={ this.handleSearch }
+              placeholder="Find Health & Fitness"
+              className="Search"
+            />
+          </Col>
+          <Col xs={ 12 } sm={ 3 }>
+            <div>
+              <Select
+                name="state"
+                value={this.state.stateTerm}
+                options={stateSelectValues}
+                onChange={this.handleStateChange.bind(this)}
+              />
+            </div>
+          </Col>
+          <Col xs={ 12 } sm={ 3 }>
+            <div>
+              <Select
+                name="category"
+                value={this.state.categoryTerm}
+                options={categorySelectValues}
+                onChange={this.handleCategoryChange.bind(this)}
+              />
+            </div>
+          </Col>
+          <Col xs={ 12 } sm={ 2 }>
+            <ButtonToolbar>
+              <Button
+                bsStyle="primary"
+                bsSize="large"
+                onClick={this.handleSearchClick}
+                active> SEARCH </Button>
+            </ButtonToolbar>
           </Col>
         </Row>
       </div>
@@ -101,7 +162,7 @@ class TrainersList extends React.Component {
               </Col>
               <Col xs={ 12 } sm={ 2 }>
                 <p>{ state } > { suburb }</p>
-                {logo ? <Image src={ '/' + 'logos' + '/' + logo } alt={ businessName } responsive /> : ''}
+                {logo ? <Image src={ '/' + 'logos' + '/' + logo } alt={ businessName } responsive/> : ''}
               </Col>
             </Row>
           </Panel>
@@ -113,8 +174,8 @@ class TrainersList extends React.Component {
             marginPagesDisplayed={3}
             previousLabel={"<"}
             nextLabel={">"}
-            pageNum={this.props.currentPage-1}
-            initialPage={this.props.currentPage-1}
+            pageNum={this.props.currentPage - 1}
+            initialPage={this.props.currentPage - 1}
             hrefBuilder={(page) => hrefBuilder + page }
             onPageChange={this.handlePageClick}
             containerClassName={"pagination"}

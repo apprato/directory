@@ -1,6 +1,17 @@
 .navbar-default .navbar-nav > li > a.active,
 .navbar-default .navbar-nav > li > a.active:focus,
 .navbar-default .navbar-nav > li > a.active:hover {
-  color: #555;
+  /*color: #555; */
   background-color: #e7e7e7;
+}
+.Select-placeholder, .Select--single > .Select-control .Select-value {
+  padding-top: 10px;
+}
+.Select-control {
+  height: 54px!important;
+}
+
+.btn-toolbar>.btn, .btn-toolbar>.btn-group, .btn-toolbar>.input-group {
+  height: 54px;
+  width: 100%;
 }
