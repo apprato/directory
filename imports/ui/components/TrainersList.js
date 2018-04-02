@@ -12,13 +12,13 @@ const handleNavigation = (_id) => {
 
 const handleNavigationPager = (selected, filterSearch, filterCategory,) => {
   if (filterCategory) {
-    browserHistory.push('/jobs/category/' + filterCategory + '/page/' + selected);
+    browserHistory.push('/directory/category/' + filterCategory + '/page/' + selected);
   }
   else if (filterSearch) {
-    browserHistory.push('/jobs/search/' + filterSearch + '/page/' + selected);
+    browserHistory.push('/directory/search/' + filterSearch + '/page/' + selected);
   }
   else {
-    browserHistory.push('/jobs/page/' + selected);
+    browserHistory.push('/directory/page/' + selected);
   }
 }
 
@@ -26,6 +26,7 @@ class TrainersList extends React.Component {
 
   constructor(props) {
     super(props);
+    this.handleSearchEnter = this.handleSearchEnter.bind(this);
     this.state = {
       searchTerm: null,
       stateTerm: null,
@@ -39,6 +40,13 @@ class TrainersList extends React.Component {
     this.setState({searchTerm});
     this.props.searchQuery.set(searchTerm);
   }
+
+  handleSearchEnter(event) {
+    if (event.key === 'Enter') {
+      browserHistory.push('/directory/search/' + event.target.value );
+    }
+  }
+
 
   handleSearchClick(event) {
 
@@ -116,22 +124,15 @@ class TrainersList extends React.Component {
             <i className="fa fa-search"/>
             <FormControl
               type="search"
-              onKeyUp={ this.handleSearch }
+              onKeyPress={ this.handleSearchEnter}
+              onClick={ this.handleSearchClick }
               placeholder="Find Health & Fitness"
               className="Search"
             />
           </Col>
-          <Col xs={ 12 } sm={ 3 }>
-            <div>
-              <Select
-                name="state"
-                value={this.state.stateTerm}
-                options={stateSelectValues}
-                onChange={this.handleStateChange.bind(this)}
-              />
-            </div>
+          <Col xs={ 12 } sm={ 4 }>
           </Col>
-          <Col xs={ 12 } sm={ 3 }>
+          <Col xs={ 12 } sm={ 4 }>
             <div>
               <Select
                 name="category"
@@ -140,15 +141,6 @@ class TrainersList extends React.Component {
                 onChange={this.handleCategoryChange.bind(this)}
               />
             </div>
-          </Col>
-          <Col xs={ 12 } sm={ 2 }>
-            <ButtonToolbar>
-              <Button
-                bsStyle="primary"
-                bsSize="large"
-                onClick={this.handleSearchClick}
-                active> SEARCH </Button>
-            </ButtonToolbar>
           </Col>
         </Row>
       </div>

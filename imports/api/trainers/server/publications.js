@@ -64,6 +64,17 @@ Meteor.publish('trainers.list.filter', (skipCount, _search, _category, trainersP
       $or: [
         {businessName: regex},
         {overview: regex},
+/*
+        {address1: regex},
+        {address2: regex},
+        {city: regex},
+        {state: regex},
+        {suburb: regex},
+        {postCode: regex},
+        {website: regex},
+        {email1: regex},
+        {email2: regex}
+        */
       ],
     };
     // query, projection
