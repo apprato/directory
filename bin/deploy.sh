@@ -35,14 +35,14 @@ installDeployLibraries () {
 }
 
 setupStaging() {
-  cd /home/ubuntu/healthfitness.com.au/.deploy
-  mup --config mup.js --settings settings-staging.json  setup
-  mup --config mup.js --settings settings-staging.json deploy
+  cd /home/ubuntu/healthfitness/.deploy
+  DEBUG=* mup --config mup.js --settings settings-staging.json  setup
 }
 
 deployStaging() {
-  cd /home/ubuntu/healthfitness.com.au/.deploy
-  mup --config mup.js --settings settings-staging.json deploy
+  cd /home/ubuntu/healthfitness/.deploy
+  DEBUG=* mup --config mup.js --settings settings-staging.json start
+  DEBUG=* mup --config mup.js --settings settings-staging.json deploy
 }
 
 case "$1" in
@@ -78,11 +78,11 @@ OPTIONS
 
 EXAMPLES
 sh bin/deploy.sh staging install installDeployLibraries
-cd /home/ubuntu/findatrainer/.deploy
--> Setup Stagin
-sh /home/ubuntu/findatrainer/bin/deploy.sh setupStaging
+cd /home/ubuntu/healthfitness/.deploy
+-> Setup Staging
+sh /home/ubuntu/healthfitness/bin/deploy.sh setupStaging
 -> Deploy Staging
-sh /home/ubuntu/findatrainer/bin/deploy.sh deployStaging
+sh /home/ubuntu/healthfitness/bin/deploy.sh deployStaging
 
 NOTES
 With installing sometimes it gets stuck on the target
