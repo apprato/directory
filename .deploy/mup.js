@@ -2,7 +2,7 @@ module.exports = {
   servers: {
     one: {
       // TODO: set host address, username, and authentication method
-      host: '54.252.236.93',
+      host: '52.62.142.115',
       username: "ubuntu",
       pem: "~/.ssh/aws/healthfitness1.pem"
       // pem: './path/to/pem'

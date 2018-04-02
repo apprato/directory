@@ -61,16 +61,14 @@ class TrainersList extends React.Component {
     if(element===null || element.value===undefined || element.value===false)
       this.setState({stateTerm: null});
     else
-      this.setState({stateTerm: element.value});
+      browserHistory.push('/directory/state/' + element.value);
   }
 
   handleCategoryChange (element) {
-    if(element===null || element.value===undefined || element.value===false) {
+    if(element===null || element.value===undefined || element.value===false)
       this.setState({categoryTerm: null});
-    }
-    else {
+    else
       browserHistory.push('/directory/category/' + element.value);
-    }
   }
 
 
@@ -126,11 +124,12 @@ class TrainersList extends React.Component {
               type="search"
               onKeyPress={ this.handleSearchEnter}
               onClick={ this.handleSearchClick }
-              placeholder="Find Health & Fitness"
+              placeholder="Search business name"
               className="Search"
             />
           </Col>
           <Col xs={ 12 } sm={ 4 }>
+
           </Col>
           <Col xs={ 12 } sm={ 4 }>
             <div>
@@ -177,6 +176,8 @@ class TrainersList extends React.Component {
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
             disableInitialCallback="false"
+            filterSearch={this.props.search}
+            filterCategory={this.props.category}
           />
         </Row>
       </div>
