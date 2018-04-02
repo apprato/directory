@@ -3,48 +3,133 @@ import {check} from 'meteor/check';
 import Trainers from '../trainers';
 import {publishCount} from 'meteor/fuww:publish-count';
 
-Meteor.publish('trainers.list', (_id) => {
 
+Meteor.publish('trainers.list', (skipCount, _id) => {
+
+  check(skipCount, Number);
   check(_id, Number);
-  const query = {};
 
+  const query = {};
   const trainersTotal = Trainers.find().count();
-  var trainersQuery = Trainers.find
-  (
+  var trainersQuery = Trainers.find(
     query,
     {
-      //fields: ,
-      skip: _id,
-      limit: 10
+      limit: 10,
+      skip: skipCount,
     }
   );
 
   return trainersQuery;
-
-
-
-
-  /*
-  const trainers = Trainers.find();
-  publishCount(
-    this, // publication context
-    trainers, // cursor
-    {
-      ready: true, // should call this.ready()? (default: false)
-      strategy: 'poll', // or 'observe' (default: 'observe')
-      interval: 5000 // polling interval in ms (default: 1000)
-    }
-  );
-
-
-  return trainersQuery;
-  return [ trainersQuery, 33223 ];
-  return [
-    trainersQuery,
-    trainersTotal
-  ]
-  */
 });
+
+
+/*
+ * Directory (Trainers Page) - directory/*, directory/search/*, directory/category/&
+ *
+ * @param skipCount
+ * @param _search
+ * @param _category
+ * @param trainersPerPage
+ * @return trainersQuery
+ */
+Meteor.publish('trainers.list.filter', (skipCount, _search, _category, trainersPerPage) => {
+
+  check(skipCount, Match.Maybe(Number, null, undefined));
+  check(_search, Match.Maybe(String, null, undefined));
+  check(_category, Match.Maybe(String, null, undefined));
+  check(trainersPerPage, Match.Maybe(Number, null, undefined));
+
+  if (_category) {
+    const query = {
+      $and: [
+        {
+          category: _category
+        },
+      ],
+    };
+    // query, projection
+    var trainersQuery = Trainers.find(
+      {
+        category: _category
+      },
+      {
+        limit: trainersPerPage,
+        skip: skipCount,
+      }
+    );
+  }
+  else if (_search) {
+    const regex = new RegExp(_search, 'i');
+    const query = {
+      $or: [
+        {businessName: regex},
+        {overview: regex},
+/*
+        {address1: regex},
+        {address2: regex},
+        {city: regex},
+        {state: regex},
+        {suburb: regex},
+        {postCode: regex},
+        {website: regex},
+        {email1: regex},
+        {email2: regex}
+        */
+      ],
+    };
+    // query, projection
+    var trainersQuery = Trainers.find(
+      query,
+      {
+        limit: trainersPerPage,
+        skip: skipCount,
+      }
+    );
+  }
+  else {
+    const query = {};
+    var trainersQuery = Trainers.find(
+      query,
+      {
+        limit: trainersPerPage,
+        skip: skipCount,
+      }
+    );
+  }
+
+  return trainersQuery;
+
+});
+
+
+
+Meteor.publish('trainers.list.area', (skipCount, _id, area) => {
+
+  check(area, String);
+  check(skipCount, Number);
+  check(_id, Number);
+
+  const query = {
+    $and: [
+      {
+        state: area.toUpperCase()
+      },
+    ],
+  };
+  // query, projection
+  const trainersTotal = Trainers.find().count();
+  var trainersQuery = Trainers.find(
+    query,
+    {
+      limit: 10,
+      skip: skipCount,
+    }
+  );
+
+  return trainersQuery;
+
+});
+
 
 Meteor.publish('trainers.edit', () => Trainers.find());
 Meteor.publish('trainers.edit.experience', () => Trainers.find());
@@ -78,4 +163,3 @@ Meteor.publish('trainers.search', (searchTerm) => {
 
   return Clients.find(query, projection);
 });
-

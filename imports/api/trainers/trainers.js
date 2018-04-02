@@ -160,6 +160,11 @@ Trainers.schema = new SimpleSchema({
     label: 'The phone number of the document.',
     optional: true
   },
+  logo: {
+    type: String,
+    label: 'The logo of the listing.',
+    optional: true
+  },
   website: {
     type: String,
     label: 'The phone number of the document.',

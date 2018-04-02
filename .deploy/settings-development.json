@@ -1,5 +1,5 @@
 {
-  "environment": "staging",
+  "environment": "development",
   "public": {
     "googleAnalytics" : {
       "account":"UA-XXXXXXX-1"

@@ -7,14 +7,25 @@ import Loading from '../components/Loading.js';
 const searchQuery = new ReactiveVar(null);
 
 const composer = ({ params }, onData) => {
-  // Get total count
-  Meteor.apply('getTrainersCount', [], true, function(err, result){  Session.set('trainerCount', result); console.log(result) });
-  const pageCount = Session.get('trainerCount') - 1;
 
-  const subscription = Meteor.subscribe('trainers.list', Number(params._id));
+  // Fliters
+  const trainersPerPage = 3;
+  const currentPage = parseInt(params._id) || 1;
+  const skipCount = ( currentPage - 1)   * trainersPerPage;
+  const pageCount = Math.ceil(Session.get('trainerCount') / trainersPerPage);
+  const category = params._category;
+  const search = params._search;
+
+  // Get jobs total count (/directory, /directory/category, /directory/category/search
+  Meteor.apply('getTrainersCountList',[skipCount, search, category, trainersPerPage],true,function(err,result){
+    Session.set('trainerCount', result);
+  });
+  var subscription = Meteor.subscribe('trainers.list.filter', skipCount, search, params._category, trainersPerPage);
+
   if (subscription.ready()) {
     const trainers = Trainers.find().fetch(); // Converts MongoDB data into an array rather than cursor
-    onData(null, { trainers, searchQuery, pageCount });
+    onData(null, { trainers, search, category, pageCount, currentPage }); // Props to pass to JobsList component
+
   }
 };
 

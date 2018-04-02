@@ -107,7 +107,7 @@ export default class TrainerExperienceEditor extends React.Component {
           </Col>
         </Row>
         <Button type="submit" bsStyle="success">
-          { doc && doc._id ? 'Update Training Experience' : 'Save Training Experience' }
+          { doc && doc._id ? 'Update Profile Categorisation' : 'Update Profile Categorisation' }
         </Button>
       </form>
     );
