@@ -15,6 +15,7 @@ const composer = ({ params }, onData) => {
   const pageCount = Math.ceil(Session.get('trainerCount') / trainersPerPage);
   const category = params._category;
   const search = params._search;
+  const state = params._state;
 
   // Get jobs total count (/directory, /directory/category, /directory/category/search
   Meteor.apply('getTrainersCountList',[skipCount, search, category, trainersPerPage],true,function(err,result){
@@ -24,7 +25,7 @@ const composer = ({ params }, onData) => {
 
   if (subscription.ready()) {
     const trainers = Trainers.find().fetch(); // Converts MongoDB data into an array rather than cursor
-    onData(null, { trainers, search, category, pageCount, currentPage }); // Props to pass to JobsList component
+    onData(null, { trainers, search, category, state, pageCount, currentPage }); // Props to pass to JobsList component
 
   }
 };
