@@ -8,6 +8,9 @@ const handleEdit = (_id) => {
   browserHistory.push(`/documents/${_id}/edit`);
 }
 
+import RawHtml from "react-raw-html";
+
+
 const handleRemove = (_id) => {
   if (confirm('Are you sure? This is permanent!')) {
     removeDocument.call({ _id }, (error) => {
@@ -32,7 +35,9 @@ const ViewDocument = ({ doc }) => (
         </ButtonGroup>
       </ButtonToolbar>
     </div>
-    { doc && doc.body }
+    <div>
+      <RawHtml.div>{doc && doc.body}</RawHtml.div>;
+    </div>
   </div>
 );
 

@@ -12,7 +12,8 @@ const handleUpsert = () => {
   const confirmation = doc && doc._id ? 'Document updated!' : 'Document added!';
   const upsert = {
     title: document.querySelector('[name="title"]').value.trim(),
-    body: document.querySelector('[name="body"]').value.trim(),
+    //body: document.querySelector('[name="body"]').value.trim(),
+    body: component.description.model,
   };
 
   if (doc && doc._id) upsert._id = doc._id;

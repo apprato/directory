@@ -21,7 +21,6 @@ import FroalaEditor from 'react-froala-wysiwyg';
 // import FroalaEditorButton from 'react-froala-wysiwyg/FroalaEditorButton';
 // import FroalaEditorImg from 'react-froala-wysiwyg/FroalaEditorImg';
 // import FroalaEditorInput from 'react-froala-wysiwyg/FroalaEditorInput';
-
 // Render Froala Editor component.
 
 import {
@@ -42,7 +41,7 @@ import TrainerEmploymentList from '../containers/TrainerEmploymentList.js';
 export default class TrainerProfileEditor extends React.Component {
 
 
-    handleModelChange(model) {
+  handleModelChange(model) {
     this.description.model = model;
   }
 
@@ -58,8 +57,30 @@ export default class TrainerProfileEditor extends React.Component {
       model: ''
     };
     this.config = {
-      placeholderText: 'Edit Your Content Here!',
-      charCounterCount: false
+      charCounterCount: true,
+      codeBeautifierOptions: {
+        end_with_newline: true,
+        indent_inner_html: true,
+        extra_liners: "['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'pre', 'ul', 'ol', 'table', 'dl']",
+        brace_style: 'expand',
+        indent_char: ' ',
+        indent_size: 4,
+        wrap_line_length: 0
+      },
+      fontFamily: {
+        //'Arial,Helvetica,sans-serif': 'Font 1',
+        //'Impact,Charcoal,sans-serif': 'Font 2',
+      },
+      blockTags: {
+        n: 'Normal',
+        h1: 'Heading 1',
+        h2: 'Heading 2',
+        h3: 'Heading 3'
+      },
+      toolbarButtons: [
+        'bold', 'italic', 'underline', 'paragraphFormat', 'formatOL',
+        'formatUL', 'insertHTML', 'undo', 'redo', 'html'
+      ]
     }
 
     component.state = {
@@ -69,9 +90,6 @@ export default class TrainerProfileEditor extends React.Component {
       modalForm: null,
       modalBody: null,
       modalFooter: null,
-      description:  {
-        model: ''
-      }
     };
 
     component.modal = {
@@ -118,9 +136,7 @@ export default class TrainerProfileEditor extends React.Component {
 
   /* Form Render */
   render() {
-
-    console.log(doc && doc.overview);
-
+    console.log(this.config);
     const {doc} = this.props;
     const {
       modalShow,
@@ -170,10 +186,10 @@ export default class TrainerProfileEditor extends React.Component {
                 ref="overview"
                 name="overview"
                 placeholder=""
-                //defaultValue={ doc && doc.overview }
                 tag='textarea'
                 model={doc.overview}
                 onModelChange={this.handleModelChange}
+                config={this.config}
               />
             </FormGroup>
           </Col>

@@ -10,7 +10,6 @@ let component;
 const handleUpsert = () => {
   const { trainer } = component.props;
   const confirmation = trainer && trainer._id ? 'Trainer Profile updated!' : 'Business Listing Added!';
-  console.log(component.description.model);
 
   const upsert = {
     businessName: document.querySelector('[name="businessName"]').value,
@@ -23,7 +22,6 @@ const handleUpsert = () => {
     postCode: document.querySelector('[name="postCode"]').value,
     phoneNumber: document.querySelector('[name="phoneNumber"]').value,
   };
-  console.log(document.querySelector(".fr-view").innerHTML);
 
   if (trainer && trainer._id) upsert._id = trainer._id;
 
