@@ -44,6 +44,7 @@ fastclick@1.0.13
 fortawesome:fontawesome@4.7.0
 fourseven:scss@3.10.1
 froala:editor@2.8.0
+fuww:google-tag-manager@0.0.1
 fuww:publish-count@0.0.1
 geojson-utils@1.0.10
 hot-code-push@1.0.4
