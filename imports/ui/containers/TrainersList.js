@@ -9,7 +9,7 @@ const searchQuery = new ReactiveVar(null);
 const composer = ({ params }, onData) => {
 
   // Fliters
-  const trainersPerPage = 3;
+  const trainersPerPage = 10;
   const currentPage = parseInt(params._id) || 1;
   const skipCount = ( currentPage - 1)   * trainersPerPage;
   const pageCount = Math.ceil(Session.get('trainerCount') / trainersPerPage);

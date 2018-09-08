@@ -16,4 +16,9 @@
   width: 100%;
 }
 .navbar-default {background-color: #FFFFFF!important; }
+.navbar-default .navbar-nav li a { color: #3366FF!important; }
+.navbar-default { border-bottom: 3px solid #3366FF!important; }
+.navbar-default .navbar-nav .active a, .navbar-default .navbar-nav .active a:focus, .navbar-default .navbar-nav .active a:hover { background-color: #3366FF!important;; color: #FFFFFF!important; }
+
 .navbar { -webkit-box-shadow: none; }
+

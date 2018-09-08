@@ -176,7 +176,7 @@ class TrainersList extends React.Component {
           <ReactPaginate
             pageCount={this.props.pageCount}
             pageRangeDisplayed={1}
-            marginPagesDisplayed={3}
+            marginPagesDisplayed={10}
             previousLabel={"<"}
             nextLabel={">"}
             pageNum={this.props.currentPage - 1}

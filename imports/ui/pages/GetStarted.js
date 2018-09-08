@@ -8,7 +8,6 @@ const Index = () => (
     </Row>
     <Row>
       <Col xs={ 12 } sm={ 12 } md={ 12 }>
-        <h2>Add your listing</h2>
         <p>Join the growing number of heatlh experts australia wide and<br />fill in our simple sign up and get your listing online now</p>
         <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
         <a class="btn" href="/signup/trainer"><p><Button type="submit" bsStyle="success">Get Started</Button></p></a>
