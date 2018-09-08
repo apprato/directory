@@ -10,7 +10,7 @@ const AppNavigation = ({ hasUser }) => (
   <Navbar fixedTop>
     <Navbar.Header>
       <Navbar.Brand>
-        <Link to="/">HealthFitness</Link>
+        <Link to="/"><img src="/healthfitness.png" /></Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>

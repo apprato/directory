@@ -63,6 +63,7 @@ Meteor.startup(() => {
         <Route name="trainers" path="/directory/category/:_category/state/:_state/page/:_id" component={ Trainers } />
 
         <Route name="trainers" path="/directory/search/:_search" component={ Trainers } />
+        <Route name="trainers" path="/directory/search/:_search/page/:id  " component={ Trainers } />
         <Route name="trainers" path="/directory/search/:_search/category/:_category" component={ Trainers } />
         <Route name="trainers" path="/directory/search/:_search/category/:_category/page/:id" component={ Trainers } />
         <Route name="listTrainersPagination" path="/directory/page/:_id" component={ Trainers } />

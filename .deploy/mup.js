@@ -1,7 +1,7 @@
 module.exports = {
   servers: {
     one: {
-      host: '52.62.142.115',
+      host: '13.238.245.84',
       username: "ubuntu",
       pem: "~/.ssh/aws/healthfitness1.pem"
       // pem:

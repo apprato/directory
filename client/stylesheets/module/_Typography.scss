@@ -1,3 +1,8 @@
-h1, h2, h3, h4, h5 p {  margin-bottom: 1.0em!important;   }
-h3, p, button {  margin-bottom: 1.5em!important; }
-
+h1, h2, h3, h4, h5 p {  margin-bottom: 1.0em!important; color: #3366FF!important; }
+h3, p, button {  margin-bottom: 1.5em!important; color: #3366FF; }
+.navbar-default .navbar-nav li a { color: #3366FF!important; }
+body { color: #3366FF!important; }
+.navbar-default { border-bottom: 1px solid #3366FF!important; }
+.btn { background-color: #3366FF!important; }
+.btn:hover { background-color: #3366FF!important; }
+.jumbotron { background-color: #FFFFFF!important; }
