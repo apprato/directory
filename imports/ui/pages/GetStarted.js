@@ -1,18 +1,13 @@
 import React from 'react';
-import { Row, Col, Button, Glyphicon } from 'react-bootstrap';
+import { Row, Col, Button, Glyphicon, Jumbotron } from 'react-bootstrap';
 
 const Index = () => (
   <div className="GetStarted">
-    <Row>
-      <h1>Create your Health & Fitness Business Listing</h1>
-    </Row>
-    <Row>
-      <Col xs={ 12 } sm={ 12 } md={ 12 }>
-        <p>Join the growing number of heatlh experts australia wide and<br />fill in our simple sign up and get your listing online now</p>
-        <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
-        <a class="btn" href="/signup/trainer"><p><Button type="submit" bsStyle="success">Get Started</Button></p></a>
-      </Col>
-    </Row>
+    <Jumbotron className="text-center">
+      <h2>Create your Health & Fitness Business Listing</h2>
+      <p>Join the growing number of heatlh experts australia wide and<br />fill in our simple sign up and get your listing online now</p>
+      <p><a className="btn btn-success" href="/signup/trainer" role="button">Get Started</a></p>
+    </Jumbotron>
   </div>
 );
 

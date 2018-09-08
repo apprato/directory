@@ -74,6 +74,7 @@ class TrainersList extends React.Component {
 
 
   render() {
+    window.scrollTo(0, 0)
     const {trainers} = this.props;
     // Listing based switch
     const area = this.props.area;
