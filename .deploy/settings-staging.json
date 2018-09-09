@@ -1,10 +1,9 @@
 {
   "environment": "staging",
   "public": {
-    "googleAnalytics" : {
-      "account":"UA-XXXXXXX-1"
+    "googleAnalytics": {
+      "account": "UA-XXXXXXX-1"
     }
   },
-  "private": {
-  }
+  "private": {}
 }
