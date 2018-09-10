@@ -1,27 +1,34 @@
-import React from 'react';
-import { Navbar } from 'react-bootstrap';
-import { Link } from 'react-router';
-import PublicNavigation from './PublicNavigation.js';
-import AuthenticatedNavigation from './AuthenticatedNavigation.js';
+import React from "react";
+import { Navbar } from "react-bootstrap";
+import { Link } from "react-router";
+import PublicNavigation from "./PublicNavigation.js";
+import AuthenticatedNavigation from "./AuthenticatedNavigation.js";
 
-const renderNavigation = hasUser => (hasUser ? <AuthenticatedNavigation /> : <PublicNavigation />);
+const renderNavigation = hasUser =>
+  hasUser ? <AuthenticatedNavigation /> : <PublicNavigation />;
 
 const AppNavigation = ({ hasUser }) => (
   <Navbar fixedTop>
     <Navbar.Header>
       <Navbar.Brand>
-        <Link to="/"><img src="/healthfitness.png" /></Link>
+        <Link to="/">
+          <object
+            data="healthfitness.svg"
+            width="215"
+            height="23"
+            type="image/svg+xml"
+            codebase="http://www.savarese.com/software/svgplugin/"
+          />
+        </Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
-    <Navbar.Collapse>
-      { renderNavigation(hasUser) }
-    </Navbar.Collapse>
+    <Navbar.Collapse>{renderNavigation(hasUser)}</Navbar.Collapse>
   </Navbar>
 );
 
 AppNavigation.propTypes = {
-  hasUser: React.PropTypes.object,
+  hasUser: React.PropTypes.object
 };
 
 export default AppNavigation;

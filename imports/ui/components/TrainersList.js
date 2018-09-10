@@ -187,19 +187,7 @@ class TrainersList extends React.Component {
                 className="Search"
               />
             </Col>
-            <Col xs={12} sm={4}>
-              <div>
-                <Select
-                  name="state"
-                  value={this.props.state}
-                  options={stateSelectValues}
-                  onChange={this.handleStateChange.bind(this)}
-                  filterSearch={this.props.search}
-                  filterCategory={this.props.category}
-                  filterState={this.props.state}
-                />
-              </div>
-            </Col>
+
             <Col xs={12} sm={4}>
               <div>
                 <Select
