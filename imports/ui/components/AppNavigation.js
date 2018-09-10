@@ -15,7 +15,7 @@ const AppNavigation = ({ hasUser }) => (
           <object
             data="healthfitness.svg"
             width="215"
-            height="23"
+            height="25"
             type="image/svg+xml"
             codebase="http://www.savarese.com/software/svgplugin/"
           />
