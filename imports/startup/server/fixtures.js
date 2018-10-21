@@ -70,7 +70,8 @@ if (Meteor.isProduction || Meteor.isDevelopment) {
         break;
     }
 
-    console.log("usersImportFile: " + usersImportFile);
+    console.log("usersImportFile: " + process.env.PWD + "/private/hfc.csv");
+    //usersImportFile = process.env.PWD + "/private/hfc.csv";
 
     const parsedUsersImportFile = Baby.parseFiles(usersImportFile, {
       header: true,
@@ -106,8 +107,8 @@ if (Meteor.isProduction || Meteor.isDevelopment) {
         city: e.City,
         area: e.Area,
         suburb: e.Suburb,
-        phoneNumber: e.Description,
-        phoneNumber2: e.Description,
+        phoneNumber: e.Phone1,
+        phoneNumber2: e.Phone2,
         phoneNumber3: e.Description,
         email: emailAddress,
         email1: emailAddress,
@@ -118,9 +119,10 @@ if (Meteor.isProduction || Meteor.isDevelopment) {
         state: e.State, //@TODO - Standadise
         postCode: e.Zip,
         country: "AU",
-        phoneNumber: e.Area,
+        //phoneNumber: e.Area,
         userid: e.userid
       };
+      console.log(userRow);//
       return userRow;
     });
 
@@ -142,9 +144,9 @@ if (Meteor.isProduction || Meteor.isDevelopment) {
 
         trainerExists = Trainers.findOne({ email1: email });
         delete (directoryListing.id,
-        directoryListing.email,
-        directoryListing.password,
-        directoryListing.roles);
+          directoryListing.email,
+          directoryListing.password,
+          directoryListing.roles);
         if (!trainerExists) {
           Trainers.insert(directoryListing);
           console.log(directoryListing);
