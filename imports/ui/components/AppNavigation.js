@@ -3,6 +3,9 @@ import { Navbar } from "react-bootstrap";
 import { Link } from "react-router";
 import PublicNavigation from "./PublicNavigation.js";
 import AuthenticatedNavigation from "./AuthenticatedNavigation.js";
+import ReactSVG from 'react-svg'
+
+
 
 const renderNavigation = hasUser =>
   hasUser ? <AuthenticatedNavigation /> : <PublicNavigation />;
@@ -12,12 +15,19 @@ const AppNavigation = ({ hasUser }) => (
     <Navbar.Header>
       <Navbar.Brand>
         <Link to="/">
-          <object
-            data="healthfitness.svg"
-            width="215"
-            height="25"
-            type="image/svg+xml"
-            codebase="http://www.savarese.com/software/svgplugin/"
+          <ReactSVG
+            src="/healthfitness.svg"
+            evalScripts="always"
+            onInjected={svg => {
+              console.log('onInjected', svg)
+            }}
+            renumerateIRIElements={false}
+            svgClassName="svg-class-name"
+            svgStyle={{ width: 200 }}
+            className="wrapper-class-name"
+            onClick={() => {
+              console.log('wrapper onClick')
+            }}
           />
         </Link>
       </Navbar.Brand>
