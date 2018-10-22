@@ -4,8 +4,11 @@ import { createContainer } from 'meteor/react-meteor-data';
 import Trainers from '../../api/trainers/trainers.js';
 import TrainersList from '../components/TrainersList.js';
 import Loading from '../components/Loading.js';
+
+// Reactive Vars
 const searchQuery = new ReactiveVar(null);
 const categoryQuery = new ReactiveVar(null);
+const stateQuery = new ReactiveVar(null);
 
 const TrainersListContainer = createContainer((props, params) => {
 
@@ -21,6 +24,7 @@ const TrainersListContainer = createContainer((props, params) => {
     // ReactiveVars
     const search = searchQuery.get();
     const category = categoryQuery.get();
+    const state = stateQuery.get();
 
     // Vars
     const trainersPerPage = 10;
@@ -33,6 +37,7 @@ const TrainersListContainer = createContainer((props, params) => {
         trainers,
         searchQuery,
         categoryQuery,
+        stateQuery,
         Loading
     };
 }, TrainersList);

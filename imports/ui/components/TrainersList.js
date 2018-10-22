@@ -57,7 +57,6 @@ class TrainersList extends React.Component {
   handleSearchChange(event) {
     this.setState({ searchTerm: event.target });
     this.props.searchQuery.set(event.target.value);
-    console.log(this.props.searchQuery.get());
   }
 
   handleSearchEnter(event) {
@@ -72,7 +71,6 @@ class TrainersList extends React.Component {
   }
 
   handleStateChange(element) {
-    console.log(element.filterState);
     if (
       element === null ||
       element.value === undefined ||
@@ -189,7 +187,7 @@ class TrainersList extends React.Component {
       <div className="Trainers">
         <div className="TrainerSearch">
           <Row>
-            <Col xs={12} sm={4}>
+            <Col xs={12} sm={12}>
               <i className="fa fa-search" />
               <FormControl
                 type="search"
@@ -197,15 +195,26 @@ class TrainersList extends React.Component {
                 placeholder="Search business name"
                 className="Search"
               />
+              <br />
             </Col>
 
-            <Col xs={12} sm={4}>
+            <Col xs={12} sm={6}>
               <div>
                 <Select
-                  name="category"
-                  value={this.props.category}
+                  name="Select Category"
+                  value={this.props.categoryQuery.get()}
                   options={categorySelectValues}
                   onChange={this.handleCategoryChange.bind(this)}
+                />
+              </div>
+            </Col>
+            <Col xs={12} sm={6}>
+              <div>
+                <Select
+                  name="Select State"
+                  value={this.props.stateQuery.get()}
+                  options={stateSelectValues}
+                  onChange={this.handleStateChange.bind(this)}
                 />
               </div>
             </Col>
