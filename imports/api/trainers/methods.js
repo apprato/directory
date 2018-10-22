@@ -51,7 +51,7 @@ export const upsertTrainer = new ValidatedMethod({
       idUser: String(Meteor.userId())
     }).fetch();
 
-    userTrainer.every(function(elem) {
+    userTrainer.every(function (elem) {
       if (typeof elem !== "undefined") {
         userFound = true;
         return false;
@@ -87,7 +87,7 @@ export const upsertEducationTrainer = new ValidatedMethod({
       idUser: String(Meteor.userId())
     }).fetch();
 
-    userTrainer.every(function(elem) {
+    userTrainer.every(function (elem) {
       if (typeof elem !== "undefined") {
         userFound = true;
         return false;
@@ -127,7 +127,7 @@ export const upsertEmploymentTrainer = new ValidatedMethod({
       idUser: String(Meteor.userId())
     }).fetch();
 
-    userTrainer.every(function(elem) {
+    userTrainer.every(function (elem) {
       if (typeof elem !== "undefined") {
         userFound = true;
         return false;
@@ -197,10 +197,11 @@ Meteor.methods({
     return Trainers.find().count();
   },
 
-  getTrainersCountList(skipCount, _search, _category, trainersPerPage) {
+  getTrainersCountList(skipCount, _search, _category, _state, trainersPerPage) {
     check(skipCount, Match.Maybe(Number, null, undefined));
     check(_search, Match.Maybe(String, null, undefined));
     check(_category, Match.Maybe(String, null, undefined));
+    check(_state, Match.Maybe(String, null, undefined));
     check(trainersPerPage, Match.Maybe(Number, null, undefined));
 
     if (_category) {

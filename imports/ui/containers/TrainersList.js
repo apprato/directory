@@ -12,14 +12,8 @@ const stateQuery = new ReactiveVar(null);
 
 const TrainersListContainer = createContainer((props, params) => {
 
-    // Get jobs total count (/directory, /directory/category, /directory/category/search
-    Meteor.apply('getTrainersCountList', [skipCount, search, category, trainersPerPage], true, function (err, result) {
-        Session.set('trainerCount', result);
-    });
-
     // Params
     const currentPage = parseInt(props.params._id) || 1;
-    const skipCount = (currentPage - 1) * 5;
 
     // ReactiveVars
     const search = searchQuery.get();
@@ -28,8 +22,15 @@ const TrainersListContainer = createContainer((props, params) => {
 
     // Vars
     const trainersPerPage = 10;
+    const skipCount = (currentPage - 1) * trainersPerPage;
+    const pageCount = Math.ceil(Session.get('trainerCount') / trainersPerPage);
 
-    var subscription = Meteor.subscribe('trainers.list.filter', skipCount, search, category, trainersPerPage);
+    // Get Listing total count (/directory, /directory/category, /directory/category/search
+    Meteor.apply('getTrainersCountList', [skipCount, search, category, state, trainersPerPage], true, function (err, result) {
+        Session.set('trainerCount', result);
+    });
+
+    var subscription = Meteor.subscribe('trainers.list.filter', skipCount, search, category, state, trainersPerPage);
     const trainers = Trainers.find().fetch(); // Converts MongoDB data into an array rather than cursor
 
     return {
@@ -38,6 +39,8 @@ const TrainersListContainer = createContainer((props, params) => {
         searchQuery,
         categoryQuery,
         stateQuery,
+        pageCount,
+        currentPage,
         Loading
     };
 }, TrainersList);

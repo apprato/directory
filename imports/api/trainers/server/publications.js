@@ -28,9 +28,10 @@ Meteor.publish("trainers.list", (skipCount, _id) => {
  */
 Meteor.publish(
   "trainers.list.filter",
-  (skipCount, _search, _category, trainersPerPage) => {
+  (skipCount, _search, _category, _state, trainersPerPage) => {
     check(skipCount, Match.Maybe(Number, null, undefined));
     check(_search, Match.Maybe(String, null, undefined));
+    check(_state, Match.Maybe(String, null, undefined));
     check(_category, Match.Maybe(String, null, undefined));
     check(trainersPerPage, Match.Maybe(Number, null, undefined));
 
@@ -52,7 +53,29 @@ Meteor.publish(
           skip: skipCount
         }
       );
-    } else if (_search) {
+    }
+    else if (_category && _state) {
+      const query = {
+        $and: [
+          {
+            category: _category,
+            state: _state
+          }
+        ]
+      };
+      // query, projection
+      var trainersQuery = Trainers.find(
+        {
+          category: _category,
+          state: _state
+        },
+        {
+          limit: trainersPerPage,
+          skip: skipCount
+        }
+      );
+    }
+    else if (_search) {
       const regex = new RegExp(_search, "i"); // i is case insensitive
       const query = {
         $text: {
@@ -65,11 +88,7 @@ Meteor.publish(
         skip: skipCount
       });
 
-    } else if (_search && _category) {
-
-
-    }
-    else {
+    } else {
       const query = {};
       const sort = { score: { $meta: "textScore" } };
       var trainersQuery = Trainers.find(
@@ -81,7 +100,6 @@ Meteor.publish(
         { score: { $meta: "textScore" } }
         //sort
       );
-      console.log(trainersQuery);
     }
 
     return trainersQuery;
