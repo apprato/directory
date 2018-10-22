@@ -58,30 +58,18 @@ Meteor.publish(
         $text: {
           $search: _search
         }
-        /*
-      const query = {
-        $or: [
-          { businessName: regex },
-          { city: regex }
-        {overview: regex},
-        {address1: regex},
-        {address2: regex},
-        {city: regex},
-        {state: regex},
-        {suburb: regex},
-        {postCode: regex},
-        {website: regex},
-        {email1: regex},
-        {email2: regex}
-        ]
-        */
       };
       // query, projection
       var trainersQuery = Trainers.find(query, {
         limit: trainersPerPage,
         skip: skipCount
       });
-    } else {
+
+    } else if (_search && _category) {
+
+
+    }
+    else {
       const query = {};
       const sort = { score: { $meta: "textScore" } };
       var trainersQuery = Trainers.find(

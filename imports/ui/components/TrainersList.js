@@ -7,11 +7,8 @@ import {
   Panel,
   FormControl,
   Image,
-  ButtonToolbar,
-  Button
 } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
-import Select from "react-select";
 import "react-select/dist/react-select.css";
 
 const handleNavigation = _id => {
@@ -35,19 +32,24 @@ const handleNavigationPager = (selected, filterSearch, filterCategory) => {
 class TrainersList extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSearchEnter = this.handleSearchEnter.bind(this);
     this.state = {
       searchTerm: null,
       stateTerm: null
     };
-
-    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSearchEnter = this.handleSearchEnter.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
   }
 
-  handleSearch(event) {
-    const searchTerm = event.target.value;
-    this.setState({ searchTerm });
-    this.props.searchQuery.set(searchTerm);
+  componentDidMount() {
+    Session.set('search', null);
+    Session.set('category', null);
+  }
+
+  handleSearchChange(event) {
+    console.log(event.target.value);
+    var searchTermVar = event.target.value;
+    Session.set('search', event.target.value);
   }
 
   handleSearchEnter(event) {
@@ -55,8 +57,6 @@ class TrainersList extends React.Component {
       browserHistory.push("/directory/search/" + event.target.value);
     }
   }
-
-  handleSearchClick(event) {}
 
   handlePageClick(event) {
     let selected = Number(event.selected + 1);
@@ -79,9 +79,14 @@ class TrainersList extends React.Component {
       element === null ||
       element.value === undefined ||
       element.value === false
-    )
+    ) {
       this.setState({ categoryTerm: null });
-    else browserHistory.push("/directory/category/" + element.value);
+    }
+    else {
+      console.log(element.value);
+      Session.set('category', element.value);
+      //browserHistory.push("/directory/category/" + element.value);
+    }
   }
 
   render() {
@@ -181,8 +186,7 @@ class TrainersList extends React.Component {
               <i className="fa fa-search" />
               <FormControl
                 type="search"
-                onKeyPress={this.handleSearchEnter}
-                onClick={this.handleSearchClick}
+                onKeyPress={this.handleSearchChange.bind(this)}
                 placeholder="Search business name"
                 className="Search"
               />
@@ -213,43 +217,43 @@ class TrainersList extends React.Component {
                 suburb,
                 image
               }) => (
-                <Panel>
-                  <Row>
-                    <Col xs={8} sm={10}>
-                      <a
-                        href={"/directory/" + _id}
-                        key={_id}
-                        onClick={() => handleNavigation(_id)}
-                      >
-                        <h2>{businessName}</h2>
-                      </a>
-                      <p>{category}</p>
-                      <p>{overview}</p>
-                    </Col>
-                    <Col xs={12} sm={2}>
-                      <p>
-                        {state} > {suburb}
-                      </p>
-                      {logo ? (
-                        <Image
-                          src={"/" + "logos" + "/" + logo}
-                          alt={businessName}
-                          responsive
-                        />
-                      ) : (
-                        ""
-                      )}
-                    </Col>
-                  </Row>
-                </Panel>
-              )
+                  <Panel>
+                    <Row>
+                      <Col xs={8} sm={10}>
+                        <a
+                          href={"/directory/" + _id}
+                          key={_id}
+                          onClick={() => handleNavigation(_id)}
+                        >
+                          <h2>{businessName}</h2>
+                        </a>
+                        <p>{category}</p>
+                        <p>{overview}</p>
+                      </Col>
+                      <Col xs={12} sm={2}>
+                        <p>
+                          {state} > {suburb}
+                        </p>
+                        {logo ? (
+                          <Image
+                            src={"/" + "logos" + "/" + logo}
+                            alt={businessName}
+                            responsive
+                          />
+                        ) : (
+                            ""
+                          )}
+                      </Col>
+                    </Row>
+                  </Panel>
+                )
             )
           ) : (
-            <Alert>
-              Sorry there are no listings found for '{this.state.searchTerm}
-              .'
+              <Alert>
+                Sorry there are no listings found for '{this.state.searchTerm}
+                .'
             </Alert>
-          )}
+            )}
           <Row>
             <ReactPaginate
               pageCount={this.props.pageCount}
