@@ -222,7 +222,27 @@ Meteor.methods({
           skip: skipCount
         }
       );
-    } else if (_search) {
+    }
+    else if (_state) {
+      const query = {
+        $and: [
+          {
+            category: _category
+          }
+        ]
+      };
+      // query, projection
+      var trainersQuery = Trainers.find(
+        {
+          state: _state
+        },
+        {
+          limit: trainersPerPage,
+          skip: skipCount
+        }
+      );
+    }
+    else if (_search) {
       const regex = new RegExp(_search, "i"); // i is case insensitive
       console.log("searching for: " + regex);
       const query = {

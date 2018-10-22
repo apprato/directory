@@ -54,7 +54,27 @@ Meteor.publish(
         }
       );
     }
+    else if (_state) {
+      const query = {
+        $and: [
+          {
+            category: _category
+          }
+        ]
+      };
+      // query, projection
+      var trainersQuery = Trainers.find(
+        {
+          state: _state
+        },
+        {
+          limit: trainersPerPage,
+          skip: skipCount
+        }
+      );
+    }
     else if (_category && _state) {
+      console.log('_category && _state');
       const query = {
         $and: [
           {

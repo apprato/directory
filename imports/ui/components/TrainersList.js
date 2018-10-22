@@ -75,9 +75,15 @@ class TrainersList extends React.Component {
       element === null ||
       element.value === undefined ||
       element.value === false
-    )
+    ) {
       this.setState({ stateTerm: null });
-    else browserHistory.push("/directory/state/" + element.value);
+    }
+    else {
+      console.log(element.value);
+      //browserHistory.push("/directory/state/" + element.value);
+      this.setState({ stateTerm: element.value });
+      this.props.stateQuery.set(element.value);
+    }
   }
 
   handleCategoryChange(element) {
