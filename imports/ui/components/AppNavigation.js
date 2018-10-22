@@ -19,7 +19,7 @@ const AppNavigation = ({ hasUser }) => (
             src="/healthfitness.svg"
             evalScripts="always"
             onInjected={svg => {
-              console.log('onInjected', svg)
+              //console.log('onInjected', svg)
             }}
             renumerateIRIElements={false}
             svgClassName="svg-class-name"

@@ -33,23 +33,31 @@ class TrainersList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: null,
-      stateTerm: null
+      categoryTerm: props.params.category,
+      searchTerm: props.params.search,
+      stateTerm: props.params.state
     };
     this.handleSearchEnter = this.handleSearchEnter.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      categoryTerm: nextProps.params.category,
+      searchTerm: nextProps.params.search,
+      stateTerm: nextProps.params.state
+    });
+  }
+
   componentDidMount() {
-    Session.set('search', null);
-    Session.set('category', null);
+
   }
 
   handleSearchChange(event) {
-    console.log(event.target.value);
-    var searchTermVar = event.target.value;
-    Session.set('search', event.target.value);
+    this.setState({ searchTerm: event.target });
+    this.props.searchQuery.set(event.target.value);
+    console.log(this.props.searchQuery.get());
   }
 
   handleSearchEnter(event) {
@@ -83,9 +91,8 @@ class TrainersList extends React.Component {
       this.setState({ categoryTerm: null });
     }
     else {
-      console.log(element.value);
-      Session.set('category', element.value);
-      //browserHistory.push("/directory/category/" + element.value);
+      this.setState({ categoryTerm: element.value });
+      this.props.categoryQuery.set(element.value);
     }
   }
 
@@ -270,7 +277,7 @@ class TrainersList extends React.Component {
               containerClassName={"pagination"}
               subContainerClassName={"pages pagination"}
               activeClassName={"active"}
-              disableInitialCallback="false"
+              //disableInitialCallback="false"
               filterSearch={this.props.search}
               filterCategory={this.props.category}
               filterState={this.props.state}
@@ -281,10 +288,12 @@ class TrainersList extends React.Component {
     );
   }
 }
-
+/*
+// Validation
 TrainersList.propTypes = {
   trainers: React.PropTypes.array,
   searchQuery: React.PropTypes.object
 };
+*/
 
 export default TrainersList;
