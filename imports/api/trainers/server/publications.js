@@ -65,7 +65,7 @@ Meteor.publish(
       // query, projection
       var trainersQuery = Trainers.find(
         {
-          state: _state
+          category: _category
         },
         {
           limit: trainersPerPage,
@@ -74,7 +74,6 @@ Meteor.publish(
       );
     }
     else if (_category && _state) {
-      console.log('_category && _state');
       const query = {
         $and: [
           {

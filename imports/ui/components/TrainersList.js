@@ -15,7 +15,9 @@ const handleNavigation = _id => {
   browserHistory.push(`/directory/${_id}`);
 };
 
-const handleNavigationPager = (selected, filterSearch, filterCategory) => {
+const handleNavigationPager = (selected) => {
+  browserHistory.push("/directory/page/" + selected);
+  /*
   if (filterCategory) {
     browserHistory.push(
       "/directory/category/" + filterCategory + "/page/" + selected
@@ -27,31 +29,24 @@ const handleNavigationPager = (selected, filterSearch, filterCategory) => {
   } else {
     browserHistory.push("/directory/page/" + selected);
   }
+  */
 };
 
 class TrainersList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categoryTerm: props.params.category,
-      searchTerm: props.params.search,
-      stateTerm: props.params.state
+      categoryTerm: '',
+      searchTerm: '',
+      stateTerm: '',
+      pageCount: null,
+      currentPage: null,
+      dildo: 'dil'
     };
     this.handleSearchEnter = this.handleSearchEnter.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      categoryTerm: nextProps.params.category,
-      searchTerm: nextProps.params.search,
-      stateTerm: nextProps.params.state
-    });
-  }
-
-  componentDidMount() {
-
+    this.handlPageClick = this.handlePageClick.bind(this);
   }
 
   handleSearchChange(event) {
@@ -79,8 +74,6 @@ class TrainersList extends React.Component {
       this.setState({ stateTerm: null });
     }
     else {
-      console.log(element.value);
-      //browserHistory.push("/directory/state/" + element.value);
       this.setState({ stateTerm: element.value });
       this.props.stateQuery.set(element.value);
     }
@@ -95,7 +88,7 @@ class TrainersList extends React.Component {
       this.setState({ categoryTerm: null });
     }
     else {
-      this.setState({ categoryTerm: element.value });
+      browserHistory.push("/directory");
       this.props.categoryQuery.set(element.value);
     }
   }
@@ -103,16 +96,10 @@ class TrainersList extends React.Component {
   render() {
     window.scrollTo(0, 0);
     const { trainers } = this.props;
-    // Listing based switch
-    const area = this.props.area;
-    const page = this.props.page;
-    var category = this.props.category;
-    var search = this.props.search;
+    console.log(this.props);
 
-    if (area) {
-      var hrefBuilder =
-        "/directory/area/" + area + "/page/" + this.props.skipCount;
-    }
+    var hrefBuilder =
+      "/directory/page/" + this.props.currentPage;
 
     var stateSelectValues = [
       {
@@ -203,8 +190,7 @@ class TrainersList extends React.Component {
               />
               <br />
             </Col>
-
-            <Col xs={12} sm={6}>
+            <Col xs={12} sm={4}>
               <div>
                 <Select
                   name="Select Category"
@@ -214,7 +200,7 @@ class TrainersList extends React.Component {
                 />
               </div>
             </Col>
-            <Col xs={12} sm={6}>
+            <Col xs={12} sm={4}>
               <div>
                 <Select
                   name="Select State"
@@ -239,7 +225,7 @@ class TrainersList extends React.Component {
                 suburb,
                 image
               }) => (
-                  <Panel>
+                  <Panel key={_id} >
                     <Row>
                       <Col xs={8} sm={10}>
                         <a
@@ -287,6 +273,7 @@ class TrainersList extends React.Component {
               breakClassName={"break-me"}
               pageNum={this.props.currentPage - 1}
               initialPage={this.props.currentPage - 1}
+              forcePage={this.props.currentPage - 1}
               hrefBuilder={page => hrefBuilder + page}
               onPageChange={this.handlePageClick}
               containerClassName={"pagination"}

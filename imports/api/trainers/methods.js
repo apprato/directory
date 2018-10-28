@@ -204,6 +204,7 @@ Meteor.methods({
     check(_state, Match.Maybe(String, null, undefined));
     check(trainersPerPage, Match.Maybe(Number, null, undefined));
 
+
     if (_category) {
       const query = {
         $and: [
@@ -242,6 +243,27 @@ Meteor.methods({
         }
       );
     }
+    else if (_category && _state) {
+      const query = {
+        $and: [
+          {
+            category: _category,
+            state: _state
+          }
+        ]
+      };
+      // query, projection
+      var trainersQuery = Trainers.find(
+        {
+          category: _category,
+          state: _state
+        },
+        {
+          limit: trainersPerPage,
+          skip: skipCount
+        }
+      );
+    }
     else if (_search) {
       const regex = new RegExp(_search, "i"); // i is case insensitive
       console.log("searching for: " + regex);
@@ -249,37 +271,20 @@ Meteor.methods({
         $text: {
           $search: _search
         }
-        /*
-      const query = {
-        $or: [
-          { businessName: regex },
-          { city: regex }
-        {overview: regex},
-        {address1: regex},
-        {address2: regex},
-        {city: regex},
-        {state: regex},
-        {suburb: regex},
-        {postCode: regex},
-        {website: regex},
-        {email1: regex},
-        {email2: regex}
-        ]
-        */
       };
       // query, projection
       var trainersQuery = Trainers.find(query, {
         limit: trainersPerPage,
         skip: skipCount
       });
-    } else {
+    }
+    else {
       const query = {};
       var trainersQuery = Trainers.find(query, {
         limit: trainersPerPage,
         skip: skipCount
       });
     }
-
     return trainersQuery.count();
   },
 

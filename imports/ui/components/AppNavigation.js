@@ -24,9 +24,9 @@ const AppNavigation = ({ hasUser }) => (
             renumerateIRIElements={false}
             svgClassName="svg-class-name"
             svgStyle={{ width: 200 }}
-            className="wrapper-class-name"
+            className="wrapper-class-name hidden-xs hidden-sm hidden-md hidden-lg"
             onClick={() => {
-              console.log('wrapper onClick')
+              //console.log('wrapper onClick')
             }}
           />
         </Link>
