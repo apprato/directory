@@ -34,66 +34,59 @@ Meteor.publish(
     check(_state, Match.Maybe(String, null, undefined));
     check(_category, Match.Maybe(String, null, undefined));
     check(trainersPerPage, Match.Maybe(Number, null, undefined));
+    console.log('_category: ' + _category);
+    console.log('_state: ' + _state);
+    console.log('_search: ' + _search);
 
-    if (_category) {
-      const query = {
+    // Only add to $and if it has been selected
+    if (_category && _state === null && _search === null) {
+      var query = {
         $and: [
           {
             category: _category
-          }
+          },
         ]
       };
-      // query, projection
-      var trainersQuery = Trainers.find(
-        {
-          category: _category
-        },
-        {
-          limit: trainersPerPage,
-          skip: skipCount
-        }
-      );
     }
-    else if (_state) {
-      const query = {
+    else if (_category === null && _state && _search === null) {
+      var query = {
         $and: [
           {
-            category: _category
-          }
+            _state: _state
+          },
         ]
       };
-      // query, projection
-      var trainersQuery = Trainers.find(
-        {
-          category: _category
-        },
-        {
-          limit: trainersPerPage,
-          skip: skipCount
-        }
-      );
     }
-    else if (_category && _state) {
-      const query = {
+    else if (_category && _state && _search === null) {
+      var query = {
         $and: [
           {
             category: _category,
             state: _state
-          }
+          },
         ]
       };
-      // query, projection
-      var trainersQuery = Trainers.find(
-        {
-          category: _category,
-          state: _state
-        },
-        {
-          limit: trainersPerPage,
-          skip: skipCount
-        }
-      );
     }
+    else {
+      var query = {};
+    }
+
+    console.log(query);
+    const sort = { score: { $meta: "textScore" } };
+    var trainersQuery = Trainers.find(
+      query,
+      {
+        limit: trainersPerPage,
+        skip: skipCount
+      },
+      { score: { $meta: "textScore" } }
+      //sort
+    );
+
+    return trainersQuery;
+
+    // Search
+    /*
     else if (_search) {
       const regex = new RegExp(_search, "i"); // i is case insensitive
       const query = {
@@ -120,8 +113,8 @@ Meteor.publish(
         //sort
       );
     }
+    */
 
-    return trainersQuery;
   }
 );
 
