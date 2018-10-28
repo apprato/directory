@@ -22,7 +22,6 @@ const TrainersListContainer = createContainer((props, params) => {
     const search = searchQuery.get();
     const category = categoryQuery.get();
     const state = stateQuery.get();
-    //var 
 
     // Vars
     const trainersPerPage = 10;

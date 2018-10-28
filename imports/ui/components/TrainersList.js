@@ -180,7 +180,7 @@ class TrainersList extends React.Component {
       <div className="Trainers">
         <div className="TrainerSearch">
           <Row>
-            <Col xs={12} sm={12}>
+            <Col xs={12} sm={12} className="hidden-xs hidden-sm hidden-md hidden-lg">
               <i className="fa fa-search" />
               <FormControl
                 type="search"
