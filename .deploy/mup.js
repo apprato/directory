@@ -27,7 +27,7 @@ module.exports = {
       MONGO_URL: 'mongodb://localhost/meteor',
     },
     // change to 'kadirahq/meteord' if your app is not using Meteor 1.4
-    dockerImage: 'abernix/meteord:base',
+    dockerImage: 'zodern/meteor:root',
     deployCheckWaitTime: 600,
 
     // Show progress bar while uploading bundle to server

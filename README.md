@@ -36,6 +36,9 @@ mup deploy
 mup start
 cd /home/ubuntu/f indatrainer/.deploy
 
+### Mup documentation for deployment
+http://meteor-up.com/docs#docker-options
+
 
 ## Production
 ....
