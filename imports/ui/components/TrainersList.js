@@ -1,4 +1,5 @@
 import React from "react";
+import Select from 'react-select';
 import { browserHistory, Router, Route, MenuItem } from "react-router";
 import {
   Alert,
@@ -41,7 +42,6 @@ class TrainersList extends React.Component {
       stateTerm: '',
       pageCount: null,
       currentPage: null,
-      dildo: 'dil'
     };
     this.handleSearchEnter = this.handleSearchEnter.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
@@ -174,7 +174,7 @@ class TrainersList extends React.Component {
       }
     ];
 
-    var Select = require("react-select");
+    //var Select = require("react-select");
 
     return (
       <div className="Trainers">
@@ -193,20 +193,28 @@ class TrainersList extends React.Component {
             <Col xs={12} sm={4}>
               <div>
                 <Select
+                  className="select"
                   name="Select Category"
-                  value={this.props.categoryQuery.get()}
+                  placeholder="1. Select Category"
+                  value={categorySelectValues.filter(({ value }) => value === this.props.categoryQuery.get())}
                   options={categorySelectValues}
                   onChange={this.handleCategoryChange.bind(this)}
+                  isSearchable={true}
+                  isClearable={false}
                 />
               </div>
             </Col>
             <Col xs={12} sm={4}>
               <div>
                 <Select
+                  className="select"
                   name="Select State"
-                  value={this.props.stateQuery.get()}
+                  placeholder="2. Select State"
+                  value={stateSelectValues.filter(({ value }) => value === this.props.stateQuery.get())}
                   options={stateSelectValues}
                   onChange={this.handleStateChange.bind(this)}
+                  isSearchable={true}
+                  isClearable={true}
                 />
               </div>
             </Col>
