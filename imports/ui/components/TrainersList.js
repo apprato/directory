@@ -1,16 +1,8 @@
 import React from "react";
 import Select from 'react-select';
 import { browserHistory, Router, Route, MenuItem } from "react-router";
-import {
-  Alert,
-  Row,
-  Col,
-  Panel,
-  FormControl,
-  Image,
-} from "react-bootstrap";
+import { Alert, Row, Col, Panel, FormControl, Image } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
-//import "react-select/dist/react-select.css";
 
 const handleNavigation = _id => {
   browserHistory.push(`/directory/${_id}`);
@@ -18,31 +10,22 @@ const handleNavigation = _id => {
 
 const handleNavigationPager = (selected) => {
   browserHistory.push("/directory/page/" + selected);
-  /*
-  if (filterCategory) {
-    browserHistory.push(
-      "/directory/category/" + filterCategory + "/page/" + selected
-    );
-  } else if (filterSearch) {
-    browserHistory.push(
-      "/directory/search/" + filterSearch + "/page/" + selected
-    );
-  } else {
-    browserHistory.push("/directory/page/" + selected);
-  }
-  */
 };
 
 class TrainersList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categoryTerm: '',
       searchTerm: '',
-      stateTerm: '',
-      pageCount: null,
-      currentPage: null,
+      // Dropdowns
+      isClearable: true,
+      isDisabled: false,
+      isLoading: false,
+      isRtl: false,
+      isSearchable: true
     };
+
+    // Bind events 
     this.handleSearchEnter = this.handleSearchEnter.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -71,10 +54,11 @@ class TrainersList extends React.Component {
       element.value === undefined ||
       element.value === false
     ) {
-      this.setState({ stateTerm: null });
+      browserHistory.push("/directory");
+      this.props.stateQuery.set('');
     }
     else {
-      this.setState({ stateTerm: element.value });
+      browserHistory.push("/directory");
       this.props.stateQuery.set(element.value);
     }
   }
@@ -85,7 +69,8 @@ class TrainersList extends React.Component {
       element.value === undefined ||
       element.value === false
     ) {
-      this.setState({ categoryTerm: null });
+      browserHistory.push("/directory");
+      this.props.categoryQuery.set('');
     }
     else {
       browserHistory.push("/directory");
@@ -96,6 +81,13 @@ class TrainersList extends React.Component {
   render() {
     window.scrollTo(0, 0);
     const { trainers } = this.props;
+    const {
+      isClearable,
+      isSearchable,
+      isDisabled,
+      isLoading,
+      isRtl,
+    } = this.state;
     console.log(this.props);
 
     var hrefBuilder =
@@ -174,7 +166,6 @@ class TrainersList extends React.Component {
       }
     ];
 
-    //var Select = require("react-select");
 
     return (
       <div className="Trainers">
@@ -199,9 +190,11 @@ class TrainersList extends React.Component {
                   value={categorySelectValues.filter(({ value }) => value === this.props.categoryQuery.get())}
                   options={categorySelectValues}
                   onChange={this.handleCategoryChange.bind(this)}
-                  isSearchable={true}
-                  isClearable={false}
-                />
+                  isDisabled={isDisabled}
+                  isLoading={isLoading}
+                  isClearable={isClearable}
+                  isRtl={isRtl}
+                  isSearchable={isSearchable} />
               </div>
             </Col>
             <Col xs={12} sm={4}>
@@ -213,9 +206,11 @@ class TrainersList extends React.Component {
                   value={stateSelectValues.filter(({ value }) => value === this.props.stateQuery.get())}
                   options={stateSelectValues}
                   onChange={this.handleStateChange.bind(this)}
-                  isSearchable={true}
-                  isClearable={true}
-                />
+                  isDisabled={isDisabled}
+                  isLoading={isLoading}
+                  isClearable={isClearable}
+                  isRtl={isRtl}
+                  isSearchable={isSearchable} />
               </div>
             </Col>
           </Row>
@@ -298,6 +293,8 @@ class TrainersList extends React.Component {
     );
   }
 }
+
+
 /*
 // Validation
 TrainersList.propTypes = {

@@ -204,9 +204,6 @@ Meteor.methods({
     check(_state, Match.Maybe(String, null, undefined));
     check(_category, Match.Maybe(String, null, undefined));
     check(trainersPerPage, Match.Maybe(Number, null, undefined));
-    console.log('_category: ' + _category);
-    console.log('_state: ' + _state);
-    console.log('_search: ' + _search);
 
     // Only add to $and if it has been selected
     if (_category && _state === null && _search === null) {
@@ -222,7 +219,7 @@ Meteor.methods({
       var query = {
         $and: [
           {
-            _state: _state
+            state: _state
           },
         ]
       };
