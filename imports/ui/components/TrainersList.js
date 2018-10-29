@@ -9,7 +9,7 @@ import {
   Image,
 } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
-import "react-select/dist/react-select.css";
+//import "react-select/dist/react-select.css";
 
 const handleNavigation = _id => {
   browserHistory.push(`/directory/${_id}`);

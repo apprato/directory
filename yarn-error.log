@@ -1,0 +1,124 @@
+Arguments: 
+  /Users/stephengoudie/.meteor/packages/meteor-tool/.1.4.2_3.1rd9djy++os.osx.x86_64+web.browser+web.cordova/mt-os.osx.x86_64/dev_bundle/bin/node /Users/stephengoudie/.meteor/packages/meteor-tool/.1.4.2_3.1rd9djy++os.osx.x86_64+web.browser+web.cordova/mt-os.osx.x86_64/dev_bundle/bin/yarn add react-select
+
+PATH: 
+  /Users/stephengoudie/.meteor/packages/meteor-tool/.1.4.2_3.1rd9djy++os.osx.x86_64+web.browser+web.cordova/mt-os.osx.x86_64/dev_bundle/bin:/Users/stephengoudie/.meteor/packages/meteor-tool/.1.4.2_3.1rd9djy++os.osx.x86_64+web.browser+web.cordova/mt-os.osx.x86_64:/Users/stephengoudie/.meteor/packages/meteor-tool/.1.4.2_3.1rd9djy++os.osx.x86_64+web.browser+web.cordova/mt-os.osx.x86_64/dev_bundle/lib/node_modules/.bin:/Users/stephengoudie/.rvm/gems/ruby-2.4.1/bin:/Users/stephengoudie/.rvm/gems/ruby-2.4.1@global/bin:/Users/stephengoudie/.rvm/rubies/ruby-2.4.1/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/opt/ImageMagick/bin:/Applications/Wireshark.app/Contents/MacOS:/pathToTheAndroidSdkFolder/android-sdk-mac_86/platform-tools:/Users/stephengoudie/.rvm/bin
+
+Yarn version: 
+  1.10.1
+
+Node version: 
+  4.6.2
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/stephengoudie/Sites/meteor/healthfitness.com.au/package.json: Unexpected token }
+      at Object.parse (native)
+      at /Users/stephengoudie/.meteor/packages/meteor-tool/.1.4.2_3.1rd9djy++os.osx.x86_64+web.browser+web.cordova/mt-os.osx.x86_64/dev_bundle/lib/node_modules/yarn/lib/cli.js:1136:59
+      at next (native)
+      at step (/Users/stephengoudie/.meteor/packages/meteor-tool/.1.4.2_3.1rd9djy++os.osx.x86_64+web.browser+web.cordova/mt-os.osx.x86_64/dev_bundle/lib/node_modules/yarn/lib/cli.js:98:30)
+      at /Users/stephengoudie/.meteor/packages/meteor-tool/.1.4.2_3.1rd9djy++os.osx.x86_64+web.browser+web.cordova/mt-os.osx.x86_64/dev_bundle/lib/node_modules/yarn/lib/cli.js:109:13
+      at run (/Users/stephengoudie/.meteor/packages/meteor-tool/.1.4.2_3.1rd9djy++os.osx.x86_64+web.browser+web.cordova/mt-os.osx.x86_64/dev_bundle/lib/node_modules/yarn/lib/cli.js:95053:22)
+      at /Users/stephengoudie/.meteor/packages/meteor-tool/.1.4.2_3.1rd9djy++os.osx.x86_64+web.browser+web.cordova/mt-os.osx.x86_64/dev_bundle/lib/node_modules/yarn/lib/cli.js:95070:30
+      at flush (/Users/stephengoudie/.meteor/packages/meteor-tool/.1.4.2_3.1rd9djy++os.osx.x86_64+web.browser+web.cordova/mt-os.osx.x86_64/dev_bundle/lib/node_modules/yarn/lib/cli.js:94576:9)
+      at nextTickCallbackWith0Args (node.js:436:9)
+      at process._tickCallback (node.js:365:13)
+
+npm manifest: 
+  {
+    "name": "healthfitness",
+    "version": "1.0.0",
+    "description": "Application description.",
+    "scripts": {
+      "start": "meteor --settings settings-development.json",
+      "test": "meteor test --driver-package practicalmeteor:mocha --port 5000",
+      "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests",
+      "chimp-test": "chimp --ddp=http://localhost:3000 --mocha --path=tests",
+      "staging": "meteor deploy staging.meteor.com --settings settings-development.json",
+      "production": "meteor deploy production.meteor.com --settings settings-production.json"
+    },
+    "devDependencies": {
+      "chimp": "^0.41.2",
+      "eslint": "^3.8.1",
+      "eslint-config-airbnb": "^12.0.0",
+      "eslint-plugin-import": "^1.16.0",
+      "eslint-plugin-jsx-a11y": "^2.2.3",
+      "eslint-plugin-meteor": "^4.0.1",
+      "eslint-plugin-react": "^6.4.1"
+    },
+    "eslintConfig": {
+      "parserOptions": {
+        "ecmaFeatures": {
+          "jsx": true
+        }
+      },
+      "plugins": [
+        "meteor",
+        "react"
+      ],
+      "extends": [
+        "airbnb/base",
+        "plugin:meteor/guide",
+        "plugin:react/recommended"
+      ],
+      "env": {
+        "browser": true
+      },
+      "globals": {
+        "server": false,
+        "browser": false,
+        "expect": false
+      },
+      "rules": {
+        "import/no-unresolved": 0,
+        "import/no-extraneous-dependencies": 0,
+        "import/extensions": 0,
+        "no-underscore-dangle": [
+          "error",
+          {
+            "allow": [
+              "_id",
+              "_ensureIndex",
+              "_verifyEmailToken",
+              "_resetPasswordToken",
+              "_name"
+            ]
+          }
+        ],
+        "class-methods-use-this": 0
+      }
+    },
+    "dependencies": {
+      "babel-runtime": "^6.18.0",
+      "babyparse": "^0.4.6",
+      "bcrypt": "^0.8.7",
+      "bootstrap": "^3.3.7",
+      "fsevents": "^1.2.4",
+      "jquery": "^2.2.4",
+      "jquery-validation": "^1.15.1",
+      "react": "^15.6.2",
+      "react-addons-pure-render-mixin": "^15.3.2",
+      "react-bootstrap": "^0.30.5",
+      "react-dom": "^15.3.2",
+      "react-froala-wysiwyg": "^2.8.0",
+      "react-google-tag-manager": "^2.2.1",
+      "react-komposer": "^1.13.1",
+      "react-paginate": "^4.4.3",
+      "react-router": "^3.0.0",
+      "react-router-bootstrap": "^0.23.1",
+      "react-svg": "^6.0.18",
+      "svg-inline-react": "^3.1.0",
+      "webdriverio": "^4.14.0"
+    },
+    "engines": {
+      "node": "^4.8.5",
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

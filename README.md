@@ -1,8 +1,14 @@
 # findatrainer
 
+Originally Meteor 1.4, Node 4.6
+Current Meteor 1.8, Node 8.11
+
 ## Development
 meteor npm install
 meteor npm start
+
+#### Upgrade from Meteor 1.4 to 1.8
+Removed    /*"chimp": "^0.41.2", */
 
 ### Npm modules
 This should be in package.json i think.
