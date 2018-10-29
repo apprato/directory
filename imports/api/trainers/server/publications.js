@@ -52,7 +52,7 @@ Meteor.publish(
       var query = {
         $and: [
           {
-            _state: _state
+            state: _state
           },
         ]
       };
