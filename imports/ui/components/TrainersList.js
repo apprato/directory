@@ -22,7 +22,12 @@ class TrainersList extends React.Component {
       isDisabled: false,
       isLoading: false,
       isRtl: false,
-      isSearchable: true
+      isSearchable: true,
+      // Suburb dropdown
+      suburbSelectValues: [
+        { value: "NSW", label: "New South Wales", clearableValue: false },
+        { value: "NT", label: "Northern Territory", clearableValue: false }
+      ]
     };
 
     // Bind events 
@@ -58,8 +63,21 @@ class TrainersList extends React.Component {
       this.props.stateQuery.set('');
     }
     else {
+      // Load Suburb base on State selection
+      var suburbSelectOptionsArray = [];
       browserHistory.push("/directory");
       this.props.stateQuery.set(element.value);
+      const suburbSelectOptionsMap = this.props.suburbSelectOptions.get();
+
+      suburbSelectOptionsMap.map(
+        ({ category, suburb }) =>
+          (
+            suburbSelectOptionsArray.push({ value: suburb, label: suburb })
+          )
+      );
+      console.log('suburbSelectOptionsArray');
+      console.log(suburbSelectOptionsArray);
+      this.setState({ suburbSelectValues: suburbSelectOptionsArray });
     }
   }
 
@@ -87,8 +105,8 @@ class TrainersList extends React.Component {
       isDisabled,
       isLoading,
       isRtl,
+      suburbSelectValues
     } = this.state;
-    console.log(this.props);
 
     var hrefBuilder =
       "/directory/page/" + this.props.currentPage;
@@ -206,6 +224,22 @@ class TrainersList extends React.Component {
                   value={stateSelectValues.filter(({ value }) => value === this.props.stateQuery.get())}
                   options={stateSelectValues}
                   onChange={this.handleStateChange.bind(this)}
+                  isDisabled={isDisabled}
+                  isLoading={isLoading}
+                  isClearable={isClearable}
+                  isRtl={isRtl}
+                  isSearchable={isSearchable} />
+              </div>
+            </Col>
+            <Col xs={12} sm={4}>
+              <div>
+                <Select
+                  className="select"
+                  name="Select Suburb"
+                  placeholder="3. Select Suburb"
+                  //value={stateSelectValues.filter(({ value }) => value === this.props.stateQuery.get())}
+                  options={this.state.suburbSelectValues}
+                  //onChange={this.handleStateChange.bind(this)}
                   isDisabled={isDisabled}
                   isLoading={isLoading}
                   isClearable={isClearable}

@@ -238,7 +238,6 @@ Meteor.methods({
       var query = {};
     }
 
-    console.log(query);
     const sort = { score: { $meta: "textScore" } };
     var trainersQuery = Trainers.find(
       query,
@@ -253,6 +252,68 @@ Meteor.methods({
     return trainersQuery.count();
   },
 
+  getTrainersSuburbOptions(_search, _category, _state) {
+
+    check(_search, Match.Maybe(String, null, undefined));
+    check(_category, Match.Maybe(String, null, undefined));
+    check(_state, Match.Maybe(String, null, undefined));
+
+    // Only add to $and if it has been selected
+    if (_category && _state === null && _search === null) {
+      var query = {
+        $and: [
+          {
+            category: _category
+          },
+        ]
+      };
+    }
+    else if (_category === null && _state && _search === null) {
+      var query = {
+        $and: [
+          {
+            state: _state
+          },
+        ]
+      }
+    }
+    else if (_category && _state && _search === null) {
+      var query = {
+        $and: [
+          {
+            category: _category,
+            state: _state
+          },
+        ]
+      };
+    }
+    else {
+      var query = {};
+    }
+
+    const sort = { score: { $meta: "textScore" } };
+    const projection = {
+      _id: 0,
+      category: 1,
+      suburb: 1,
+      city: 1
+    }
+
+    // Build Query
+    var trainersQuery = Trainers.find(
+      query,
+      projection,
+      // { score: { $meta: "textScore" } }
+      //sort
+    );
+
+    console.log(query);
+
+    return trainersQuery.fetch();
+  },
+
+
+
   getTrainersAreaCount() {
     const query = {
       $and: [
@@ -260,8 +321,13 @@ Meteor.methods({
           state: area.toUpperCase()
         }
       ]
-    };
-    return Trainers.find(query).count();
+    }
+    const projection = {
+      category: 1,
+      suburb: 1,
+      city: 1
+    }
+    return Trainers.find(query, projection).count();
   }
 });
 

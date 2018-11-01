@@ -9,6 +9,7 @@ import Loading from '../components/Loading.js';
 const searchQuery = new ReactiveVar(null);
 const categoryQuery = new ReactiveVar(null);
 const stateQuery = new ReactiveVar(null);
+const suburbSelectOptions = new ReactiveVar(null);
 const pageCountQuery = new ReactiveVar(null);
 const currentPageQuery = new ReactiveVar(null);
 
@@ -31,6 +32,10 @@ const TrainersListContainer = createContainer((props, params) => {
     Meteor.apply('getTrainersCountList', [skipCount, search, category, state, trainersPerPage], true, function (err, result) {
         Session.set('trainerCount', result);
     });
+    Meteor.apply('getTrainersSuburbOptions', [search, category, state], true, function (err, result) {
+        suburbSelectOptions.set(result);
+    });
+
 
     var pageCount = pageCountQuery.get();
     pageCount = Math.ceil(Session.get('trainerCount') / trainersPerPage);
@@ -44,6 +49,7 @@ const TrainersListContainer = createContainer((props, params) => {
         searchQuery,
         categoryQuery,
         stateQuery,
+        suburbSelectOptions,
         pageCount,
         currentPage,
         Loading
