@@ -19,7 +19,7 @@ const ViewTrainer = ({ trainer }) => (
         <p>{trainer.city} {trainer.state} {trainer.suburb}</p>
         <p>{trainer.postCode}</p>
         <p>{trainer.phoneNumber}</p>
-        <p>{trainer.phoneNumber2}</p>
+        <p>{trainer.website}</p>
 
       </Col>
     </Row>

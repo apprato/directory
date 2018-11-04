@@ -43,7 +43,8 @@ export const upsertTrainer = new ValidatedMethod({
     suburb: { type: String, optional: true },
     country: { type: String, optional: true },
     postCode: { type: String, optional: true },
-    phoneNumber: { type: String, optional: true }
+    phoneNumber: { type: String, optional: true },
+    website: { type: String, optional: true }
   }).validator(),
   run(trainer) {
     var userFound;
@@ -308,6 +309,8 @@ Meteor.methods({
     );
 
     console.log(query);
+    console.log('getTrainersSuburbOptions');
+    console.log(trainersQuery.fetch());
 
     return trainersQuery.fetch();
   },

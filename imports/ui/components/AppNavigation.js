@@ -15,20 +15,7 @@ const AppNavigation = ({ hasUser }) => (
     <Navbar.Header>
       <Navbar.Brand>
         <Link to="/">
-          <ReactSVG
-            src="/healthfitness.svg"
-            evalScripts="always"
-            onInjected={svg => {
-              //console.log('onInjected', svg)
-            }}
-            renumerateIRIElements={false}
-            svgClassName="svg-class-name"
-            svgStyle={{ width: 200 }}
-            className="wrapper-class-name" // hidden-xs hidden-sm hidden-md hidden-lg
-            onClick={() => {
-              //console.log('wrapper onClick')
-            }}
-          />
+
         </Link>
       </Navbar.Brand>
       <Navbar.Toggle />

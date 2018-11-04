@@ -18,15 +18,13 @@ class TrainersList extends React.Component {
     this.state = {
       searchTerm: '',
       // Dropdowns
-      isClearable: true,
+      isClearable: false,
       isDisabled: false,
       isLoading: false,
       isRtl: false,
-      isSearchable: true,
+      isSearchable: false,
       // Suburb dropdown
       suburbSelectValues: [
-        { value: "NSW", label: "New South Wales", clearableValue: false },
-        { value: "NT", label: "Northern Territory", clearableValue: false }
       ]
     };
 
@@ -34,6 +32,7 @@ class TrainersList extends React.Component {
     this.handleSearchEnter = this.handleSearchEnter.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    this.handleStateChange = this.handleStateChange.bind(this);
     this.handlPageClick = this.handlePageClick.bind(this);
   }
 
@@ -59,13 +58,14 @@ class TrainersList extends React.Component {
       element.value === undefined ||
       element.value === false
     ) {
-      browserHistory.push("/directory");
+      //browserHistory.push("/directory");
       this.props.stateQuery.set('');
+      this.setState({ suburbSelectValues: '' });
     }
     else {
       // Load Suburb base on State selection
       var suburbSelectOptionsArray = [];
-      browserHistory.push("/directory");
+      //browserHistory.push("/directory");
       this.props.stateQuery.set(element.value);
       const suburbSelectOptionsMap = this.props.suburbSelectOptions.get();
 

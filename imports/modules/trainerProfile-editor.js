@@ -2,7 +2,7 @@
 
 import { browserHistory } from 'react-router';
 import { Bert } from 'meteor/themeteorchef:bert';
-import { upsertTrainer} from '../api/trainers/methods';
+import { upsertTrainer } from '../api/trainers/methods';
 import './validation.js';
 
 let component;
@@ -21,6 +21,7 @@ const handleUpsert = () => {
     country: document.querySelector('[name="country"]').value,
     postCode: document.querySelector('[name="postCode"]').value,
     phoneNumber: document.querySelector('[name="phoneNumber"]').value,
+    website: document.querySelector('[name="website"]').value,
   };
 
   if (trainer && trainer._id) upsert._id = trainer._id;
@@ -71,6 +72,9 @@ const validate = () => {
       },
       phoneNumber: {
         required: true,
+      },
+      website: {
+        required: false,
       }
     },
     messages: {
@@ -106,6 +110,9 @@ const validate = () => {
       },
       phoneNumber: {
         required: 'Please add your Phone Number.',
+      },
+      website: {
+        required: 'Please add your website.',
       }
     },
     submitHandler() { handleUpsert(); },
