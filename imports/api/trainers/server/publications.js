@@ -26,49 +26,80 @@ Meteor.publish("trainers.list", (skipCount, _id) => {
  * @param trainersPerPage
  * @return trainersQuery
  */
-Meteor.publish(
-  "trainers.list.filter",
-  (skipCount, _search, _category, _state, trainersPerPage) => {
-    check(skipCount, Match.Maybe(Number, null, undefined));
-    check(_search, Match.Maybe(String, null, undefined));
-    check(_state, Match.Maybe(String, null, undefined));
-    check(_category, Match.Maybe(String, null, undefined));
-    check(trainersPerPage, Match.Maybe(Number, null, undefined));
+Meteor.publish("trainers.list.filter", (skipCount, _search, _category, _state, _suburb, trainersPerPage) => {
 
-    // Only add to $and if it has been selected
-    if (_category && _state === null && _search === null) {
-      var query = {
-        $and: [
-          {
-            category: _category
-          },
-        ]
-      };
-    }
-    else if (_category === null && _state && _search === null) {
-      var query = {
-        $and: [
-          {
-            state: _state
-          },
-        ]
-      };
-    }
-    else if (_category && _state && _search === null) {
-      var query = {
-        $and: [
-          {
-            category: _category,
-            state: _state
-          },
-        ]
-      };
-    }
-    else {
-      var query = {};
-    }
+  check(skipCount, Match.Maybe(Number, null, undefined));
+  check(_search, Match.Maybe(String, null, undefined));
+  check(_category, Match.Maybe(String, null, undefined));
+  check(_state, Match.Maybe(String, null, undefined));
+  check(_suburb, Match.Maybe(String, null, undefined));
+  check(trainersPerPage, Match.Maybe(Number, null, undefined));
 
-    console.log(query);
+  // Only add to $and if it has been selected
+  if (_category && _state === null && _suburb === null && _search === null) {
+    var query = {
+      $and: [
+        {
+          category: _category
+        },
+      ]
+    };
+  }
+  else if (_category && _state && _suburb === null && _search === null) {
+    var query = {
+      $and: [
+        {
+          category: _category,
+          state: _state
+        },
+      ]
+    };
+  }
+  else if (_category && _state && _suburb && _search === null) {
+    var query = {
+      $and: [
+        {
+          category: _category,
+          state: _state,
+          suburb: _suburb
+        },
+      ]
+    };
+  }
+  else {
+    var query = {};
+  }
+
+  const sort = { score: { $meta: "textScore" } };
+  var trainersQuery = Trainers.find(
+    query,
+    {
+      limit: trainersPerPage,
+      skip: skipCount
+    },
+    { score: { $meta: "textScore" } }
+    //sort
+  );
+
+  return trainersQuery;
+
+  // Search
+  /*
+  else if (_search) {
+    const regex = new RegExp(_search, "i"); // i is case insensitive
+    const query = {
+      $text: {
+        $search: _search
+      }
+    };
+    // query, projection
+    var trainersQuery = Trainers.find(query, {
+      limit: trainersPerPage,
+      skip: skipCount
+    });
+
+  } else {
+    const query = {};
     const sort = { score: { $meta: "textScore" } };
     var trainersQuery = Trainers.find(
       query,
@@ -79,40 +110,10 @@ Meteor.publish(
       { score: { $meta: "textScore" } }
       //sort
     );
-
-    return trainersQuery;
-
-    // Search
-    /*
-    else if (_search) {
-      const regex = new RegExp(_search, "i"); // i is case insensitive
-      const query = {
-        $text: {
-          $search: _search
-        }
-      };
-      // query, projection
-      var trainersQuery = Trainers.find(query, {
-        limit: trainersPerPage,
-        skip: skipCount
-      });
-
-    } else {
-      const query = {};
-      const sort = { score: { $meta: "textScore" } };
-      var trainersQuery = Trainers.find(
-        query,
-        {
-          limit: trainersPerPage,
-          skip: skipCount
-        },
-        { score: { $meta: "textScore" } }
-        //sort
-      );
-    }
-    */
-
   }
+  */
+
+}
 );
 
 Meteor.publish("trainers.list.area", (skipCount, _id, area) => {

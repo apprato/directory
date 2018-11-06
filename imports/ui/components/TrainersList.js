@@ -1,8 +1,11 @@
 import React from "react";
 import Select from 'react-select';
-import { browserHistory, Router, Route, MenuItem } from "react-router";
+import { browserHistory } from "react-router";
 import { Alert, Row, Col, Panel, FormControl, Image } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
+
+
+
 
 const handleNavigation = _id => {
   browserHistory.push(`/directory/${_id}`);
@@ -12,205 +15,14 @@ const handleNavigationPager = (selected) => {
   browserHistory.push("/directory/page/" + selected);
 };
 
+
+
+
 class TrainersList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      searchTerm: '',
-      // Dropdowns
-      isClearable: false,
-      isDisabled: false,
-      isLoading: false,
-      isRtl: false,
-      isSearchable: false,
-      // Suburb dropdown
-      suburbSelectValues: [
-      ]
-    };
 
-    // Bind events 
-    this.handleSearchEnter = this.handleSearchEnter.bind(this);
-    this.handleSearchChange = this.handleSearchChange.bind(this);
-    this.handleCategoryChange = this.handleCategoryChange.bind(this);
-    this.handleStateChange = this.handleStateChange.bind(this);
-    this.handlPageClick = this.handlePageClick.bind(this);
-  }
-
-  handleSearchChange(event) {
-    this.setState({ searchTerm: event.target });
-    this.props.searchQuery.set(event.target.value);
-  }
-
-  handleSearchEnter(event) {
-    if (event.key === "Enter") {
-      browserHistory.push("/directory/search/" + event.target.value);
-    }
-  }
-
-  handlePageClick(event) {
-    let selected = Number(event.selected + 1);
-    handleNavigationPager(selected, this.filterSearch, this.filterCategory);
-  }
-
-  handleStateChange(element) {
-    if (
-      element === null ||
-      element.value === undefined ||
-      element.value === false
-    ) {
-      //browserHistory.push("/directory");
-      this.props.stateQuery.set('');
-      this.setState({ suburbSelectValues: '' });
-    }
-    else {
-      // Load Suburb base on State selection
-      this.props.stateQuery.set(element.value)
-      this.getSuburbs(null, null, element.value);
-
-
-      /*
-      console.log(suburbSelectOptionsMap)
-      suburbSelectOptionsMap.map(
-        ({ category, suburb }) =>
-          (
-            suburbSelectOptionsArray.push({ value: suburb, label: suburb })
-          )
-      );
-      this.setState({ suburbSelectValues: suburbSelectOptionsArray });
-      */
-
-      /*
-            let suburbSelectOptionsMap = this.props.suburbSelectOptions.get();
-
-            console.log('suburbSelectOptionsArray');
-            console.log(suburbSelectOptionsArray);
-            this.setState({ suburbSelectValues: suburbSelectOptionsArray });
-            this.setState({ state: this.state });
-      */
-
-
-      /*
-      let suburbSelectOptionsMap = this.props.suburbSelectOptions.get().then\
-        suburbSelectOptionsMap.map(
-          ({ category, suburb }) =>
-            (
-              suburbSelectOptionsArray.push({ value: suburb, label: suburb })
-            )
-        );
-      console.log('suburbSelectOptionsArray');
-      console.log(suburbSelectOptionsArray);
-      this.setState({ suburbSelectValues: suburbSelectOptionsArray });
-      this.setState({ state: this.state });
-      */
-
-
-
-    }
-  }
-
-
-  getSuburbs(search, category, state) {
-    var suburbSelectOptionsArray = [];
-    var suburbSelectOptionsMap;
-
-    const callWithPromise = (search, category, state) => {
-      return new Promise((resolve, reject) => {
-        console.log('state' + state);
-        Meteor.apply('getTrainersSuburbOptions', [null, null, state], true, function (error, result) {
-          if (error) reject('Could not retreive Suburbs');
-          resolve(result);
-        });
-      });
-    }
-
-    async function getSuburbSelectOptions() {
-      const suburbSelectionOptions = await callWithPromise(null, null, state);
-      return suburbSelectionOptions;
-    }
-
-    getSuburbSelectOptions().then((result) => {
-      suburbSelectOptionsMap = result;
-      suburbSelectOptionsMap.map(
-        ({ suburb }) =>
-          (
-            suburbSelectOptionsArray.push({ value: suburb, label: suburb })
-          )
-      );
-      console.log(suburbSelectOptionsArray);
-      this.setState({ suburbSelectValues: suburbSelectOptionsArray });
-    });
-  }
-
-
-
-
-
-  handleCategoryChange(element) {
-    if (
-      element === null ||
-      element.value === undefined ||
-      element.value === false
-    ) {
-      browserHistory.push("/directory");
-      this.props.categoryQuery.set('');
-    }
-    else {
-      browserHistory.push("/directory");
-      this.props.categoryQuery.set(element.value);
-    }
-  }
-
-  // This is where you load your data
-  componentDidMount() {
-
-    /*
-    const suburbSelectOptionsMap = this.props.suburbSelectOptions.get();
-
-    suburbSelectOptionsMap.map(
-      ({ category, suburb }) =>
-        (
-          suburbSelectOptionsArray.push({ value: suburb, label: suburb })
-        )
-    );
-    console.log(suburbSelectOptionsArray);
-    this.setState({ suburbSelectValues: suburbSelectOptionsArray });
-    this.forceUpdate;
-
-    console.log('Parent did mount.');
-    console.log(this.props);
-    */
-  }
-
-  render() {
-    window.scrollTo(0, 0);
-    const { trainers } = this.props;
-    const {
-      isClearable,
-      isSearchable,
-      isDisabled,
-      isLoading,
-      isRtl,
-      suburbSelectValues
-    } = this.state;
-
-    var hrefBuilder =
-      "/directory/page/" + this.props.currentPage;
-
-    var stateSelectValues = [
-      {
-        value: "ACT",
-        label: "Australian Capital Territory",
-        clearableValue: false
-      },
-      { value: "NSW", label: "New South Wales", clearableValue: false },
-      { value: "NT", label: "Northern Territory", clearableValue: false },
-      { value: "QLD", label: "Queensland", clearableValue: false },
-      { value: "SA", label: "South Australia", clearableValue: false },
-      { value: "TAS", label: "Tasmania", clearableValue: false },
-      { value: "VIC", label: "Victoria", clearableValue: false },
-      { value: "WA", label: "Western Australia", clearableValue: false }
-    ];
-
+    // Category dropdowns, @TODO retreive dynamically with personal and business areas
     var categorySelectValues = [
       {
         value: "Health Fitness Centre",
@@ -269,6 +81,172 @@ class TrainersList extends React.Component {
       }
     ];
 
+    // State drop down values @todo retreive dynamically
+    var stateSelectValues = [
+      {
+        value: "ACT",
+        label: "Australian Capital Territory",
+        clearableValue: false
+      },
+      { value: "NSW", label: "New South Wales", clearableValue: false },
+      { value: "NT", label: "Northern Territory", clearableValue: false },
+      { value: "QLD", label: "Queensland", clearableValue: false },
+      { value: "SA", label: "South Australia", clearableValue: false },
+      { value: "TAS", label: "Tasmania", clearableValue: false },
+      { value: "VIC", label: "Victoria", clearableValue: false },
+      { value: "WA", label: "Western Australia", clearableValue: false }
+    ];
+
+    // Set state to use in Component
+    this.state = {
+      searchTerm: '',
+      // Dropdowns
+      isClearable: false,
+      isDisabled: false,
+      isLoading: false,
+      isRtl: false,
+      isSearchable: false,
+      // Dropdowns
+      categorySelectValues: categorySelectValues,
+      stateSelectValues: stateSelectValues,
+      suburbSelectValues: []
+    };
+
+    // Bind events 
+    this.handleSearchEnter = this.handleSearchEnter.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    this.handleStateChange = this.handleStateChange.bind(this);
+    this.handlPageClick = this.handlePageClick.bind(this);
+  }
+
+
+  handleSearchChange(event) {
+    this.setState({ searchTerm: event.target });
+    this.props.searchQuery.set(event.target.value);
+  }
+
+
+  handleSearchEnter(event) {
+    if (event.key === "Enter") {
+      browserHistory.push("/directory/search/" + event.target.value);
+    }
+  }
+
+
+  handlePageClick(event) {
+    let selected = Number(event.selected + 1);
+    handleNavigationPager(selected, this.filterSearch, this.filterCategory);
+  }
+
+
+  handleCategoryChange(element) {
+    if (
+      element === null ||
+      element.value === undefined ||
+      element.value === false
+    ) {
+      this.props.categoryQuery.set('');
+    }
+    else {
+      this.props.stateQuery.set(null);
+      this.props.suburbQuery.set(null);
+      this.props.categoryQuery.set(element.value);
+    }
+  }
+
+
+  handleStateChange(element) {
+    if (
+      element === null ||
+      element.value === undefined ||
+      element.value === false
+    ) {
+      //browserHistory.push("/directory");
+      this.props.stateQuery.set('');
+      this.setState({ suburbSelectValues: '' });
+    }
+    else {
+      // Load Suburb base on State selection
+      this.props.suburbQuery.set(null);
+      this.props.stateQuery.set(element.value)
+      this.setSuburbsDropdown(null, this.props.categoryQuery.get(), this.props.stateQuery.get());
+    }
+  }
+
+  handleSuburbChange(element) {
+    if (
+      element === null ||
+      element.value === undefined ||
+      element.value === false
+    ) {
+      this.props.suburbQuery.set('');
+      this.setState({ suburbSelectValues: '' });
+    }
+    else {
+      this.props.suburbQuery.set(element.value);
+    }
+  }
+
+
+  setSuburbsDropdown(search, category, state) {
+    var suburbSelectOptionsArray = [];
+    var suburbSelectOptionsMap;
+
+    const callWithPromise = (search, category, state) => {
+      return new Promise((resolve, reject) => {
+        Meteor.apply('getTrainersSuburbOptions', [null, category, state], true, function (error, result) {
+          if (error) reject('Could not retreive Suburbs');
+          resolve(result);
+        });
+      });
+    }
+
+    async function getSuburbSelectOptions() {
+      const suburbSelectionOptions = await callWithPromise(search, category, state);
+      return suburbSelectionOptions;
+    }
+
+    getSuburbSelectOptions().then((result) => {
+      suburbSelectOptionsMap = result;
+      suburbSelectOptionsMap.map(
+        ({ suburb }) =>
+          (
+            suburbSelectOptionsArray.push({ value: suburb, label: suburb })
+          )
+      );
+      this.setState({ suburbSelectValues: suburbSelectOptionsArray });
+    });
+  }
+
+
+
+
+
+
+
+  /* This is where you load your data initially - ie dropdowns etc. as required, do it with a .fetch for node.js or Meteor.call or Meteor.apply */
+  componentDidMount() {
+
+  }
+
+
+
+
+  render() {
+    window.scrollTo(0, 0);
+    const { trainers } = this.props;
+    const {
+      isClearable,
+      isSearchable,
+      isDisabled,
+      isLoading,
+      isRtl,
+      suburbSelectValues
+    } = this.state;
+
+    var hrefBuilder =
+      "/directory/page/" + this.props.currentPage;
 
     return (
       <div className="Trainers">
@@ -290,8 +268,8 @@ class TrainersList extends React.Component {
                   className="select"
                   name="Select Category"
                   placeholder="1. Select Category"
-                  value={categorySelectValues.filter(({ value }) => value === this.props.categoryQuery.get())}
-                  options={categorySelectValues}
+                  value={this.state.categorySelectValues.filter(({ value }) => value === this.props.categoryQuery.get())}
+                  options={this.state.categorySelectValues}
                   onChange={this.handleCategoryChange.bind(this)}
                   isDisabled={isDisabled}
                   isLoading={isLoading}
@@ -306,8 +284,8 @@ class TrainersList extends React.Component {
                   className="select"
                   name="Select State"
                   placeholder="2. Select State"
-                  value={stateSelectValues.filter(({ value }) => value === this.props.stateQuery.get())}
-                  options={stateSelectValues}
+                  value={this.state.stateSelectValues.filter(({ value }) => value === this.props.stateQuery.get())}
+                  options={this.state.stateSelectValues}
                   onChange={this.handleStateChange.bind(this)}
                   isDisabled={isDisabled}
                   isLoading={isLoading}
@@ -322,9 +300,9 @@ class TrainersList extends React.Component {
                   className="select"
                   name="Select Suburb"
                   placeholder="3. Select Suburb"
-                  //value={stateSelectValues.filter(({ value }) => value === this.props.stateQuery.get())}
+                  value={this.state.suburbSelectValues.filter(({ value }) => value === this.props.suburbQuery.get())}
                   options={this.state.suburbSelectValues}
-                  //onChange={this.handleStateChange.bind(this)}
+                  onChange={this.handleSuburbChange.bind(this)}
                   isDisabled={isDisabled}
                   isLoading={isLoading}
                   isClearable={isClearable}
@@ -414,6 +392,8 @@ class TrainersList extends React.Component {
 }
 
 
+
+
 /*
 // Validation
 TrainersList.propTypes = {
@@ -421,5 +401,7 @@ TrainersList.propTypes = {
   searchQuery: React.PropTypes.object
 };
 */
+
+
 
 export default TrainersList;

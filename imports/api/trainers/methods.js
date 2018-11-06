@@ -198,16 +198,17 @@ Meteor.methods({
     return Trainers.find().count();
   },
 
-  getTrainersCountList(skipCount, _search, _category, _state, trainersPerPage) {
+  getTrainersCountList(skipCount, _search, _category, _state, _suburb, trainersPerPage) {
 
     check(skipCount, Match.Maybe(Number, null, undefined));
     check(_search, Match.Maybe(String, null, undefined));
-    check(_state, Match.Maybe(String, null, undefined));
     check(_category, Match.Maybe(String, null, undefined));
+    check(_state, Match.Maybe(String, null, undefined));
+    check(_suburb, Match.Maybe(String, null, undefined));
     check(trainersPerPage, Match.Maybe(Number, null, undefined));
 
     // Only add to $and if it has been selected
-    if (_category && _state === null && _search === null) {
+    if (_category && _state === null && _suburb === null && _search === null) {
       var query = {
         $and: [
           {
@@ -216,21 +217,23 @@ Meteor.methods({
         ]
       };
     }
-    else if (_category === null && _state && _search === null) {
-      var query = {
-        $and: [
-          {
-            state: _state
-          },
-        ]
-      };
-    }
-    else if (_category && _state && _search === null) {
+    else if (_category && _state && _suburb === null && _search === null) {
       var query = {
         $and: [
           {
             category: _category,
             state: _state
+          },
+        ]
+      };
+    }
+    else if (_category && _state && _suburb && _search === null) {
+      var query = {
+        $and: [
+          {
+            category: _category,
+            state: _state,
+            suburb: _suburb
           },
         ]
       };

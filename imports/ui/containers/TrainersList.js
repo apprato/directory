@@ -9,7 +9,7 @@ import Loading from '../components/Loading.js';
 const searchQuery = new ReactiveVar(null);
 const categoryQuery = new ReactiveVar(null);
 const stateQuery = new ReactiveVar(null);
-const suburbSelectOptions = new ReactiveVar(null);
+const suburbQuery = new ReactiveVar(null);
 const pageCountQuery = new ReactiveVar(null);
 const currentPageQuery = new ReactiveVar(null);
 
@@ -23,20 +23,21 @@ const TrainersListContainer = createContainer((props, params) => {
     const search = searchQuery.get();
     const category = categoryQuery.get();
     const state = stateQuery.get();
+    const suburb = suburbQuery.get();
 
     // Vars
     const trainersPerPage = 10;
     const skipCount = (currentPage - 1) * trainersPerPage;
 
     // Get Listing total count (/directory, /directory/category, /directory/category/search
-    Meteor.apply('getTrainersCountList', [skipCount, search, category, state, trainersPerPage], true, function (err, result) {
+    Meteor.apply('getTrainersCountList', [skipCount, search, category, state, suburb, trainersPerPage], true, function (err, result) {
         Session.set('trainerCount', result);
     });
 
     var pageCount = pageCountQuery.get();
     pageCount = Math.ceil(Session.get('trainerCount') / trainersPerPage);
 
-    var subscription = Meteor.subscribe('trainers.list.filter', skipCount, search, category, state, trainersPerPage);
+    var subscription = Meteor.subscribe('trainers.list.filter', skipCount, search, category, state, suburb, trainersPerPage);
     const trainers = Trainers.find().fetch(); // Converts MongoDB data into an array rather than cursor
 
     return {
@@ -45,7 +46,7 @@ const TrainersListContainer = createContainer((props, params) => {
         searchQuery,
         categoryQuery,
         stateQuery,
-        suburbSelectOptions,
+        suburbQuery,
         pageCount,
         currentPage,
         Loading,
