@@ -189,7 +189,7 @@ class TrainersList extends React.Component {
   }
 
 
-  setSuburbsDropdown(search, category, state) {
+  setSuburbsDropdown(search, category, state) { // poo
     var suburbSelectOptionsArray = [];
     var suburbSelectOptionsMap;
 
