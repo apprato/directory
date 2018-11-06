@@ -56,21 +56,20 @@ if (Meteor.isProduction || Meteor.isDevelopment) {
 
     switch (Meteor.settings.environment) {
       case "development":
-        var usersImportFile = process.env.PWD + "/private/hfc-develop.csv";
+        var usersImportFile = process.env.PWD + "/private/hfc-production-nobreaks.csv";
         break;
       case "staging":
         var usersImportFile =
-          process.env.PWD + "/programs/server/assets/app/hfc-develop.csv"; // Webpack is in a different location: bundle/bundle/programs/server/assets/app
+          process.env.PWD + "/programs/server/assets/app/hfc-production-nobreaks.csv"; // Webpack is in a different location: bundle/bundle/programs/server/assets/app
         break;
       case "production":
         var usersImportFile =
-          process.env.PWD + "/programs/server/assets/app/hfc.csv"; // Webpack is in a different location: bundle/bundle/programs/server/assets/app
+          process.env.PWD + "/programs/server/assets/app/hfc-production-nobreaks.csv"; // Webpack is in a different location: bundle/bundle/programs/server/assets/app
         break;
       default:
         break;
     }
 
-    console.log("usersImportFile: " + process.env.PWD + "/private/hfc.csv");
     //usersImportFile = process.env.PWD + "/private/hfc.csv";
 
     const parsedUsersImportFile = Baby.parseFiles(usersImportFile, {
