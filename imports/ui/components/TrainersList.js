@@ -65,7 +65,8 @@ class TrainersList extends React.Component {
     else {
       // Load Suburb base on State selection
       this.props.stateQuery.set(element.value)
-      this.getSuburbs(null, element.value, null);
+      this.getSuburbs(null, null, element.value);
+
 
       /*
       console.log(suburbSelectOptionsMap)
@@ -108,43 +109,40 @@ class TrainersList extends React.Component {
   }
 
 
-  getSuburbs(search, category, state, callback) {
+  getSuburbs(search, category, state) {
     var suburbSelectOptionsArray = [];
     var suburbSelectOptionsMap;
 
-    const callWithPromise = (method, state) => {
+    const callWithPromise = (search, category, state) => {
       return new Promise((resolve, reject) => {
         console.log('state' + state);
         Meteor.apply('getTrainersSuburbOptions', [null, null, state], true, function (error, result) {
-          if (error) reject('Something went wrong');
+          if (error) reject('Could not retreive Suburbs');
           resolve(result);
         });
       });
     }
 
     async function getSuburbSelectOptions() {
-      const suburbSelectionOptions = await callWithPromise('suburbMethod', state);
+      const suburbSelectionOptions = await callWithPromise(null, null, state);
       return suburbSelectionOptions;
     }
-    async function getCitySelectOptions() {
-      const getCitySelectOptions = await callWithPromise('cityMethod', city);
-      return getCitySelectOptions;
-    }
 
-    // I want getUserImage: function(toUserId) to return the ID.
     getSuburbSelectOptions().then((result) => {
       suburbSelectOptionsMap = result;
-      console.log(suburbSelectOptionsMap);
       suburbSelectOptionsMap.map(
-        ({ category, suburb }) =>
+        ({ suburb }) =>
           (
             suburbSelectOptionsArray.push({ value: suburb, label: suburb })
           )
       );
+      console.log(suburbSelectOptionsArray);
       this.setState({ suburbSelectValues: suburbSelectOptionsArray });
-      // You could return a callback like here, but it works: https://forums.meteor.com/t/execute-code-once-the-meteor-callback-has-run/25905/8
     });
   }
+
+
+
 
 
   handleCategoryChange(element) {
