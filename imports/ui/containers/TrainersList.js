@@ -32,9 +32,9 @@ const TrainersListContainer = createContainer((props, params) => {
     Meteor.apply('getTrainersCountList', [skipCount, search, category, state, trainersPerPage], true, function (err, result) {
         Session.set('trainerCount', result);
     });
-    Meteor.apply('getTrainersSuburbOptions', [search, category, state], true, function (err, result) {
-        suburbSelectOptions.set(result);
-    });
+
+
+
 
 
     var pageCount = pageCountQuery.get();

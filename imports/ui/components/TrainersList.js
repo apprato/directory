@@ -66,18 +66,73 @@ class TrainersList extends React.Component {
       // Load Suburb base on State selection
       var suburbSelectOptionsArray = [];
       //browserHistory.push("/directory");
-      this.props.stateQuery.set(element.value);
-      const suburbSelectOptionsMap = this.props.suburbSelectOptions.get();
+      this.props.stateQuery.set(element.value)
 
-      suburbSelectOptionsMap.map(
-        ({ category, suburb }) =>
-          (
-            suburbSelectOptionsArray.push({ value: suburb, label: suburb })
-          )
-      );
+
+      // Meteor is not using promises by default, however, you can wrap your Meteor.calls into a promise function as below
+      const callWithPromise = (method, myParameters) => {
+        return new Promise((resolve, reject) => {
+          console.log(element.value);
+          Meteor.apply('getTrainersSuburbOptions', [null, null, element.value], true, function (err, result) {
+            if (err) reject('Something went wrong');
+            //Trainers.find().fetch();
+            resolve(result);
+          });
+        });
+      }
+
+      (async function () {
+        const myValue1 = await callWithPromise('myMethod1', '');
+        //const myValue2 = await callWithPromise('myMethod2', myValue1);
+        console.log('async function');
+        console.log(myValue1);
+      })();
+
+
+      /*
+            let suburbSelectOptionsMap = this.props.suburbSelectOptions.get();
+            suburbSelectOptionsMap.map(
+              ({ category, suburb }) =>
+                (
+                  suburbSelectOptionsArray.push({ value: suburb, label: suburb })
+                )
+            );
+            console.log('suburbSelectOptionsArray');
+            console.log(suburbSelectOptionsArray);
+            this.setState({ suburbSelectValues: suburbSelectOptionsArray });
+            this.setState({ state: this.state });
+      */
+
+
+      /*
+      let suburbSelectOptionsMap = this.props.suburbSelectOptions.get().then\
+        suburbSelectOptionsMap.map(
+          ({ category, suburb }) =>
+            (
+              suburbSelectOptionsArray.push({ value: suburb, label: suburb })
+            )
+        );
       console.log('suburbSelectOptionsArray');
       console.log(suburbSelectOptionsArray);
       this.setState({ suburbSelectValues: suburbSelectOptionsArray });
+      this.setState({ state: this.state });
+*/
+
+
+
+
+      /*      
+      web3.eth.personal.newAccount(password).then(tmpAddress => { 
+        this.pollPendingTransactionsForAddress(tmpAddress);
+      });
+      */
+
+      /*
+      this.setState({ input: element.target.value }, () => {
+        console.log(`state: ${this.state}, value: ${element.target.value}`);
+      });
+      component.forceUpdate();
+      */
     }
   }
 
@@ -94,6 +149,27 @@ class TrainersList extends React.Component {
       browserHistory.push("/directory");
       this.props.categoryQuery.set(element.value);
     }
+  }
+
+  // This is where you load your data
+  componentDidMount() {
+
+    /*
+    const suburbSelectOptionsMap = this.props.suburbSelectOptions.get();
+
+    suburbSelectOptionsMap.map(
+      ({ category, suburb }) =>
+        (
+          suburbSelectOptionsArray.push({ value: suburb, label: suburb })
+        )
+    );
+    console.log(suburbSelectOptionsArray);
+    this.setState({ suburbSelectValues: suburbSelectOptionsArray });
+    this.forceUpdate;
+
+    console.log('Parent did mount.');
+    console.log(this.props);
+    */
   }
 
   render() {
