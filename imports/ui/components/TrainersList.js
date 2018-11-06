@@ -64,41 +64,23 @@ class TrainersList extends React.Component {
     }
     else {
       // Load Suburb base on State selection
-      var suburbSelectOptionsArray = [];
       this.props.stateQuery.set(element.value)
+      this.getSuburbs(null, element.value, null);
 
-
-      // Meteor is not using promises by default, however, you can wrap your Meteor.calls into a promise function as below
-      const callWithPromise = (method, myParameters) => {
-        return new Promise((resolve, reject) => {
-          console.log(element.value);
-          Meteor.apply('getTrainersSuburbOptions', [null, null, element.value], true, function (err, result) {
-            if (err) reject('Something went wrong');
-            resolve(result);
-          });
-        });
-      }
-
-      // Get the value from the promise
-      (async function () {
-        const myValue1 = await callWithPromise('myMethod1', '');
-        //const myValue2 = await callWithPromise('myMethod2', myValue1);
-        console.log('async function');
-        console.log(myValue1);
-
-
-
-      })();
-
+      /*
+      console.log(suburbSelectOptionsMap)
+      suburbSelectOptionsMap.map(
+        ({ category, suburb }) =>
+          (
+            suburbSelectOptionsArray.push({ value: suburb, label: suburb })
+          )
+      );
+      this.setState({ suburbSelectValues: suburbSelectOptionsArray });
+      */
 
       /*
             let suburbSelectOptionsMap = this.props.suburbSelectOptions.get();
-            suburbSelectOptionsMap.map(
-              ({ category, suburb }) =>
-                (
-                  suburbSelectOptionsArray.push({ value: suburb, label: suburb })
-                )
-            );
+
             console.log('suburbSelectOptionsArray');
             console.log(suburbSelectOptionsArray);
             this.setState({ suburbSelectValues: suburbSelectOptionsArray });
@@ -124,6 +106,46 @@ class TrainersList extends React.Component {
 
     }
   }
+
+
+  getSuburbs(search, category, state, callback) {
+    var suburbSelectOptionsArray = [];
+    var suburbSelectOptionsMap;
+
+    const callWithPromise = (method, state) => {
+      return new Promise((resolve, reject) => {
+        console.log('state' + state);
+        Meteor.apply('getTrainersSuburbOptions', [null, null, state], true, function (error, result) {
+          if (error) reject('Something went wrong');
+          resolve(result);
+        });
+      });
+    }
+
+    async function getSuburbSelectOptions() {
+      const suburbSelectionOptions = await callWithPromise('suburbMethod', state);
+      return suburbSelectionOptions;
+    }
+    async function getCitySelectOptions() {
+      const getCitySelectOptions = await callWithPromise('cityMethod', city);
+      return getCitySelectOptions;
+    }
+
+    // I want getUserImage: function(toUserId) to return the ID.
+    getSuburbSelectOptions().then((result) => {
+      suburbSelectOptionsMap = result;
+      console.log(suburbSelectOptionsMap);
+      suburbSelectOptionsMap.map(
+        ({ category, suburb }) =>
+          (
+            suburbSelectOptionsArray.push({ value: suburb, label: suburb })
+          )
+      );
+      this.setState({ suburbSelectValues: suburbSelectOptionsArray });
+      // You could return a callback like here, but it works: https://forums.meteor.com/t/execute-code-once-the-meteor-callback-has-run/25905/8
+    });
+  }
+
 
   handleCategoryChange(element) {
     if (
