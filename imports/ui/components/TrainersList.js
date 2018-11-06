@@ -65,7 +65,6 @@ class TrainersList extends React.Component {
     else {
       // Load Suburb base on State selection
       var suburbSelectOptionsArray = [];
-      //browserHistory.push("/directory");
       this.props.stateQuery.set(element.value)
 
 
@@ -75,17 +74,20 @@ class TrainersList extends React.Component {
           console.log(element.value);
           Meteor.apply('getTrainersSuburbOptions', [null, null, element.value], true, function (err, result) {
             if (err) reject('Something went wrong');
-            //Trainers.find().fetch();
             resolve(result);
           });
         });
       }
 
+      // Get the value from the promise
       (async function () {
         const myValue1 = await callWithPromise('myMethod1', '');
         //const myValue2 = await callWithPromise('myMethod2', myValue1);
         console.log('async function');
         console.log(myValue1);
+
+
+
       })();
 
 
@@ -116,23 +118,10 @@ class TrainersList extends React.Component {
       console.log(suburbSelectOptionsArray);
       this.setState({ suburbSelectValues: suburbSelectOptionsArray });
       this.setState({ state: this.state });
-*/
-
-
-
-
-      /*      
-      web3.eth.personal.newAccount(password).then(tmpAddress => { 
-        this.pollPendingTransactionsForAddress(tmpAddress);
-      });
       */
 
-      /*
-      this.setState({ input: element.target.value }, () => {
-        console.log(`state: ${this.state}, value: ${element.target.value}`);
-      });
-      component.forceUpdate();
-      */
+
+
     }
   }
 

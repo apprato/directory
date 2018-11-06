@@ -33,10 +33,6 @@ const TrainersListContainer = createContainer((props, params) => {
         Session.set('trainerCount', result);
     });
 
-
-
-
-
     var pageCount = pageCountQuery.get();
     pageCount = Math.ceil(Session.get('trainerCount') / trainersPerPage);
 
@@ -52,7 +48,7 @@ const TrainersListContainer = createContainer((props, params) => {
         suburbSelectOptions,
         pageCount,
         currentPage,
-        Loading
+        Loading,
     };
 }, TrainersList);
 
