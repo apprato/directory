@@ -311,10 +311,6 @@ Meteor.methods({
       //sort
     );
 
-    console.log(query);
-    console.log('getTrainersSuburbOptions');
-    console.log(trainersQuery.fetch());
-
     return trainersQuery.fetch();
   },
 

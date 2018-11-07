@@ -149,6 +149,9 @@ class TrainersList extends React.Component {
       this.props.categoryQuery.set('');
     }
     else {
+      if (this.props.params._id > 1)
+        browserHistory.push("/directory");
+
       this.props.stateQuery.set(null);
       this.props.suburbQuery.set(null);
       this.props.categoryQuery.set(element.value);
@@ -167,6 +170,8 @@ class TrainersList extends React.Component {
       this.setState({ suburbSelectValues: '' });
     }
     else {
+      if (this.props.params._id > 1)
+        browserHistory.push("/directory");
       // Load Suburb base on State selection
       this.props.suburbQuery.set(null);
       this.props.stateQuery.set(element.value)
@@ -184,6 +189,8 @@ class TrainersList extends React.Component {
       this.setState({ suburbSelectValues: '' });
     }
     else {
+      if (this.props.params._id > 1)
+        browserHistory.push("/directory");
       this.props.suburbQuery.set(element.value);
     }
   }
