@@ -3,6 +3,8 @@ import Select from 'react-select';
 import { browserHistory } from "react-router";
 import { Alert, Row, Col, Panel, FormControl, Image } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
+import { Markup } from 'interweave';
+import Truncate from 'react-truncate';
 
 
 
@@ -226,7 +228,9 @@ class TrainersList extends React.Component {
     });
   }
 
-
+  truncateTest(text) {
+    return text.length > 20 ? `${text.substr(0, 20)}...` : text;
+  }
 
 
 
@@ -343,7 +347,9 @@ class TrainersList extends React.Component {
                           <h2>{businessName}</h2>
                         </a>
                         <p>{category}</p>
-                        <p>{overview}</p>
+                        <Truncate lines={3} ellipsis={<span>... <a href='/directory/" + _id'> more</a></span>}>
+                          <Markup content={overview} />
+                        </Truncate>
                       </Col>
                       <Col xs={12} sm={2}>
                         <p>

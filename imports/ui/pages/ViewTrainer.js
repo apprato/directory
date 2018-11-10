@@ -1,6 +1,6 @@
 import React from 'react';
-import { Alert, Row, Col, Panel, Image } from 'react-bootstrap';
-import { Bert } from 'meteor/themeteorchef:bert';
+import { Row, Col, Image } from 'react-bootstrap';
+import { Markup } from 'interweave';
 
 const ViewTrainer = ({ trainer }) => (
   <div className="ViewTrainer">
@@ -9,7 +9,7 @@ const ViewTrainer = ({ trainer }) => (
         {trainer.logo && <Image src={'/' + 'logos' + '/' + trainer.logo} alt={trainer.businessName} responsive />}
         <h2>{trainer.businessName}</h2>
         <p><i>{trainer.category}</i></p>
-        <p>{trainer.overview}</p>
+        <Markup content={trainer.overview} />
       </Col>
       <Col xs={12} sm={3}>
         <h4>{trainer.phoneNumber}</h4>
