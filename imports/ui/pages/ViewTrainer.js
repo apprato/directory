@@ -6,7 +6,7 @@ const ViewTrainer = ({ trainer }) => (
   <div className="ViewTrainer">
     <Row>
       <Col xs={12} sm={9}>
-        <Image src={'/' + 'logos' + '/' + trainer.logo} alt={trainer.businessName} responsive />
+        {trainer.logo && <Image src={'/' + 'logos' + '/' + trainer.logo} alt={trainer.businessName} responsive />}
         <h2>{trainer.businessName}</h2>
         <p><i>{trainer.category}</i></p>
         <p>{trainer.overview}</p>
