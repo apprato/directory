@@ -19,7 +19,11 @@ const ViewTrainer = ({ trainer }) => (
         <p>{trainer.city} {trainer.state} {trainer.suburb}</p>
         <p>{trainer.postCode}</p>
         <p>{trainer.phoneNumber}</p>
-        <p>{trainer.website}</p>
+        <p>
+          <a href={'http://' + trainer.website}>
+            {trainer.website}
+          </a>
+        </p>
 
       </Col>
     </Row>

@@ -347,7 +347,7 @@ class TrainersList extends React.Component {
                           <h2>{businessName}</h2>
                         </a>
                         <p>{category}</p>
-                        <Truncate lines={3} ellipsis={<span>... <a href='/directory/" + _id'> more</a></span>}>
+                        <Truncate lines={3} ellipsis={<span>... <a href={'/directory/' + _id}> more</a></span>}>
                           <Markup content={overview} />
                         </Truncate>
                       </Col>
