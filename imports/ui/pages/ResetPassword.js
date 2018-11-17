@@ -1,6 +1,10 @@
 import React from 'react';
 import { Row, Col, Alert, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import handleResetPassword from '../../modules/reset-password';
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('UA-8316432-2');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 export default class ResetPassword extends React.Component {
   componentDidMount() {
@@ -15,16 +19,16 @@ export default class ResetPassword extends React.Component {
     return (
       <div className="ResetPassword">
         <Row>
-          <Col xs={ 12 } sm={ 6 } md={ 4 }>
+          <Col xs={12} sm={6} md={4}>
             <h4 className="page-header">Reset Password</h4>
             <Alert bsStyle="info">
               To reset your password, enter a new one below. You will be logged in
     with your new password.
             </Alert>
             <form
-              ref={ form => (this.resetPasswordForm = form) }
+              ref={form => (this.resetPasswordForm = form)}
               className="reset-password"
-              onSubmit={ this.handleSubmit }
+              onSubmit={this.handleSubmit}
             >
               <FormGroup>
                 <ControlLabel>New Password</ControlLabel>

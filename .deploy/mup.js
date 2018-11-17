@@ -23,7 +23,7 @@ module.exports = {
     },
 
     env: {
-      ROOT_URL: 'http://healthfitness.appscalejs.com',
+      ROOT_URL: 'http://healthfitness.com.au',
       MONGO_URL: 'mongodb://localhost/meteor',
     },
     // change to 'kadirahq/meteord' if your app is not using Meteor 1.4

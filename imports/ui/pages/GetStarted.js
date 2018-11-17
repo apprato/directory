@@ -1,5 +1,9 @@
 import React from 'react';
 import { Row, Col, Button, Glyphicon, Jumbotron } from 'react-bootstrap';
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('UA-8316432-2');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 const Index = () => (
   <div className="GetStarted">

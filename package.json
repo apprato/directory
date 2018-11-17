@@ -75,6 +75,7 @@
     "react-bootstrap": "^0.30.5",
     "react-dom": "^15.3.2",
     "react-froala-wysiwyg": "^2.8.0",
+    "react-ga": "^2.5.3",
     "react-google-tag-manager": "^2.2.1",
     "react-komposer": "^1.13.1",
     "react-paginate": "^4.4.3",

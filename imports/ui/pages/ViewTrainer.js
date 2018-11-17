@@ -1,6 +1,11 @@
 import React from 'react';
 import { Row, Col, Image } from 'react-bootstrap';
 import { Markup } from 'interweave';
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('UA-8316432-2');
+ReactGA.pageview(window.location.pathname + window.location.search);
+
 
 const ViewTrainer = ({ trainer }) => (
   <div className="ViewTrainer">

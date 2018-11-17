@@ -4,6 +4,10 @@ import { createContainer } from 'meteor/react-meteor-data';
 import Trainers from '../../api/trainers/trainers.js';
 import TrainersList from '../components/TrainersList.js';
 import Loading from '../components/Loading.js';
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('UA-8316432-2');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 // Reactive Vars
 const searchQuery = new ReactiveVar(null);

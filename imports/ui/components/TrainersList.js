@@ -318,7 +318,7 @@ class TrainersList extends React.Component {
                   isLoading={isLoading}
                   isClearable={isClearable}
                   isRtl={isRtl}
-                  isSearchable={isSearchable} />
+                  isSearchable={true} />
               </div>
             </Col>
           </Row>

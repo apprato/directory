@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Row, Col, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import handleLogin from '../../modules/login';
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('UA-8316432-2');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 export default class Login extends React.Component {
   componentDidMount() {
@@ -16,12 +20,12 @@ export default class Login extends React.Component {
     return (
       <div className="Login">
         <Row>
-          <Col xs={ 12 } sm={ 6 } md={ 4 }>
+          <Col xs={12} sm={6} md={4}>
             <h4 className="page-header">Login</h4>
             <form
-              ref={ form => (this.loginForm = form) }
+              ref={form => (this.loginForm = form)}
               className="login"
-              onSubmit={ this.handleSubmit }
+              onSubmit={this.handleSubmit}
             >
               <FormGroup>
                 <ControlLabel>Email Address</ControlLabel>
