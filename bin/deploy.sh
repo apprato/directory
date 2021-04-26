@@ -21,12 +21,11 @@
 
 installDeployLibraries () {
   sudo apt-get update
-  sudo apt-get install python-software-properties
-  sudo apt-get install npm
+  sudo apt-get install -y npm
   curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash
   nvm install 4.4.7
   nvm use 4.4.7
-  sudo apt-get install awscli
+  sudo apt-get install -y awscli
   sudo npm install -g mupx
   sudo npm install -g mupx-letsencrypt
   sudo npm install mup
@@ -35,14 +34,20 @@ installDeployLibraries () {
 }
 
 setupStaging() {
-  cd /home/ubuntu/healthfitness/.deploy
-  DEBUG=* mup --config mup.js --settings settings-staging.json  setup
+  cd /home/ubuntu/findatrainer/.deploy
+  mup --config mup.js --settings settings-staging.json  setup
+  mup --config mup.js --settings settings-staging.json deploy
 }
 
 deployStaging() {
-  cd /home/ubuntu/healthfitness/.deploy
-  DEBUG=* mup --config mup.js --settings settings-staging.json start
-  DEBUG=* mup --config mup.js --settings settings-staging.json deploy
+  cd /home/ubuntu/findatrainer/.deploy
+  mup --config mup.js --settings settings-staging.json deploy
+}
+
+deployLocalToStaging() {
+  cd /Users/stephengoudie/Sites/meteor/healthfitness.com.au/src/.deploy
+  mup --config mup.js.local.staging --settings settings-staging.json setup
+  mup --config mup.js.local.staging --settings settings-staging.json deploy
 }
 
 case "$1" in
@@ -59,6 +64,11 @@ case "$1" in
   deployStaging)
     echo 'Deploy to Staging'
     deployStaging
+    echo 'Finished deploying to staging'
+    ;;
+  deployLocalToStaging)
+    echo 'Deploy to Staging'
+    deployLocalToStaging
     echo 'Finished deploying to staging'
     ;;
   *)
@@ -78,17 +88,21 @@ OPTIONS
 
 EXAMPLES
 sh bin/deploy.sh staging install installDeployLibraries
-cd /home/ubuntu/healthfitness/.deploy
--> Setup Staging
-sh /home/ubuntu/healthfitness/bin/deploy.sh setupStaging
+cd /home/ubuntu/findatrainer/.deploy
+-> Setup Stagin
+sh /home/ubuntu/findatrainer/bin/deploy.sh setupStaging
 -> Deploy Staging
-sh /home/ubuntu/healthfitness/bin/deploy.sh deployStaging
+sh /home/ubuntu/findatrainer/bin/deploy.sh deployStaging
+sh /home/ubuntu/findatrainer/bin/deploy.sh deployLocalToStaging
 
 NOTES
-With installing sometimes it gets stuck on the target
+With installing sometimes it gets stuck on the target or runs out of space.
 If so start again on the host:
 docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
-sudo rm -Rf /opt/healthfitness.com.au/ /opt/mongodb/
+docker system prune
+docker rmi $(docker images -a -q)
+sudo rm -Rf /opt/findatrainer/ /opt/mongodb/
+Deploying form local to staing use mup.js.local
 "
     >&2
     exit 1
