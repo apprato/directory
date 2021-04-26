@@ -1,9 +1,9 @@
 # Directory
-An online directory featuring a Category City, Suburb categorisation with pager, SignUp workflows, Listing Create/Edit page, Login, Change & Lost password. This is full-stack javascript web application written with React, Mongo, Node.js.
+An online directory featuring a Category City, Suburb categorisation with pager, Listing Page with chained dropdown, Sign Up workflows, Listing Create/Edit page, User Login area, Change & Lost password. This is full-stack javascript web application written with React, Mongo, Node.js.
 
 * React
 * Mongo
-* Node.js
+* Node
 * Meteor
 
 ## Development
