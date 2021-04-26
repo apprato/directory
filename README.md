@@ -1,45 +1,41 @@
-# findatrainer
+# Directory
+An online directory featuring a Category City, Suburb categorisation with pager, SignUp workflows, Listing Create/Edit page, Login, Change & Lost password. This is full-stack javascript web application written with React, Mongo, Node.js.
 
-Originally Meteor 1.4, Node 4.6
-Current Meteor 1.8, Node 8.11
+* React
+* Mongo
+* Node.js
+* Meteor
 
 ## Development
+```
 meteor npm install
 meteor npm start
+```
 
 #### Upgrade from Meteor 1.4 to 1.8
 Removed    /*"chimp": "^0.41.2", */
 
-### Npm modules
-This should be in package.json i think.
-meteor add email
-meteor add meteorhacks:ssr
-meteor add ajduke:bootstrap-tagsinput # typeahead: enabled
-meteor add bootstrp:tagsinput
-
 ## Staging
-TBC
 
 ### Setup EC2 deploy node
 Create Ubuntu EC2
+```
 git clone ssh://git@bitbucket.org/magescale/map_report.git
 cd findatrainer
 git fetch && git checkout master
 cd ..
 sh /bin/install.sh
 npm install
+```
 
-### Deploy from EC2 deploy node to staging - see bin/deploy.sh for details
+### Deploy from local to staging / production
+Run sb bin/deploy.sh for details
+To deploy to staging see below:
 
-mup setup
-mup deploy
-mup start
-cd /home/ubuntu/f indatrainer/.deploy
+```
+cd .deploy
+sh deploy.sh deployLocalToStaging
+```
 
 ### Mup documentation for deployment
 http://meteor-up.com/docs#docker-options
-
-
-## Production
-....
-
